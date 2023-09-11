@@ -1,0 +1,15 @@
+App/Domain/Post
+App/Domain/PostType
+App/Domain/Site
+App/Domain/User
+database/migrations/.migrations.log
+resources/views/*.tpl
+storage/logs/*.log
+vendor
+.idea
+.env
+.env.local
+.php-cs-fixer.cache
+composer.lock
+contents.php
+default.php

@@ -1,0 +1,45 @@
+{
+    "name": "codefyphp/skeleton",
+    "type": "project",
+    "description": "Skeleton package for creating a new CodefyPHP Framework project.",
+    "keywords": ["codefy","codefyphp","codefy-php","routing","skeleton"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joshua Parker",
+            "email": "joshua@joshuaparker.dev",
+            "homepage": "https://joshuaparker.dev/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "codefyphp/codefy": "^1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "scripts": {
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.23",
+        "qubus/qubus-coding-standard": "^1.1"
+    },
+    "suggest": {
+        "fenom/fenom": "Lightweight and fast template engine for PHP.",
+        "fenom/providers-collection": "Additional providers for Fenom template engine.",
+        "foil/foil": "Write simple, clean, and concise templates with nothing more than PHP."
+    }
+}

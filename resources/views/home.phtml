@@ -1,0 +1,20 @@
+<?php
+$this->parent('framework::layout');
+$this->block('content', function ($params) {
+    ?>
+
+    <main class="px-3">
+        <h1>Welcome to CodefyPHP <?=$this->esc(\Codefy\Framework\Application::APP_VERSION);?></h1>
+        <p class="lead">
+            Codefy installed successfully. You can start working on this page at:
+            <div class="alert alert-primary" role="alert">
+                <code>resources/views/home.phtml</code>
+            </div>
+        </p>
+
+        <p class="lead">
+            <a href="https://codefyphp.com/" class="btn btn-lg btn-light fw-bold border-white bg-white">Learn more</a>
+        </p>
+    </main>
+
+<?php }); ?>
