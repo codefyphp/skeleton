@@ -11,7 +11,7 @@
 </p>
 
 ---
-> This repository contains the skeleton package for creating a new CodeyPHP project. If you are only interested in the 
+> This repository contains the skeleton package for creating a new CodefyPHP project. If you are only interested in the 
 > core framework, visit the main [CodefyPHP Framework repository](https://github.com/codefyphp/codefy).
 
 CodefyPHP is __not__ a framework such as the likes of Symfony, Laravel, Codeigniter or CakePHP. Codefy is a simple,
