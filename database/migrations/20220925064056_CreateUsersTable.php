@@ -6,8 +6,6 @@ use Codefy\Framework\Migration\Migration;
 use Qubus\Dbal\Schema\CreateTable;
 use Qubus\Exception\Exception;
 
-use function Codefy\Framework\Helpers\env;
-
 class CreateUsersTable extends Migration
 {
     /**
@@ -16,13 +14,18 @@ class CreateUsersTable extends Migration
      */
     public function up(): void
     {
-        if (!$this->schema()->hasTable(env('DB_TABLE_PREFIX') . 'users')) {
-            $this->schema()->create(env('DB_TABLE_PREFIX') . 'users', function (CreateTable $table) {
-                $table->string('user_id', 36)->primary()->unique(env('DB_TABLE_PREFIX') . 'user');
-                $table->string('fist_name', 191);
-                $table->string('last_name', 191);
-                $table->string('email', 191)->unique(env('DB_TABLE_PREFIX') . 'email')->notNull();
-            });
+        if (!$this->schema()->hasTable(table: 'users')) {
+            $this->schema()
+                ->create(table: 'users', callback: function (CreateTable $table) {
+                    $table->string(name: 'user_id', length: 36)
+                        ->primary()
+                        ->unique(name: 'userId');
+                    $table->string(name: 'first_name', length: 191);
+                    $table->string(name: 'last_name', length: 191);
+                    $table->string(name: 'email', length: 191)
+                        ->unique(name: 'email')
+                        ->notNull();
+                });
         }
     }
 
@@ -32,8 +35,8 @@ class CreateUsersTable extends Migration
      */
     public function down(): void
     {
-        if ($this->schema()->hasTable(env('DB_TABLE_PREFIX') . 'users')) {
-            $this->schema()->drop(env('DB_TABLE_PREFIX') . 'users');
+        if ($this->schema()->hasTable(table: 'users')) {
+            $this->schema()->drop(table: 'users');
         }
     }
 }
