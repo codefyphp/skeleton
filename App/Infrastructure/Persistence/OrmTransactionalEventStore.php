@@ -1,9 +1,10 @@
 <?php
 
 /**
- * This is an example event store implementation using Qubus Dbal.
- * It is not recommended to use this implementation in production
- * as is. Feel free to edit, rename or clone for your needs.
+ * This is an example event store database class implementation
+ * using Qubus OrmBuilder. It is not recommended to use this
+ * implementation in production as is. Feel free to edit,
+ * rename or clone for your needs.
  */
 
 namespace App\Infrastructure\Persistence;
