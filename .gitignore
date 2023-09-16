@@ -2,6 +2,7 @@ App/Domain/Post
 App/Domain/PostType
 App/Domain/Site
 App/Domain/User
+App/Shared/ValueObject
 database/migrations/.migrations.log
 resources/views/*.tpl
 storage/logs/*.log
