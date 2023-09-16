@@ -23,7 +23,6 @@ use Qubus\Dbal\DB;
 use Qubus\Exception\Data\TypeException;
 use Qubus\Exception\Exception;
 use Qubus\Expressive\OrmBuilder;
-
 use Qubus\Expressive\OrmException;
 
 use function Codefy\Framework\Helpers\config;
