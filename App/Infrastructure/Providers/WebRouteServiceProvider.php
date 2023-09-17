@@ -17,7 +17,5 @@ final class WebRouteServiceProvider extends CodefyServiceProvider
         $router = $this->codefy->make(name: 'router');
 
         $router->get('/', 'HomeController@index');
-        $router->get('/bob/', 'HomeController@redirectToHelloWorld');
-        $router->get('/hello-world/', 'HomeController@helloWorld');
     }
 }
