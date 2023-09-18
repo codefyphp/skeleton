@@ -13,7 +13,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $objectmap = new ObjectStorageMap();
 
-$objectmap['db'] = fn () => DB::connection((array)config('database.connections.default'));
+$objectmap['db'] = fn () => DB::connection(config: (array) config(key: 'database.connections.default'));
 
 $objectmap['phpmig.adapter'] = function ($c) {
     return new DbalMigrationAdapter(connection: $c['db'], tableName: 'migration');
