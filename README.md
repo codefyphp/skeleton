@@ -72,7 +72,7 @@ Once the server starts, visit the new install at `http://localhost:8080`.
 ## 📘 Documentation
 
 Documentation is still a work in progress. Between the [Qubus Components](https://docs.qubusphp.com/) documentation
-and [CodefyPHP's](https://codefyphp.com/) documentation, that should help you get started. If you have questions or
+and [CodefyPHP's](https://codefyphp.com/documentation/) documentation, that should help you get started. If you have questions or
 need help, feel free to ask for help in the [forums](https://codefyphp.com/community/).
 
 ## 🙌 Sponsors
