@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="https://codefyphp.com/" target="_blank"><img src="https://downloads.joshuaparker.blog/images/codefyphp-logo.png" width="400" alt="CodefyPHP Logo"></a>
+    <a href="https://codefyphp.com/" target="_blank"><img src="https://downloads.joshuaparker.blog/images/codefyphp.png" width="400" alt="CodefyPHP Logo"></a>
 </h1>
 
 <p align="center">
@@ -11,7 +11,7 @@
 </p>
 
 ---
-> This repository contains the skeleton package for creating a new CodeyPHP project. If you are only interested in the 
+> This repository contains the skeleton package for creating a new CodefyPHP project. If you are only interested in the 
 > core framework, visit the main [CodefyPHP Framework repository](https://github.com/codefyphp/codefy).
 
 CodefyPHP is __not__ a framework such as the likes of Symfony, Laravel, Codeigniter or CakePHP. Codefy is a simple,
@@ -72,7 +72,7 @@ Once the server starts, visit the new install at `http://localhost:8080`.
 ## 📘 Documentation
 
 Documentation is still a work in progress. Between the [Qubus Components](https://docs.qubusphp.com/) documentation
-and [CodefyPHP's](https://codefyphp.com/) documentation, that should help you get started. If you have questions or
+and [CodefyPHP's](https://codefyphp.com/documentation/) documentation, that should help you get started. If you have questions or
 need help, feel free to ask for help in the [forums](https://codefyphp.com/community/).
 
 ## 🙌 Sponsors
