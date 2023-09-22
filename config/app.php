@@ -89,6 +89,8 @@ return [
         Codefy\Framework\Console\Commands\RedoCommand::class,
         Codefy\Framework\Console\Commands\ListCommand::class,
         Codefy\Framework\Console\Commands\ServeCommand::class,
+        Codefy\Framework\Console\Commands\UuidCommand::class,
+        Codefy\Framework\Console\Commands\UlidCommand::class,
 
         /*
          * Application Console Commands . . .
