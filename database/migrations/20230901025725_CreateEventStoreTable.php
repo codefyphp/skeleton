@@ -6,8 +6,6 @@ use Codefy\Framework\Migration\Migration;
 use Qubus\Dbal\Schema\CreateTable;
 use Qubus\Exception\Exception;
 
-use function Codefy\Framework\Helpers\env;
-
 class CreateEventStoreTable extends Migration
 {
     /**
