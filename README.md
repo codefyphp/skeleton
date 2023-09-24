@@ -55,8 +55,8 @@ To create a new project, run the following command:
 composer create-project codefyphp/skeleton my-app-name
 ```
 
-Replace `my-app-name` with the directory name to which you are starting your new project. Once installed, start the 
-development server by running the following terminal command:
+Replace `my-app-name` with the directory name to which you are starting your new project. Once installed, `cd` into 
+the root directory of your app and start the development server by running the following terminal command:
 
 ```bash
 php codex serve
