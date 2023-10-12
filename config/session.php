@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'use_cookies'            => 1,
     'cookie_secure'          => 1,
