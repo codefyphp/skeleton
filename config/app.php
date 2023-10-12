@@ -59,9 +59,24 @@ return [
         /*
          * Application Service Providers.
          */
+        App\Infrastructure\Providers\Psr16ServiceProvider::class,
+        App\Infrastructure\Providers\MiddlewareServiceProvider::class,
         App\Infrastructure\Providers\AppServiceProvider::class,
         App\Infrastructure\Providers\ApiRouteServiceProvider::class,
         App\Infrastructure\Providers\WebRouteServiceProvider::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Middleware Aliases
+    |--------------------------------------------------------------------------
+    | Middleware aliases are registered here, but to use a middleware, you
+    | need to add it to a route or controller.
+    */
+    'middlewares' => [
+        'session' => Qubus\Http\Session\Middleware\SessionMiddleware::class,
+        /** Uncomment to use whoops in dev mode to override system error handler. */
+        //'whoops' => Franzl\Middleware\Whoops\WhoopsMiddleware::class,
     ],
 
     /*
