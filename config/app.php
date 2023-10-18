@@ -74,7 +74,6 @@ return [
     | need to add it to a route or controller.
     */
     'middlewares' => [
-        'session' => Qubus\Http\Session\Middleware\SessionMiddleware::class,
         /** Uncomment to use whoops in dev mode to override system error handler. */
         //'whoops' => Franzl\Middleware\Whoops\WhoopsMiddleware::class,
     ],
