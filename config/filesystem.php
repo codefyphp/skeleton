@@ -21,14 +21,15 @@ return [
         */
         'local' => [
             'root' => storage_path(),
-            'visibility' => [
+            'visibility' => \League\Flysystem\Visibility::PUBLIC,
+            'permission' => [
                 'file' => [
-                    'public'  => (int) 0644,
-                    'private' => (int) 0604,
+                    'public'  => 0644,
+                    'private' => 0604,
                 ],
                 'dir'  => [
-                    'public'  => (int) 0755,
-                    'private' => (int) 7604,
+                    'public'  => 0755,
+                    'private' => 7604,
                 ],
             ],
         ],
@@ -40,14 +41,15 @@ return [
         */
         'public' => [
             'root' => storage_path(path: 'app/public'),
-            'visibility' => [
+            'visibility' => \League\Flysystem\Visibility::PUBLIC,
+            'permission' => [
                 'file' => [
-                    'public'  => (int) 0644,
-                    'private' => (int) 0604,
+                    'public'  => 0644,
+                    'private' => 0604,
                 ],
                 'dir'  => [
-                    'public'  => (int) 0755,
-                    'private' => (int) 7604,
+                    'public'  => 0755,
+                    'private' => 7604,
                 ],
             ],
         ],
@@ -59,14 +61,15 @@ return [
         */
         'cache' => [
             'root' => storage_path(path: 'framework/cache'),
-            'visibility' => [
+            'visibility' => \League\Flysystem\Visibility::PRIVATE,
+            'permission' => [
                 'file' => [
-                    'public'  => (int) 0644,
-                    'private' => (int) 0604,
+                    'public'  => 0644,
+                    'private' => 0604,
                 ],
                 'dir'  => [
-                    'public'  => (int) 0755,
-                    'private' => (int) 7604,
+                    'public'  => 0755,
+                    'private' => 7604,
                 ],
             ],
         ],
@@ -78,14 +81,15 @@ return [
         */
         'media' => [
             'root' => storage_path(path: 'framework/media'),
-            'visibility' => [
+            'visibility' => \League\Flysystem\Visibility::PUBLIC,
+            'permission' => [
                 'file' => [
-                    'public'  => (int) 0644,
-                    'private' => (int) 0604,
+                    'public'  => 0644,
+                    'private' => 0604,
                 ],
                 'dir'  => [
-                    'public'  => (int) 0755,
-                    'private' => (int) 7604,
+                    'public'  => 0755,
+                    'private' => 7604,
                 ],
             ],
         ],
@@ -97,14 +101,15 @@ return [
         */
         'sessions' => [
             'root' => storage_path(path: 'framework/sessions'),
-            'visibility' => [
+            'visibility' => \League\Flysystem\Visibility::PRIVATE,
+            'permission' => [
                 'file' => [
-                    'public'  => (int) 0644,
-                    'private' => (int) 0604,
+                    'public'  => 0644,
+                    'private' => 0604,
                 ],
                 'dir'  => [
-                    'public'  => (int) 0755,
-                    'private' => (int) 7604,
+                    'public'  => 0755,
+                    'private' => 7604,
                 ],
             ],
         ],
@@ -116,14 +121,15 @@ return [
         */
         'cookies' => [
             'root' => storage_path(path: 'framework/cookies'),
-            'visibility' => [
+            'visibility' => \League\Flysystem\Visibility::PRIVATE,
+            'permission' => [
                 'file' => [
-                    'public'  => (int) 0644,
-                    'private' => (int) 0604,
+                    'public'  => 0644,
+                    'private' => 0604,
                 ],
                 'dir'  => [
-                    'public'  => (int) 0755,
-                    'private' => (int) 7604,
+                    'public'  => 0755,
+                    'private' => 7604,
                 ],
             ],
         ],
@@ -135,14 +141,15 @@ return [
         */
         'views' => [
             'root' => storage_path(path: 'framework/views'),
-            'visibility' => [
+            'visibility' => \League\Flysystem\Visibility::PRIVATE,
+            'permission' => [
                 'file' => [
-                    'public'  => (int) 0644,
-                    'private' => (int) 0604,
+                    'public'  => 0644,
+                    'private' => 0604,
                 ],
                 'dir'  => [
-                    'public'  => (int) 0755,
-                    'private' => (int) 7604,
+                    'public'  => 0755,
+                    'private' => 7604,
                 ],
             ],
         ],
@@ -154,14 +161,15 @@ return [
         */
         'logs' => [
             'root' => storage_path(path: 'logs'),
-            'visibility' => [
+            'visibility' => \League\Flysystem\Visibility::PRIVATE,
+            'permission' => [
                 'file' => [
-                    'public'  => (int) 0644,
-                    'private' => (int) 0604,
+                    'public'  => 0644,
+                    'private' => 0604,
                 ],
                 'dir'  => [
-                    'public'  => (int) 0755,
-                    'private' => (int) 7604,
+                    'public'  => 0755,
+                    'private' => 7604,
                 ],
             ],
         ],
@@ -171,7 +179,7 @@ return [
         | Amazon S3
         |--------------------------------------------------------------------------
         */
-        's3' => [
+        'awsS3' => [
             'driver' => 's3',
             'key' => env(key: 'AWS_ACCESS_KEY_ID'),
             'secret' => env(key: 'AWS_SECRET_ACCESS_KEY'),
@@ -179,6 +187,8 @@ return [
             'bucket' => env(key: 'AWS_BUCKET'),
             'url' => env(key: 'AWS_URL'),
             'endpoint' => env(key: 'AWS_ENDPOINT'),
+            'prefix' => '',
+            'visibility' => \League\Flysystem\Visibility::PRIVATE,
         ],
     ],
     /*
@@ -198,14 +208,15 @@ return [
         | Set the visibility for files and directories.
         |--------------------------------------------------------------------------
         */
-        'visibility' => [
+        'visibility' => \League\Flysystem\Visibility::PUBLIC,
+        'permission' => [
             'file' => [
-                'public'  => (int) 0644,
-                'private' => (int) 0604,
+                'public'  => 0644,
+                'private' => 0604,
             ],
             'dir'  => [
-                'public'  => (int) 0755,
-                'private' => (int) 7604,
+                'public'  => 0755,
+                'private' => 7604,
             ],
         ],
     ],
