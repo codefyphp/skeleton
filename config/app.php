@@ -71,11 +71,29 @@ return [
     | Middleware Aliases
     |--------------------------------------------------------------------------
     | Middleware aliases are registered here, but to use a middleware, you
-    | need to add it to a route or controller.
+    | can add them to a route, a group of routes or controllers.
     */
     'middlewares' => [
         /** Uncomment to use whoops in dev mode to override system error handler. */
         //'whoops' => Franzl\Middleware\Whoops\WhoopsMiddleware::class,
+        'security.headers' => App\Infrastructure\Http\Middleware\SecureHeaders\ContentSecurityPolicyMiddleware::class,
+        'csrf.token' => App\Infrastructure\Http\Middleware\Csrf\CsrfTokenMiddleware::class,
+        'csrf.protection' => App\Infrastructure\Http\Middleware\Csrf\CsrfProtectionMiddleware::class,
+        'cors' => App\Infrastructure\Http\Middleware\CorsMiddleware::class,
+        'file.logger' => App\Infrastructure\Http\Middleware\LoggingMiddleware::class,
+        'honeypot' => App\Infrastructure\Http\Middleware\HoneyPotMiddleware::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Base Middlewares
+    |--------------------------------------------------------------------------
+    | Register middleware class strings or aliases to be applied to the entire
+    | application.
+    */
+    'base_middlewares' => [
+        'csrf.token',
+        'csrf.protection',
     ],
 
     /*
