@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This is an example event store database class implementation
  * using Qubus OrmBuilder. It is not recommended to use this

@@ -14,12 +14,17 @@
     ],
     "require": {
         "php": ">=8.2",
-        "codefyphp/codefy": "^1"
+        "codefyphp/codefy": "^1",
+        "franzl/whoops-middleware": "^2.0",
+        "paragonie/csp-builder": "^2.9"
     },
     "autoload": {
         "psr-4": {
             "App\\": "App/"
-        }
+        },
+        "files": [
+            "App/Infrastructure/Http/Middleware/Csrf/helpers.php"
+        ]
     },
     "scripts": {
         "test": "vendor/bin/pest",
