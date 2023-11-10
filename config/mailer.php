@@ -3,11 +3,18 @@
 declare(strict_types=1);
 
 use function Codefy\Framework\Helpers\env;
+use function Codefy\Framework\Helpers\storage_path;
 
 return [
     /*
     |--------------------------------------------------------------------------
-    | SMTP Swift Mailer Transport
+    | Default PHPMailer Transport
+    |--------------------------------------------------------------------------
+    */
+    'mail_transport' => 'smtp',
+    /*
+    |--------------------------------------------------------------------------
+    | SMTP PHPMailer Transport
     |--------------------------------------------------------------------------
     */
     'smtp' => [
@@ -42,6 +49,13 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | Set to true to use SMTP authentication, false otherwise.
+        |--------------------------------------------------------------------------
+        */
+        'auth' => true,
+
+        /*
+        |--------------------------------------------------------------------------
         | SMTP Auth Mode
         |--------------------------------------------------------------------------
         */
@@ -68,5 +82,21 @@ return [
         |--------------------------------------------------------------------------
         */
         'command' => env(key: 'MAILER_SENDMAIL_PATH', default: '/usr/sbin/sendmail -bs'),
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Set to true to write to a file for debugging instead of sending
+    | an actual email.
+    |--------------------------------------------------------------------------
+    */
+    'debug' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | .eml file for debugging. Can be opened in email clients such as
+    | Thunderbird.
+    |--------------------------------------------------------------------------
+    */
+    'emlfile' => storage_path(path: sprintf('email/%s', date(format: 'YmdHis') . '_' . uniqid() . '.eml')),
 ];
