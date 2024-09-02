@@ -1,10 +1,10 @@
 App/Domain/Post
 App/Domain/PostType
 App/Domain/Site
-App/Domain/User
-App/Infrastructure/Http/Middleware/UserAuthMiddleware.php
 database/migrations/.migrations.log
 resources/views/*.tpl
+resources/views/backend/
+storage/framework/cache/*
 storage/logs/*.log
 vendor
 .idea
