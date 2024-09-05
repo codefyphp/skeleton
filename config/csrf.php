@@ -58,5 +58,5 @@ return [
     | else it will be set to the default cookies setting.
     |--------------------------------------------------------------------------
     */
-    'lifetime' => null,
+    'lifetime' => 3600,
 ];

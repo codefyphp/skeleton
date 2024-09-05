@@ -14,6 +14,6 @@ return [
     'sid_bits_per_character' => 5,
     'sid_length'             => 48,
     'cache_limiter'          => 'nocache',
-    'cache_expire'           => 360,
+    'cache_expire'           => 1800,
     'cookie_samesite'        => 'Lax',
 ];

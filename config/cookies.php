@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     'path' => '/',
-    'domain' => '',
+    'domain' => 'localhost',
     'lifetime' => (int) 3600,
     'secure' => false,
     'samesite' => 'lax'

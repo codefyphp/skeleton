@@ -39,7 +39,7 @@ return [
     | Application Timezone
     |--------------------------------------------------------------------------
     */
-    'timezone' => 'America/Denver',
+    'timezone' => 'America/Los_Angeles',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,6 +82,7 @@ return [
         'cors' => App\Infrastructure\Http\Middleware\CorsMiddleware::class,
         'file.logger' => App\Infrastructure\Http\Middleware\LoggingMiddleware::class,
         'honeypot' => App\Infrastructure\Http\Middleware\HoneyPotMiddleware::class,
+        'user.session' => App\Infrastructure\Http\Middleware\UserSessionMiddleware::class,
     ],
 
     /*
