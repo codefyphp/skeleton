@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "codefyphp/codefy": "^1",
+        "codefyphp/codefy": "^2",
         "franzl/whoops-middleware": "^2.0",
         "paragonie/csp-builder": "^2.9"
     },
