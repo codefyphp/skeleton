@@ -19,9 +19,17 @@ final class WebRouteServiceProvider extends CodefyServiceProvider
             return;
         }
 
-        /** @var $router Router */
+        /** @var Router $router*/
         $router = $this->codefy->make(name: 'router');
 
-        $router->get('/', 'HomeController@index');
+        $router->get(uri: '/', callback: 'HomeController@index');
+        $router->get(uri: '/admin/', callback: 'AdminController@index');
+        $router->get(uri: '/admin/profile/', callback: 'AdminController@profile');
+        $router->post(uri: '/admin/update/', callback: 'AdminController@update');
+        $router->get(uri: '/admin/login/', callback: 'AdminController@login');
+        $router->post(uri: '/admin/auth/', callback: 'AdminController@auth')->middleware('user.session');
+        $router->get(uri: '/admin/register/', callback: 'AdminController@register');
+        $router->post(uri: '/admin/create/', callback: 'AdminController@create');
+        $router->get(uri: '/admin/logout/', callback: 'AdminController@logout');
     }
 }
