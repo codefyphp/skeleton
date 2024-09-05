@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Http\Controllers;
 
 use Codefy\Framework\Http\BaseController;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Qubus\Http\Session\SessionService;
 use Qubus\Routing\Router;
 use Qubus\View\Native\Exception\InvalidTemplateNameException;
@@ -17,12 +15,10 @@ final class HomeController extends BaseController
 {
     public function __construct(
         SessionService $sessionService,
-        ServerRequestInterface $request,
-        ResponseInterface $response,
         Router $router,
         ?Renderer $view = null
     ) {
-        parent::__construct($sessionService, $request, $response, $router, $view);
+        parent::__construct($sessionService, $router, $view);
     }
 
     /**
@@ -31,6 +27,6 @@ final class HomeController extends BaseController
      */
     public function index(): ?string
     {
-        return $this->view->render('framework::home', ['title' => 'CodefyPHP Framework']);
+        return $this->view->render(template: 'framework::home', data: ['title' => 'CodefyPHP Framework']);
     }
 }
