@@ -69,9 +69,10 @@ Once the server starts, visit the new install at `http://localhost:8080`.
 | Version | Minimum PHP Version | Release Date   | Bug Fixes Until | Security Fixes Until |
 |---------|---------------------|----------------|-----------------|----------------------|
 | 1       | 8.2                 | September 2023 | July 2024       | March 2025           |
-| 2 - LTS | 8.2                 | January 2024   | January 2027    | January 2028         |
-| 3       | 8.3                 | January 2024   | November 2024   | July 2025            |
-| 4 - LTS | 8.3                 | May 2024       | May 2027        | May 2028             |
+| 2 - LTS | 8.2                 | September 2024 | September 2027  | September 2028       |
+| 3       | 8.3                 | October 2024   | August 2025     | April 2026           |
+| 4       | 8.4                 | February 2025  | December 2025   | August 2026          |
+| 5 - LTS | 8.4                 | April 2025     | April 2028      | April 2029           |
 
 ## 📘 Documentation
 
@@ -82,7 +83,7 @@ need help, feel free to ask for help in the [forums](https://codefyphp.com/commu
 ## 🙌 Sponsors
 
 If you use CodefyPHP or you are interested in supporting the continued development of my opensource projects,
-please consider sponsoring me via [Github](https://github.com/sponsors/parkerj) or [Ko-fi](https://ko-fi.com/nomadicjosh).
+please consider sponsoring me via [Github](https://github.com/sponsors/nomadicjosh).
 
 ## 🖋 Contributing
 
