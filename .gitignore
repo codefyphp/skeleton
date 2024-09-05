@@ -3,7 +3,6 @@ App/Domain/PostType
 App/Domain/Site
 database/migrations/.migrations.log
 resources/views/*.tpl
-resources/views/backend/
 storage/framework/cache/*
 storage/logs/*.log
 vendor
