@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Services;
+namespace App\Infrastructure\Services;
 
 use App\Domain\User\Event\EmailAddressWasChanged;
 use App\Domain\User\Event\NameWasChanged;
 use App\Domain\User\Event\PasswordWasChanged;
 use App\Domain\User\Event\RoleWasChanged;
 use App\Domain\User\Event\UserWasCreated;
-use App\Domain\User\UserProjection;
+use App\Domain\User\Services\UserProjection;
 use App\Domain\User\ValueObject\UserToken;
 use Codefy\Domain\EventSourcing\BaseProjection;
 use Codefy\Framework\Support\Password;

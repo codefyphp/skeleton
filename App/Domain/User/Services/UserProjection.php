@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User;
+namespace App\Domain\User\Services;
 
+use App\Domain\User\EmailAddressWasUpdate;
 use App\Domain\User\Event\EmailAddressWasChanged;
 use App\Domain\User\Event\NameWasChanged;
 use App\Domain\User\Event\PasswordWasChanged;
 use App\Domain\User\Event\UserWasCreated;
+use App\Domain\User\NameWasUpdate;
 use Codefy\Domain\EventSourcing\Projection;
 
 interface UserProjection extends Projection

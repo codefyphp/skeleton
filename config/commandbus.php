@@ -1,9 +1,9 @@
 <?php
 
-use App\Domain\User\Repository\UserRepository;
-use App\Domain\User\Services\DatabaseUserProjection;
-use App\Domain\User\UserProjection;
+use App\Domain\User\Services\UserProjection;
 use App\Infrastructure\Persistence\OrmTransactionalEventStore;
+use App\Infrastructure\Persistence\Repository\UserRepository;
+use App\Infrastructure\Services\DatabaseUserProjection;
 use Codefy\CommandBus\Container;
 use Codefy\CommandBus\Containers\InjectorContainer;
 use Codefy\Domain\Aggregate\AggregateRepository;

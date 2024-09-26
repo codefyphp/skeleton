@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Services;
+namespace App\Infrastructure\Services;
 
 use App\Domain\User\Query\FindUserByTokenQuery;
 use App\Infrastructure\Http\Middleware\UserAuthorizationMiddleware;

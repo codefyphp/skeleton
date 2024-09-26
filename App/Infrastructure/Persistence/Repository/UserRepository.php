@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Repository;
+namespace App\Infrastructure\Persistence\Repository;
 
 use App\Domain\User\User;
 use Codefy\Domain\Aggregate\AggregateId;
+use Codefy\Domain\Aggregate\AggregateNotFoundException;
 use Codefy\Domain\Aggregate\AggregateRepository;
 use Codefy\Domain\Aggregate\RecordsEvents;
+use Codefy\Domain\EventSourcing\CorruptEventStreamException;
 use Codefy\Domain\EventSourcing\Projection;
 use Codefy\Domain\EventSourcing\TransactionalEventStore;
 use Codefy\Traits\IdentityMapAware;
@@ -22,6 +24,10 @@ final class UserRepository implements AggregateRepository
     ) {
     }
 
+    /**
+     * @throws AggregateNotFoundException
+     * @throws CorruptEventStreamException
+     */
     public function loadAggregateRoot(AggregateId $aggregateId): ?RecordsEvents
     {
         $this->retrieveFromIdentityMap($aggregateId);
