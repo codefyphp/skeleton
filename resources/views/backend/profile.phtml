@@ -11,7 +11,7 @@ $this->block('dashboard', function ($params) {
 
     <div class="col-md-7 col-lg-8">
     <?=Codefy::$PHP->flash->display();?>
-        <form class="needs-validation" method="post" action="<?= config(key: 'auth.admin_url'); ?>update/">
+        <form class="needs-validation" method="post" action="<?=$this->escUrl($params['url']) ?>">
           <div class="row g-3">
             <div class="col-sm-4">
               <label for="firstName" class="form-label">First name</label>
@@ -45,7 +45,7 @@ $this->block('dashboard', function ($params) {
               </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-4">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" id="email" name="email" value="<?=$this->esc($params['user']->email);?>" required>
               <div class="invalid-feedback">
@@ -53,9 +53,23 @@ $this->block('dashboard', function ($params) {
               </div>
             </div>
 
-            <div class="col-6">
+              <div class="col-4">
+                  <label for="role" class="form-label">Role</label>
+                  <select class="form-control" name="role" id="role" required>
+                      <option value="">Select Role</option>
+                      <?php foreach($params['roles'] as $key => $value) { ?>
+                      <option value="<?=$key;?>" <?=$key === $this->esc($params['user']->role) ? ' selected="selected"' : '';?>><?=$key;?></option>
+                      <?php } ?>
+                  </select>
+                  <div class="invalid-feedback">
+                      Role is required.
+                  </div>
+              </div>
+
+            <div class="col-4">
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" id="password" name="password">
+              <input type="hidden" name="user_id" value="<?=$this->esc($params['user']->user_id);?>">
             </div>
           </div>
 

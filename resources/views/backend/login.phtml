@@ -11,7 +11,7 @@ $this->block('content', function ($params) {
     
 <main class="form-login w-100 m-auto">
 <?=Codefy::$PHP->flash->display();?>
-  <form class="needs-validation" method="post" action="<?= config(key: 'auth.admin_url'); ?>auth/">
+  <form class="needs-validation" method="post" action="<?=$this->esc($params['url']) ?>">
     <h1 class="h3 mb-3 fw-normal"><?=t__(msgid: 'Please sign in');?></h1>
  
     <div class="form-floating">
