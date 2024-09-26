@@ -20,7 +20,6 @@ final class UserRepository implements AggregateRepository
         public readonly TransactionalEventStore $eventStore,
         public readonly Projection $projection
     ) {
-
     }
 
     public function loadAggregateRoot(AggregateId $aggregateId): ?RecordsEvents

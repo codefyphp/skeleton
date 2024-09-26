@@ -7,12 +7,16 @@ namespace App\Domain\User\Services;
 use App\Domain\User\Event\EmailAddressWasChanged;
 use App\Domain\User\Event\NameWasChanged;
 use App\Domain\User\Event\PasswordWasChanged;
+use App\Domain\User\Event\RoleWasChanged;
 use App\Domain\User\Event\UserWasCreated;
 use App\Domain\User\UserProjection;
+use App\Domain\User\ValueObject\UserToken;
 use Codefy\Domain\EventSourcing\BaseProjection;
 use Codefy\Framework\Support\Password;
 use Exception as NativeException;
 use Qubus\Dbal\DB;
+use Qubus\Exception\Data\TypeException;
+use Qubus\Exception\Exception;
 use Qubus\Expressive\OrmBuilder;
 use Qubus\Expressive\OrmException;
 
@@ -28,10 +32,14 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
     public function __construct()
     {
         $this->orm = new OrmBuilder(
-            DB::connection((array)config('database.connections.default'))
+            DB::connection((array)config(key: 'database.connections.default'))
         );
     }
 
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
     public function projectWhenUserWasCreated(UserWasCreated $event): void
     {
         try {
@@ -45,7 +53,9 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
                         'middle_name' => $event->name()->getMiddleName()->toNative(),
                         'last_name' => $event->name()->getLastName()->toNative(),
                         'email' => $event->emailAddress()->toNative(),
+                        'role' => $event->role()->toNative(),
                         'password' => Password::hash($event->password()->toNative()),
+                        'token' => UserToken::generateAsString(),
                         'created_on' => $event->createdOn(),
                 ])
                 ->save();
@@ -55,6 +65,10 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
         }
     }
 
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
     public function projectWhenEmailAddressWasChanged(EmailAddressWasChanged $event): void
     {
         try {
@@ -72,6 +86,10 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
         }
     }
 
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
     public function projectWhenNameWasChanged(NameWasChanged $event): void
     {
         try {
@@ -91,6 +109,31 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
         }
     }
 
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
+    public function projectWhenRoleWasChanged(RoleWasChanged $event): void
+    {
+        try {
+            $this->orm->transactional(callback: function () use ($event) {
+                $this->orm
+                        ->table(tableName: 'users')
+                        ->set([
+                            'role' => $event->role()->toNative(),
+                        ])
+                        ->where('user_id = ?', $event->userId()->__toString())
+                        ->update();
+            });
+        } catch (OrmException $e) {
+            throw new NativeException(message: $e->getMessage());
+        }
+    }
+
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
     public function projectWhenPasswordWasChanged(PasswordWasChanged $event): void
     {
         try {
@@ -99,6 +142,7 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
                     ->table(tableName: 'users')
                     ->set([
                         'password' => Password::hash($event->password()->toNative()),
+                        'token' => UserToken::generateAsString(),
                 ])
                 ->where('user_id = ?', $event->userId()->__toString())
                 ->update();
