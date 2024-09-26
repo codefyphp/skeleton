@@ -11,15 +11,17 @@ use Qubus\ValueObjects\Web\EmailAddress;
 
 final class UpdateUserCommand extends PropertyCommand
 {
-    public UserId $userId;
+    public ?UserId $userId = null;
 
-    public StringLiteral $firstName;
+    public ?StringLiteral $firstName = null;
 
-    public StringLiteral $middleName;
+    public ?StringLiteral $middleName = null;
 
-    public StringLiteral $lastName;
+    public ?StringLiteral $lastName = null;
 
-    public EmailAddress $email;
+    public ?EmailAddress $email = null;
 
-    public StringLiteral $password;
+    public ?StringLiteral $role = null;
+
+    public ?StringLiteral $password = null;
 }

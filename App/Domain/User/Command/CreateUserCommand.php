@@ -4,21 +4,24 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Command;
 
+use App\Domain\User\ValueObject\Username;
 use Codefy\CommandBus\PropertyCommand;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
 
 final class CreateUserCommand extends PropertyCommand
 {
-    public StringLiteral $username;
+    public ?Username $username = null;
 
-    public StringLiteral $firstName;
+    public ?StringLiteral $firstName = null;
 
-    public StringLiteral $middleName;
+    public ?StringLiteral $middleName = null;
 
-    public StringLiteral $lastName;
+    public ?StringLiteral $lastName = null;
 
-    public EmailAddress $email;
+    public ?EmailAddress $email = null;
 
-    public StringLiteral $password;
+    public ?StringLiteral $role = null;
+
+    public ?StringLiteral $password = null;
 }

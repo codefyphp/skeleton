@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Event;
 
 use App\Domain\User\ValueObject\UserId;
+use App\Domain\User\ValueObject\Username;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
@@ -24,11 +25,13 @@ class UserWasCreated extends AggregateChanged
 {
     private ?UserId $userId = null;
 
-    private ?StringLiteral $username = null;
+    private ?Username $username = null;
 
     private ?Name $name = null;
 
     private ?EmailAddress $emailAddress = null;
+
+    private ?StringLiteral $role = null;
 
     private ?StringLiteral $password = null;
 
@@ -36,9 +39,10 @@ class UserWasCreated extends AggregateChanged
 
     public static function withData(
         UserId $userId,
-        StringLiteral $username,
+        Username $username,
         Name $name,
         EmailAddress $emailAddress,
+        StringLiteral $role,
         #[SensitiveParameter] StringLiteral $password,
         DateTimeInterface $createdOn,
     ): UserWasCreated|DomainEvent|AggregateChanged {
@@ -51,6 +55,7 @@ class UserWasCreated extends AggregateChanged
                 'middle_name' => $name->getMiddleName()->toNative(),
                 'last_name' => $name->getLastName()->toNative(),
                 'email' => $emailAddress->toNative(),
+                'role' => $role->toNative(),
                 'password' => Password::hash($password->toNative()),
                 'created_on' => $createdOn,
             ],
@@ -63,6 +68,7 @@ class UserWasCreated extends AggregateChanged
         $event->username = $username;
         $event->name = $name;
         $event->emailAddress = $emailAddress;
+        $event->role = $role;
         $event->password = $password;
         $event->createdOn = $createdOn;
 
@@ -84,10 +90,10 @@ class UserWasCreated extends AggregateChanged
     /**
      * @throws TypeException
      */
-    public function username(): StringLiteral
+    public function username(): Username
     {
         if (is_null__($this->username)) {
-            $this->username = StringLiteral::fromNative($this->payload()['username']);
+            $this->username = Username::fromNative($this->payload()['username']);
         }
 
         return $this->username;
@@ -121,6 +127,18 @@ class UserWasCreated extends AggregateChanged
     /**
      * @throws TypeException
      */
+    public function role(): StringLiteral
+    {
+        if (is_null__($this->role)) {
+            $this->role = StringLiteral::fromNative($this->payload()['role']);
+        }
+
+        return $this->role;
+    }
+
+    /**
+     * @throws TypeException
+     */
     public function password(): StringLiteral
     {
         if (is_null__($this->password)) {
@@ -132,7 +150,7 @@ class UserWasCreated extends AggregateChanged
 
     public function createdOn(): DateTimeInterface
     {
-        if(is_null__($this->createdOn)) {
+        if (is_null__($this->createdOn)) {
             $this->createdOn = QubusDateTimeImmutable::now();
         }
 

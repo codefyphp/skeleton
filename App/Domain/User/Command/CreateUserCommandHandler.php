@@ -30,6 +30,7 @@ final readonly class CreateUserCommandHandler implements CommandHandler
                 lastName: $command->lastName
             ),
             emailAddress: $command->email,
+            role: $command->role,
             password: $command->password,
             createdOn: QubusDateTimeImmutable::now()
         );

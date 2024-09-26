@@ -23,13 +23,33 @@ final class WebRouteServiceProvider extends CodefyServiceProvider
         $router = $this->codefy->make(name: 'router');
 
         $router->get(uri: '/', callback: 'HomeController@index');
-        $router->get(uri: '/admin/', callback: 'AdminController@index');
-        $router->get(uri: '/admin/profile/', callback: 'AdminController@profile');
-        $router->post(uri: '/admin/update/', callback: 'AdminController@update');
-        $router->get(uri: '/admin/login/', callback: 'AdminController@login');
-        $router->post(uri: '/admin/auth/', callback: 'AdminController@auth')->middleware('user.session');
-        $router->get(uri: '/admin/register/', callback: 'AdminController@register');
-        $router->post(uri: '/admin/create/', callback: 'AdminController@create');
-        $router->get(uri: '/admin/logout/', callback: 'AdminController@logout');
+
+        $router->group(params: ['prefix' => '/admin'], callback: function ($group) {
+            $group->get(uri: '/', callback: 'AdminController@index')
+                    ->name('admin.home');
+
+            $group->get(uri: '/profile/', callback: 'AdminController@profile')
+                    ->name('admin.profile');
+
+            $group->post(uri: '/update/', callback: 'AdminController@update')
+                    ->name('admin.update');
+
+            $group->get(uri: '/login/', callback: 'AdminController@login')
+                    ->name('admin.login');
+
+            $group->post(uri: '/auth/', callback: 'AdminController@auth')
+                    ->name('admin.auth')
+                    ->middleware(['user.authenticate', 'user.session']);
+
+            $group->get(uri: '/register/', callback: 'AdminController@register')
+                    ->name('admin.register');
+
+            $group->post(uri: '/create/', callback: 'AdminController@create')
+                    ->name('admin.create');
+
+            $group->get(uri: '/logout/', callback: 'AdminController@logout')
+                    ->name('admin.logout')
+                    ->middleware(['user.session.expire']);
+        });
     }
 }

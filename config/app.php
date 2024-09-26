@@ -59,6 +59,8 @@ return [
         /*
          * Application Service Providers.
          */
+        Codefy\Framework\Providers\PdoServiceProvider::class,
+        App\Infrastructure\Providers\RbacServiceProvider::class,
         App\Infrastructure\Providers\Psr16ServiceProvider::class,
         App\Infrastructure\Providers\MiddlewareServiceProvider::class,
         App\Infrastructure\Providers\AppServiceProvider::class,
@@ -82,7 +84,10 @@ return [
         'cors' => App\Infrastructure\Http\Middleware\CorsMiddleware::class,
         'file.logger' => App\Infrastructure\Http\Middleware\LoggingMiddleware::class,
         'honeypot' => App\Infrastructure\Http\Middleware\HoneyPotMiddleware::class,
-        'user.session' => App\Infrastructure\Http\Middleware\UserSessionMiddleware::class,
+        'user.authenticate' => Codefy\Framework\Auth\Middleware\AuthenticationMiddleware::class,
+        'user.session' => Codefy\Framework\Auth\Middleware\UserSessionMiddleware::class,
+        'user.authorization' => App\Infrastructure\Http\Middleware\UserAuthorizationMiddleware::class,
+        'user.session.expire' => App\Infrastructure\Http\Middleware\ExpireUserSessionMiddleware::class,
     ],
 
     /*
@@ -128,5 +133,6 @@ return [
         /*
          * Application Console Commands . . .
          */
+        App\Application\Console\Commands\GenerateEncryptionKey::class,
     ]
 ];

@@ -7,9 +7,11 @@ namespace App\Domain\User;
 use App\Domain\User\Event\EmailAddressWasChanged;
 use App\Domain\User\Event\NameWasChanged;
 use App\Domain\User\Event\PasswordWasChanged;
+use App\Domain\User\Event\RoleWasChanged;
 use App\Domain\User\Event\UserWasCreated;
 use App\Domain\User\ValueObject\UserId;
 use App\Domain\User\ValueObject\UserToken;
+use App\Domain\User\ValueObject\Username;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\Aggregate\AggregateRoot;
 use Codefy\Domain\Aggregate\EventSourcedAggregate;
@@ -25,19 +27,22 @@ final class User extends EventSourcedAggregate implements AggregateRoot
 {
     private ?UserId $userId = null;
 
-    private ?StringLiteral $username = null;
+    private ?Username $username = null;
 
     private ?Name $name = null;
 
     private ?EmailAddress $emailAddress = null;
 
+    private ?StringLiteral $role = null;
+
     private ?StringLiteral $password = null;
 
     public static function createUser(
         UserId $userId,
-        StringLiteral $username,
+        Username $username,
         Name $name,
         EmailAddress $emailAddress,
+        StringLiteral $role,
         StringLiteral $password,
         DateTimeInterface $createdOn,
     ): User {
@@ -49,6 +54,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
                 username: $username,
                 name: $name,
                 emailAddress: $emailAddress,
+                role: $role,
                 password: $password,
                 createdOn: $createdOn,
             )
@@ -67,7 +73,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         return $this->userId;
     }
 
-    public function username(): StringLiteral
+    public function username(): Username
     {
         return $this->username;
     }
@@ -82,23 +88,15 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         return $this->emailAddress;
     }
 
+    public function role(): StringLiteral
+    {
+        return $this->role;
+    }
+
     public function password(): StringLiteral
     {
         return $this->password;
     }
-
-    /**
-     * Gets the confirmation token.
-     *
-     * @return UserToken|null
-     */
-    /*public function confirmationToken(): ?UserToken
-    {
-        return $this->confirmationToken instanceof UserToken
-        && null === $this->confirmationToken->token()
-            ? null
-            : $this->confirmationToken;
-    }*/
 
     /**
      * @throws Exception
@@ -132,6 +130,25 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         );
     }
 
+    /**
+     * @throws Exception
+     */
+    public function changeRole(StringLiteral $role): void
+    {
+        if ($role->isEmpty()) {
+            throw new Exception(message: 'Role cannot be null.');
+        }
+        if ($role->__toString() === $this->role->__toString()) {
+            return;
+        }
+        $this->recordApplyAndPublishThat(
+            event: RoleWasChanged::withData(userId: $this->userId, role: $role)
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
     public function changePassword(StringLiteral $password): void
     {
         if ($password->isEmpty()) {
@@ -151,8 +168,10 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     public function whenUserWasCreated(UserWasCreated $event): void
     {
         $this->userId = $event->userId();
+        $this->username = $event->username();
         $this->name = $event->name();
         $this->emailAddress = $event->emailAddress();
+        $this->role = $event->role();
         $this->password = $event->password();
     }
 
@@ -174,7 +193,18 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         $this->name = $event->name();
     }
 
+    /**
+     * @throws TypeException
+     */
+    public function whenRoleWasChanged(RoleWasChanged $event): void
+    {
+        $this->userId = $event->userId();
+        $this->role = $event->role();
+    }
 
+    /**
+     * @throws TypeException
+     */
     public function whenPasswordWasChanged(PasswordWasChanged $event): void
     {
         $this->userId = $event->userId();
