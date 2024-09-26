@@ -32,7 +32,7 @@ final class CsrfProtectionMiddleware implements MiddlewareInterface
     {
         $response = $handler->handle($request);
 
-        if(true === $this->needsProtection($request) && ! $this->tokensMatch($request)) {
+        if (true === $this->needsProtection($request) && ! $this->tokensMatch($request)) {
             return JsonResponseFactory::create(
                 data: 'Bad CSRF Token.',
                 status: $this->configContainer->getConfigKey('csrf.error_status_code')
@@ -97,7 +97,8 @@ final class CsrfProtectionMiddleware implements MiddlewareInterface
         $body = $request->getParsedBody();
 
         if (is_array(
-            $body) &&
+            $body
+        ) &&
             isset($body[$this->configContainer->getConfigKey(key: 'csrf.csrf_token')]) &&
             is_string($body[$this->configContainer->getConfigKey(key: 'csrf.csrf_token')])) {
             return $body[$this->configContainer->getConfigKey(key: 'csrf.csrf_token')];

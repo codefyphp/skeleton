@@ -15,7 +15,7 @@ class MiddlewareServiceProvider extends CodefyServiceProvider
         }
 
         $middlewares = $this->codefy->make(name: 'codefy.config')->getConfigKey('app.middlewares');
-        foreach($middlewares as $key => $value) {
+        foreach ($middlewares as $key => $value) {
             $this->codefy->alias(original: $key, alias: $value);
         }
     }

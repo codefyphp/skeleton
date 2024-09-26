@@ -68,7 +68,7 @@ final class CsrfTokenMiddleware implements MiddlewareInterface
          * If true, the application will do a header check, if not,
          * it will expect data submitted via an HTML form tag.
          */
-        if($this->configContainer->getConfigKey(key: 'csrf.request_header') === true) {
+        if ($this->configContainer->getConfigKey(key: 'csrf.request_header') === true) {
             $request = $request->withHeader($this->configContainer->getConfigKey(key: 'csrf.header'), $token);
         }
 
@@ -77,6 +77,7 @@ final class CsrfTokenMiddleware implements MiddlewareInterface
                 ->withAttribute(self::SESSION_ATTRIBUTE, $token)
         );
 
+        /** @var CsrfSession $csrf */
         $csrf = $session->get(CsrfSession::class);
         $csrf->withCsrfToken($token);
 
