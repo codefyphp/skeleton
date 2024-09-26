@@ -31,9 +31,6 @@ class CreateUsersTable extends Migration
                         ->notNull();
                     $table->string(name: 'password', length: 191)
                         ->notNull();
-                    /*$table->string(name: 'confirmation_token', length: 191)
-                        ->unique(name: 'confirmation_token')
-                        ->notNull();*/
                     $table->dateTime(name: 'created_on');
                 });
         }
