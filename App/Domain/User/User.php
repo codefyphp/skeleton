@@ -29,6 +29,8 @@ final class User extends EventSourcedAggregate implements AggregateRoot
 
     private ?Username $username = null;
 
+    private ?UserToken $token = null;
+
     private ?Name $name = null;
 
     private ?EmailAddress $emailAddress = null;
@@ -40,6 +42,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     public static function createUser(
         UserId $userId,
         Username $username,
+        Usertoken $token,
         Name $name,
         EmailAddress $emailAddress,
         StringLiteral $role,
@@ -76,6 +79,11 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     public function username(): Username
     {
         return $this->username;
+    }
+
+    public function token(): UserToken
+    {
+        return $this->token;
     }
 
     public function name(): Name
@@ -149,7 +157,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     /**
      * @throws Exception
      */
-    public function changePassword(StringLiteral $password): void
+    public function changePassword(StringLiteral $password, UserToken $token): void
     {
         if ($password->isEmpty()) {
             throw new Exception(message: 'Password cannot be null.');
@@ -158,7 +166,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
             return;
         }
         $this->recordApplyAndPublishThat(
-            event: PasswordWasChanged::withData(userId: $this->userId, password: $password)
+            event: PasswordWasChanged::withData(userId: $this->userId, password: $password, token: $token)
         );
     }
 
@@ -169,6 +177,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     {
         $this->userId = $event->userId();
         $this->username = $event->username();
+        $this->token = $event->token();
         $this->name = $event->name();
         $this->emailAddress = $event->emailAddress();
         $this->role = $event->role();
@@ -209,5 +218,6 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     {
         $this->userId = $event->userId();
         $this->password = $event->password();
+        $this->token = $event->token();
     }
 }

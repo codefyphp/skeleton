@@ -6,6 +6,7 @@ namespace App\Domain\User\Event;
 
 use App\Domain\User\ValueObject\UserId;
 use App\Domain\User\ValueObject\Username;
+use App\Domain\User\ValueObject\UserToken;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
@@ -27,6 +28,8 @@ class UserWasCreated extends AggregateChanged
 
     private ?Username $username = null;
 
+    private ?UserToken $token = null;
+
     private ?Name $name = null;
 
     private ?EmailAddress $emailAddress = null;
@@ -40,6 +43,7 @@ class UserWasCreated extends AggregateChanged
     public static function withData(
         UserId $userId,
         Username $username,
+        UserToken $token,
         Name $name,
         EmailAddress $emailAddress,
         StringLiteral $role,
@@ -51,6 +55,7 @@ class UserWasCreated extends AggregateChanged
             payload: [
                 'user_id' => $userId->toNative(),
                 'username' => $username->toNative(),
+                'token' => $token->toNative(),
                 'first_name' => $name->getFirstName()->toNative(),
                 'middle_name' => $name->getMiddleName()->toNative(),
                 'last_name' => $name->getLastName()->toNative(),
@@ -66,6 +71,7 @@ class UserWasCreated extends AggregateChanged
 
         $event->userId = $userId;
         $event->username = $username;
+        $event->token = $token;
         $event->name = $name;
         $event->emailAddress = $emailAddress;
         $event->role = $role;
@@ -97,6 +103,17 @@ class UserWasCreated extends AggregateChanged
         }
 
         return $this->username;
+    }
+
+    /**
+     * @throws TypeException
+     */
+    public function token(): UserToken
+    {
+        if (is_null__($this->token)) {
+            $this->token = UserToken::fromString($this->payload()['token']);
+        }
+        return $this->token;
     }
 
     /**

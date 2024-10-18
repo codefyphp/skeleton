@@ -8,7 +8,7 @@ use Codefy\Framework\Application;
 use Codefy\Framework\Console\ConsoleCommand;
 use Defuse\Crypto\Key;
 
-class GenerateEncryptionKey extends ConsoleCommand
+class GenerateEncryptionKeyCommand extends ConsoleCommand
 {
     protected string $name = 'generate:key';
 

@@ -133,6 +133,6 @@ return [
         /*
          * Application Console Commands . . .
          */
-        App\Application\Console\Commands\GenerateEncryptionKey::class,
+        App\Application\Console\Commands\GenerateEncryptionKeyCommand::class,
     ]
 ];

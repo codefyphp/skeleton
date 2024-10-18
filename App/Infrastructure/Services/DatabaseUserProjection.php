@@ -49,13 +49,13 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
                     ->set([
                         'user_id' => $event->userId()->__toString(),
                         'username' => $event->username()->__toString(),
+                        'token' => $event->token()->__toString(),
                         'first_name' => $event->name()->getFirstName()->toNative(),
                         'middle_name' => $event->name()->getMiddleName()->toNative(),
                         'last_name' => $event->name()->getLastName()->toNative(),
                         'email' => $event->emailAddress()->toNative(),
                         'role' => $event->role()->toNative(),
                         'password' => Password::hash($event->password()->toNative()),
-                        'token' => UserToken::generateAsString(),
                         'created_on' => $event->createdOn(),
                 ])
                 ->save();
@@ -142,7 +142,7 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
                     ->table(tableName: 'users')
                     ->set([
                         'password' => Password::hash($event->password()->toNative()),
-                        'token' => UserToken::generateAsString(),
+                        'token' => $event->token()->toNative(),
                 ])
                 ->where('user_id = ?', $event->userId()->__toString())
                 ->update();

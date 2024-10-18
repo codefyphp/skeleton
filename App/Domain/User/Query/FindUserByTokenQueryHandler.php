@@ -15,7 +15,7 @@ final class FindUserByTokenQueryHandler implements QueryHandler
     /**
      * @throws Exception
      */
-    public function handle(Query $query): mixed
+    public function handle(FindUserByTokenQuery|Query $query): \Qubus\Expressive\OrmBuilder|bool
     {
         $orm = orm();
         return $orm->table('users')

@@ -3,6 +3,7 @@
 namespace App\Domain\User\Event;
 
 use App\Domain\User\ValueObject\UserId;
+use App\Domain\User\ValueObject\UserToken;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
@@ -19,14 +20,18 @@ class PasswordWasChanged extends AggregateChanged
 
     private ?StringLiteral $password = null;
 
+    private ?UserToken $token = null;
+
     public static function withData(
         UserId $userId,
-        StringLiteral $password
+        StringLiteral $password,
+        UserToken $token
     ): PasswordWasChanged|DomainEvent|AggregateChanged {
         $event = self::occur(
             aggregateId: $userId,
             payload: [
                 'password' => Password::hash($password->toNative()),
+                'token' => $token->toNative()
             ],
             metadata: [
                 Metadata::AGGREGATE_TYPE => 'user'
@@ -35,6 +40,7 @@ class PasswordWasChanged extends AggregateChanged
 
         $event->userId = $userId;
         $event->password = $password;
+        $event->token = $token;
 
         return $event;
     }
@@ -61,5 +67,16 @@ class PasswordWasChanged extends AggregateChanged
         }
 
         return $this->password;
+    }
+
+    /**
+     * @throws TypeException
+     */
+    public function token(): UserToken
+    {
+        if (is_null__(var: $this->token)) {
+            $this->token = UserToken::fromString($this->payload()['token']);
+        }
+        return $this->token;
     }
 }

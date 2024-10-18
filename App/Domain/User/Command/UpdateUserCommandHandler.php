@@ -22,7 +22,7 @@ final readonly class UpdateUserCommandHandler implements CommandHandler
      * @throws AggregateNotFoundException
      * @throws Exception
      */
-    public function handle(Command $command): void
+    public function handle(UpdateUserCommand|Command $command): void
     {
         /** @var User $user */
         $user = $this->aggregateRepository->loadAggregateRoot(aggregateId: $command->userId);
@@ -40,7 +40,7 @@ final readonly class UpdateUserCommandHandler implements CommandHandler
         $user->changeRole(role: $command->role);
 
         if (!empty($command->password->__toString())) {
-            $user->changePassword(password: $command->password);
+            $user->changePassword(password: $command->password, token: $command->token);
         }
 
         $this->aggregateRepository->saveAggregateRoot(aggregate: $user);

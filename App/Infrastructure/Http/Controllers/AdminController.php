@@ -8,6 +8,7 @@ use App\Domain\User\Command\CreateUserCommand;
 use App\Domain\User\Command\UpdateUserCommand;
 use App\Domain\User\ValueObject\UserId;
 use App\Domain\User\ValueObject\Username;
+use App\Domain\User\ValueObject\UserToken;
 use App\Infrastructure\Services\UserAuth;
 use Codefy\CommandBus\Busses\SynchronousCommandBus;
 use Codefy\CommandBus\Containers\ContainerFactory;
@@ -212,6 +213,7 @@ final class AdminController extends BaseController
 
         $command = new CreateUserCommand(data: [
             'username' => new Username(value: $request->get('username')),
+            'token' => new UserToken(),
             'firstName' => new StringLiteral(value: $request->get('first_name')),
             'lastName' => new StringLiteral(value: $request->get('last_name')),
             'email' => new EmailAddress(value: $request->get('email')),
@@ -269,6 +271,7 @@ final class AdminController extends BaseController
             'email' => new EmailAddress(value: $request->get('email')),
             'role' => new StringLiteral(value: $request->get('role')),
             'password' => new StringLiteral(value: $request->get('password')),
+            'token' => new UserToken(),
         ]);
 
         try {
