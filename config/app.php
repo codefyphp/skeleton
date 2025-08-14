@@ -88,6 +88,7 @@ return [
         'user.session' => Codefy\Framework\Auth\Middleware\UserSessionMiddleware::class,
         'user.authorization' => App\Infrastructure\Http\Middleware\UserAuthorizationMiddleware::class,
         'user.session.expire' => App\Infrastructure\Http\Middleware\ExpireUserSessionMiddleware::class,
+        'php.debugbar' => App\Infrastructure\Http\Middleware\PhpDebugBarMiddleware::class,
     ],
 
     /*
