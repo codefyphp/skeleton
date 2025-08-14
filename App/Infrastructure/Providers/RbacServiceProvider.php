@@ -13,6 +13,8 @@ use Codefy\Framework\Auth\Repository\AuthUserRepository;
 use Codefy\Framework\Auth\Repository\PdoRepository;
 use Codefy\Framework\Auth\Sentinel;
 use Codefy\Framework\Support\CodefyServiceProvider;
+use Gettext\Translator;
+use Gettext\TranslatorFunctions;
 use Qubus\Exception\Exception;
 
 final class RbacServiceProvider extends CodefyServiceProvider
@@ -25,6 +27,9 @@ final class RbacServiceProvider extends CodefyServiceProvider
         if ($this->codefy->isRunningInConsole()) {
             return;
         }
+
+        $translator = new Translator();
+        TranslatorFunctions::register($translator);
 
         $this->codefy->alias(original: StorageResource::class, alias: FileResource::class);
         $this->codefy->define(name: FileResource::class, args: [
