@@ -14,6 +14,7 @@ use Codefy\Domain\Metadata;
 use Codefy\Framework\Support\Password;
 use DateTimeInterface;
 use Qubus\Exception\Data\TypeException;
+use Qubus\Exception\Exception;
 use Qubus\Support\DateTime\QubusDateTimeImmutable;
 use Qubus\ValueObjects\Person\Name;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
@@ -40,6 +41,9 @@ class UserWasCreated extends AggregateChanged
 
     private ?DateTimeInterface $createdOn = null;
 
+    /**
+     * @throws Exception
+     */
     public static function withData(
         UserId $userId,
         Username $username,
