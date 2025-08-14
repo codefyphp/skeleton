@@ -58,7 +58,11 @@ class NameWasChanged extends AggregateChanged
     public function name(): Name
     {
         if (is_null__($this->name)) {
-            $this->name = Name::fromNative($this->payload()['first_name'], $this->payload()['middle_name'], $this->payload()['last_name']);
+            $this->name = Name::fromNative(
+                $this->payload()['first_name'],
+                $this->payload()['middle_name'],
+                $this->payload()['last_name']
+            );
         }
 
         return $this->name;
