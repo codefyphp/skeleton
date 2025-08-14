@@ -39,6 +39,9 @@ final class User extends EventSourcedAggregate implements AggregateRoot
 
     private ?StringLiteral $password = null;
 
+    /**
+     * @throws \Qubus\Exception\Exception
+     */
     public static function createUser(
         UserId $userId,
         Username $username,
@@ -55,6 +58,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
             event: UserWasCreated::withData(
                 userId: $userId,
                 username: $username,
+                token: $token,
                 name: $name,
                 emailAddress: $emailAddress,
                 role: $role,
