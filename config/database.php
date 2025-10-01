@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use function Codefy\Framework\Helpers\database_path;
 use function Codefy\Framework\Helpers\env;
 
 return [
@@ -11,6 +12,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'default' => env(key: 'DB_CONNECTION'),
+
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -23,70 +25,57 @@ return [
         | Application Base connection
         |--------------------------------------------------------------------------
         */
-        'default' => [
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database Driver
-            |--------------------------------------------------------------------------
-            */
+        'mysql' => [
             'driver' => env(key: 'DB_DRIVER'),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database Host
-            |--------------------------------------------------------------------------
-            */
-            'host' => env(key: 'DB_HOST'),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database Post
-            |--------------------------------------------------------------------------
-            */
-            'port' => env(key: 'DB_PORT'),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database Name
-            |--------------------------------------------------------------------------
-            */
-            'dbname' => env(key: 'DB_NAME'),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database Charset
-            |--------------------------------------------------------------------------
-            */
-            'charset' => env(key: 'DB_CHARSET', default: 'utf8mb4'),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database Collation
-            |--------------------------------------------------------------------------
-            */
+            'dsn' => env(key: 'DB_DSN'),
             'collation' => env(key: 'DB_COLLATION', default: 'utf8mb4_unicode_ci'),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database Table Prefix
-            |--------------------------------------------------------------------------
-            */
-            'prefix' => env(key: 'DB_TABLE_PREFIX', default: ''),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database User
-            |--------------------------------------------------------------------------
-            */
             'username' => env(key: 'DB_USER'),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database Password
-            |--------------------------------------------------------------------------
-            */
             'password' => env(key: 'DB_PASSWORD'),
+            'options' => [
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_PERSISTENT => env(key: 'DB_PERSISTENT'),
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
+            ],
+        ],
+
+        'sqlite' => [
+            'driver' => env(key: 'DB_DRIVER'),
+            'dsn' => 'sqlite:' . database_path(path: 'codefy.sqlite'),
+            'username' => null,
+            'password' => null,
+            'options' => [
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_PERSISTENT => env(key: 'DB_PERSISTENT'),
+            ],
         ]
+    ],
+
+    'redis' => [
+        'options' => [
+            'prefix' => env(key: 'REDIS_PREFIX'),
+            'persistent' => env(key: 'REDIS_PERSISTENT'),
+        ],
+
+        'default' => [
+            'scheme' => env(key: 'REDIS_SCHEME'),
+            'host' => env(key: 'REDIS_HOST'),
+            'username' => env(key: 'REDIS_USERNAME'),
+            'password' => env(key: 'REDIS_PASSWORD'),
+            'port' => env(key: 'REDIS_PORT'),
+            'max_retries' => env(key: 'REDIS_MAX_RETRIES', default: 10),
+            'database' => env(key: 'REDIS_DB'),
+        ],
+
+        'cache' => [
+            'scheme' => env(key: 'REDIS_SCHEME'),
+            'host' => env(key: 'REDIS_HOST'),
+            'username' => env(key: 'REDIS_USERNAME'),
+            'password' => env(key: 'REDIS_PASSWORD'),
+            'port' => env(key: 'REDIS_PORT'),
+            'max_retries' => env(key: 'REDIS_MAX_RETRIES', default: 10),
+            'database' => env(key: 'REDIS_CACHE_DB'),
+        ],
     ],
 ];

@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://codefyphp.com/"><img src="https://img.shields.io/packagist/v/CodefyPHP/codefy?label=CodefyPHP" alt="Latest Stable Version"></a>
-    <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.2-777BB4.svg?style=flat&logo=php" alt="PHP 8.2"/></a>
+    <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.4-777BB4.svg?style=flat&logo=php" alt="PHP 8.4"/></a>
     <a href="https://packagist.org/packages/codefyphp/codefy"><img src="https://img.shields.io/packagist/l/codefyphp/codefy" alt="License"></a>
     <a href="https://packagist.org/packages/codefyphp/codefy"><img src="https://img.shields.io/packagist/dt/codefyphp/codefy" alt="Total Downloads"></a>
     <a href="https://codefyphp.com/community/"><img src="https://img.shields.io/badge/Forum-AE508D.svg?label=Support&style=flat" alt="CodefyPHP Support Forum"></a>
@@ -32,7 +32,7 @@ none of the features and instead use the interfaces to build your own implementa
 </h3>
 
 ## 📍 Requirement
-- PHP 8.2+
+- PHP 8.4+
 - Additional constraints based on which components are used.
 
 ## 🏆 Highlighted Features

@@ -13,24 +13,21 @@
         }
     ],
     "require": {
-        "php": ">=8.3",
-        "codefyphp/codefy": "^2",
-        "franzl/whoops-middleware": "^2.0",
-        "paragonie/csp-builder": "^2.9"
+        "php": ">=8.4",
+        "ext-pdo": "*",
+        "codefyphp/codefy": "^3.0.x-dev"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "App/"
-        },
-        "files": [
-            "App/Infrastructure/Http/Middleware/Csrf/helpers.php"
-        ]
+            "App\\": "app/"
+        }
     },
     "scripts": {
         "test": "vendor/bin/pest",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf"
     },
+    "minimum-stability": "dev",
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true,
@@ -40,9 +37,8 @@
         }
     },
     "require-dev": {
-        "pestphp/pest": "^1.23",
-        "php-debugbar/php-debugbar": "^2.1",
-        "qubus/qubus-coding-standard": "^1.1"
+        "php-debugbar/php-debugbar": "^2",
+        "qubus/qubus-coding-standard": "^2"
     },
     "suggest": {
         "fenom/fenom": "Lightweight and fast template engine for PHP.",

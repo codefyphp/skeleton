@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Codefy\Framework\Migration\Migration;
-use Qubus\Dbal\Schema\CreateTable;
+use Opis\Database\Schema\CreateTable;
 use Qubus\Exception\Exception;
+use Qubus\Expressive\Migration\Migration;
 
 class CreateUsersTable extends Migration
 {

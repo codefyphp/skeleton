@@ -2,21 +2,35 @@
 
 declare(strict_types=1);
 
-use Codefy\Framework\Application;
+use App\Infrastructure\Providers\DatabaseServiceProvider;
+use App\Infrastructure\Providers\ViewServiceProvider;
+use Codefy\Framework\Application as CodefyApp;
 use Qubus\Exception\Data\TypeException;
 
 use function Codefy\Framework\Helpers\env;
 
 try {
-    $app = new Application(
-        params: [
+    $app = CodefyApp::create(
+        config: [
             'basePath' => env(key: 'APP_BASE_PATH', default: dirname(path: __DIR__))
         ]
-    );
+    )
+    //->withEncryptedEnv(bool: true)
+    ->withProviders([
+        DatabaseServiceProvider::class,
+        ViewServiceProvider::class,
+    ])
+    ->withSingletons([
+        //
+    ])
+    ->withRouting(
+        web: __DIR__ . '/../routes/web/web.php',
+        api: __DIR__ . '/../routes/api/rest.php',
+    )->return();
 
     $app->share(nameOrInstance: $app);
 
-    return $app;
-} catch (TypeException $e) {
+    return $app::getInstance();
+} catch (TypeException|ReflectionException $e) {
     return $e->getMessage();
 }

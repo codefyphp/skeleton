@@ -1,7 +1,14 @@
-<!doctype html>
-<html lang="en" class="h-100" data-bs-theme="auto">
-<head><script src="assets/js/color-modes.js"></script>
+<?php
 
+use App\Shared\Services\Server;
+use Codefy\Framework\Proxy\Codefy;
+
+?>
+<!doctype html>
+<html lang="<?=Codefy::$PHP->language;?>" class="h-100" data-bs-theme="auto">
+<head>
+    <base href="<?=Server::siteUrl();?>">
+    <script src="assets/js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="CodefyPHP Framework <?=$this->esc(\Codefy\Framework\Application::APP_VERSION);?>">

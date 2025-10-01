@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use function Codefy\Framework\Helpers\public_path;
 use function Codefy\Framework\Helpers\storage_path;
 use function Qubus\Config\Helpers\env;
 
@@ -40,7 +41,7 @@ return [
         |--------------------------------------------------------------------------
         */
         'public' => [
-            'root' => storage_path(path: 'app/public'),
+            'root' => public_path(),
             'visibility' => \League\Flysystem\Visibility::PUBLIC,
             'permission' => [
                 'file' => [

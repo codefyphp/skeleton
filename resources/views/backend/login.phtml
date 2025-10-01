@@ -1,8 +1,7 @@
 <?php
 
-use Codefy\Framework\Codefy;
+use Codefy\Framework\Proxy\Codefy;
 
-use function Codefy\Framework\Helpers\config;
 use function Qubus\Security\Helpers\t__;
 
 $this->parent('framework::backend/auth-layout');
@@ -24,7 +23,7 @@ $this->block('content', function ($params) {
     </div>
 
     <button class="btn btn-primary w-100 py-2" type="submit"><?=t__(msgid: 'Sign in');?></button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+    <p class="mt-5 mb-3 text-body-secondary">&copy; 2025</p>
   </form>
 </main>
 

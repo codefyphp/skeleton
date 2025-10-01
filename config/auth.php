@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use function Codefy\Framework\Helpers\env;
 
 return [
@@ -10,7 +12,9 @@ return [
      */
     'encryption_key' => env(key: 'APP_ENCRYPTION_KEY'),
 
-    'login_url' => env(key: 'APP_BASE_URL') . '/admin/login/',
+    'login_route' => 'login',
+
+    'login_url' => env(key: 'APP_BASE_URL') . '/admin/${login_route}/',
 
     'admin_url' => env(key: 'APP_BASE_URL') . '/admin/',
 

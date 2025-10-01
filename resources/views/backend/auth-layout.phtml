@@ -1,13 +1,16 @@
 <?php
 
-use function Codefy\Framework\Helpers\env;
+use App\Shared\Services\Server;
+use Codefy\Framework\Proxy\Codefy;
+
 use function Qubus\Security\Helpers\t__;
 
 ?>
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="<?=Codefy::$PHP->language;?>" data-bs-theme="auto">
   <head>
-    <script src="<?=env('APP_BASE_URL');?>/assets/js/modes.js"></script>
+    <base href="<?=Server::siteUrl();?>">
+    <script src="/assets/js/modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="CodefyPHP Framework <?=$this->esc(\Codefy\Framework\Application::APP_VERSION);?>">
@@ -98,7 +101,7 @@ use function Qubus\Security\Helpers\t__;
  
     
     <!-- Custom styles for this template -->
-    <link href="<?=env('APP_BASE_URL');?>/assets/css/authforms.css" rel="stylesheet">
+    <link href="/assets/css/authforms.css" rel="stylesheet">
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">

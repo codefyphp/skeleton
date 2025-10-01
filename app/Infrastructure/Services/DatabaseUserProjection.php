@@ -1,0 +1,140 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Infrastructure\Services;
+
+use App\Domain\User\Event\EmailAddressWasChanged;
+use App\Domain\User\Event\NameWasChanged;
+use App\Domain\User\Event\PasswordWasChanged;
+use App\Domain\User\Event\RoleWasChanged;
+use App\Domain\User\Event\UserWasCreated;
+use App\Domain\User\Services\UserProjection;
+use Codefy\Domain\EventSourcing\BaseProjection;
+use Exception as NativeException;
+use Qubus\Exception\Data\TypeException;
+use Qubus\Expressive\Database;
+use Qubus\Expressive\QueryBuilderException;
+
+final class DatabaseUserProjection extends BaseProjection implements UserProjection
+{
+    public function __construct(private readonly Database $db)
+    {
+    }
+
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
+    public function projectWhenUserWasCreated(UserWasCreated $event): void
+    {
+        try {
+            $this->db->transactional(callback: function () use ($event) {
+                $this->db
+                    ->table(tableName: 'users')
+                    ->set([
+                        'user_id' => $event->userId()->__toString(),
+                        'username' => $event->username()->__toString(),
+                        'token' => $event->token()->__toString(),
+                        'first_name' => $event->name()->getFirstName()->toNative(),
+                        'middle_name' => $event->name()->getMiddleName()->toNative(),
+                        'last_name' => $event->name()->getLastName()->toNative(),
+                        'email' => $event->emailAddress()->toNative(),
+                        'role' => $event->role()->toNative(),
+                        'password' => $event->password()->toNative(),
+                        'created_on' => $event->createdOn(),
+                ])
+                ->save();
+            });
+        } catch (QueryBuilderException $e) {
+            throw new NativeException(message: $e->getMessage());
+        }
+    }
+
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
+    public function projectWhenEmailAddressWasChanged(EmailAddressWasChanged $event): void
+    {
+        try {
+            $this->db->transactional(callback: function () use ($event) {
+                $this->db
+                    ->table(tableName: 'users')
+                    ->set([
+                        'email' => $event->emailAddress()->toNative(),
+                ])
+                ->where('user_id = ?', $event->userId()->__toString())
+                ->update();
+            });
+        } catch (QueryBuilderException $e) {
+            throw new NativeException(message: $e->getMessage());
+        }
+    }
+
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
+    public function projectWhenNameWasChanged(NameWasChanged $event): void
+    {
+        try {
+            $this->db->transactional(callback: function () use ($event) {
+                $this->db
+                    ->table(tableName: 'users')
+                    ->set([
+                        'first_name' => $event->firstName(),
+                        'middle_name' => $event->middleName(),
+                        'last_name' => $event->lastName(),
+                ])
+                ->where('user_id = ?', $event->userId()->__toString())
+                ->update();
+            });
+        } catch (QueryBuilderException $e) {
+            throw new NativeException(message: $e->getMessage());
+        }
+    }
+
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
+    public function projectWhenRoleWasChanged(RoleWasChanged $event): void
+    {
+        try {
+            $this->db->transactional(callback: function () use ($event) {
+                $this->db
+                    ->table(tableName: 'users')
+                    ->set([
+                        'role' => $event->role()->toNative(),
+                    ])
+                    ->where('user_id = ?', $event->userId()->__toString())
+                    ->update();
+            });
+        } catch (QueryBuilderException $e) {
+            throw new NativeException(message: $e->getMessage());
+        }
+    }
+
+    /**
+     * @throws TypeException
+     * @throws NativeException
+     */
+    public function projectWhenPasswordWasChanged(PasswordWasChanged $event): void
+    {
+        try {
+            $this->db->transactional(callback: function () use ($event) {
+                $this->db
+                    ->table(tableName: 'users')
+                    ->set([
+                        'password' => $event->password()->toNative(),
+                        'token' => $event->token()->toNative(),
+                ])
+                ->where('user_id = ?', $event->userId()->__toString())
+                ->update();
+            });
+        } catch (QueryBuilderException $e) {
+            throw new NativeException(message: $e->getMessage());
+        }
+    }
+}
