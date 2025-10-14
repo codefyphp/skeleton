@@ -1,0 +1,199 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CodefyPHP\n"
+"POT-Creation-Date: 2025-10-14 12:05-0700\n"
+"PO-Revision-Date: 2025-10-14 12:05-0700\n"
+"Last-Translator: \n"
+"Language-Team: Joshua Parker <joshua@joshuaparker.dev>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: codefy\n"
+"X-Generator: Poedit 3.6\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-KeywordsList: t__;esc_html__;esc_attr__;trans\n"
+"X-Poedit-SearchPath-0: App\n"
+"X-Poedit-SearchPath-1: resources/views\n"
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:92
+#: App/Infrastructure/Http/Controllers/AdminController.php:116
+msgid "You must be logged in to access the admin area."
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:126
+msgid "User Profile"
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:154
+msgid "Login"
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:173
+msgid "You are already logged out."
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:200
+msgid "Register"
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:241
+msgid "User added successfully."
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:247
+msgid "Could not execute create user command."
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:269
+msgid "You must be logged in to perform that action."
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:298
+msgid "Profile was updated successfully."
+msgstr ""
+
+#: App/Infrastructure/Http/Controllers/AdminController.php:304
+msgid "Could not update the profile."
+msgstr ""
+
+#: resources/views/backend/admin-layout.phtml:51
+msgid "Sign out"
+msgstr ""
+
+#: resources/views/backend/admin-layout.phtml:64
+msgid "Dashboard"
+msgstr ""
+
+#: resources/views/backend/admin-layout.phtml:70
+msgid "Profile"
+msgstr ""
+
+#: resources/views/backend/auth-layout.phtml:132
+msgid "Toggle theme"
+msgstr ""
+
+#: resources/views/backend/auth-layout.phtml:138
+msgid "Light"
+msgstr ""
+
+#: resources/views/backend/auth-layout.phtml:145
+msgid "Dark"
+msgstr ""
+
+#: resources/views/backend/auth-layout.phtml:152
+msgid "Auto"
+msgstr ""
+
+#: resources/views/backend/index.phtml:14
+msgid "Welcome"
+msgstr ""
+
+#: resources/views/backend/index.phtml:16
+msgid "You've successfully installed CodefyPHP and created your first account."
+msgstr ""
+
+#: resources/views/backend/login.phtml:14
+msgid "Please sign in"
+msgstr ""
+
+#: resources/views/backend/login.phtml:18
+#: resources/views/backend/register.phtml:19
+msgid "Email address"
+msgstr ""
+
+#: resources/views/backend/login.phtml:22
+#: resources/views/backend/profile.phtml:71
+#: resources/views/backend/register.phtml:36
+msgid "Password"
+msgstr ""
+
+#: resources/views/backend/login.phtml:25
+msgid "Sign in"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:18
+msgid "First name"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:21
+msgid "Valid first name is required."
+msgstr ""
+
+#: resources/views/backend/profile.phtml:26
+msgid "Middle name"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:31
+msgid "Last name"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:34
+msgid "Valid last name is required."
+msgstr ""
+
+#: resources/views/backend/profile.phtml:39
+#: resources/views/backend/register.phtml:23
+msgid "Username"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:44
+msgid "Your username is required."
+msgstr ""
+
+#: resources/views/backend/profile.phtml:50
+msgid "Email"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:53
+msgid "Your email is required."
+msgstr ""
+
+#: resources/views/backend/profile.phtml:58
+msgid "Role"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:60
+msgid "Select Role"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:66
+msgid "Role is required."
+msgstr ""
+
+#: resources/views/backend/profile.phtml:79
+msgid "Update"
+msgstr ""
+
+#: resources/views/backend/register.phtml:15
+msgid "Register a new account"
+msgstr ""
+
+#: resources/views/backend/register.phtml:27
+msgid "First Name"
+msgstr ""
+
+#: resources/views/backend/register.phtml:31
+msgid "Last Name"
+msgstr ""
+
+#: resources/views/home.phtml:12
+msgid "Codefy installed successfully. You can start working on this page at:"
+msgstr ""
+
+#: resources/views/home.phtml:19
+msgid "Learn more"
+msgstr "Mas Informacion"
+
+#: resources/views/layout.phtml:122
+msgid "Home"
+msgstr "Hogar"
+
+#: resources/views/layout.phtml:123
+msgid "Docs"
+msgstr ""
+
+#: resources/views/layout.phtml:124
+msgid "Community"
+msgstr ""
