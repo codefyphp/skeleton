@@ -12,7 +12,7 @@
     <arg value="p"/>
 
     <!-- Paths to check -->
-    <file>App</file>
+    <file>app</file>
     <file>bootstrap</file>
     <file>config</file>
     <file>database</file>
