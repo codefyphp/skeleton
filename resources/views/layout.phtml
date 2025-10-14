@@ -119,9 +119,9 @@ use function Codefy\Framework\Helpers\trans;
         <div>
             <h3 class="float-md-start mb-0"><?=$this->esc($title);?></h3>
             <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#"><?=trans('Home');?></a>
-                <a class="nav-link fw-bold py-1 px-0" href="https://codefyphp.com/"><?=trans('Docs');?></a>
-                <a class="nav-link fw-bold py-1 px-0" href="https://codefyphp.com/community/"><?=trans('Community');?></a>
+                <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="<?=site_url();?>"><?=trans('Home');?></a>
+                <a class="nav-link fw-bold py-1 px-0" href="https://codefyphp.com/docs/"><?=trans('Docs');?></a>
+                <a class="nav-link fw-bold py-1 px-0" href="https://forum.codefyphp.com/"><?=trans('Community');?></a>
             </nav>
         </div>
     </header>
@@ -129,7 +129,7 @@ use function Codefy\Framework\Helpers\trans;
     <?php $this->block('content'); ?>
 
     <footer class="mt-auto text-white-50">
-        <p>CodefyPHP is an opensource project released under the MIT opensource license, by <a href="https://x.com/_nomadicjosh_" class="text-white">@_nomadicjosh_</a>.</p>
+        <p>CodefyPHP is an opensource project released under the MIT opensource license, by <a href="https://x.com/codefyphp" class="text-white">@codefyphp</a>.</p>
     </footer>
 </div>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
