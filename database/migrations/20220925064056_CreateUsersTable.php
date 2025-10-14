@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Opis\Database\Schema\CreateTable;
 use Qubus\Exception\Exception;
 use Qubus\Expressive\Migration\Migration;
+use Qubus\Expressive\Schema\CreateTable;
 
 class CreateUsersTable extends Migration
 {
