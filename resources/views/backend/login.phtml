@@ -2,7 +2,7 @@
 
 use Codefy\Framework\Proxy\Codefy;
 
-use function Qubus\Security\Helpers\t__;
+use function Codefy\Framework\Helpers\trans;
 
 $this->parent('framework::backend/auth-layout');
 $this->block('content', function ($params) {
@@ -11,19 +11,19 @@ $this->block('content', function ($params) {
 <main class="form-login w-100 m-auto">
 <?=Codefy::$PHP->flash->display();?>
   <form class="needs-validation" method="post" action="<?=$this->esc($params['url']);?>">
-    <h1 class="h3 mb-3 fw-normal"><?=t__(msgid: 'Please sign in');?></h1>
+    <h1 class="h3 mb-3 fw-normal"><?=trans('Please sign in');?></h1>
  
     <div class="form-floating">
       <input type="text" class="form-control" id="floatingInput" name="email" required>
-      <label for="floatingInput"><?=t__(msgid: 'Email address');?></label>
+      <label for="floatingInput"><?=trans('Email address');?></label>
     </div>
     <div class="form-floating">
       <input type="password" class="form-control" id="floatingPassword" name="password" required>
-      <label for="floatingPassword"><?=t__(msgid: 'Password');?></label>
+      <label for="floatingPassword"><?=trans('Password');?></label>
     </div>
 
-    <button class="btn btn-primary w-100 py-2" type="submit"><?=t__(msgid: 'Sign in');?></button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; 2025</p>
+    <button class="btn btn-primary w-100 py-2" type="submit"><?=trans('Sign in');?></button>
+    <p class="mt-5 mb-3 text-body-secondary">&copy; <?=date('Y');?></p>
   </form>
 </main>
 

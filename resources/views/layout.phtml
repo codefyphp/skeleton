@@ -1,13 +1,15 @@
 <?php
 
-use App\Shared\Services\Server;
 use Codefy\Framework\Proxy\Codefy;
+
+use function Codefy\Framework\Helpers\site_url;
+use function Codefy\Framework\Helpers\trans;
 
 ?>
 <!doctype html>
 <html lang="<?=Codefy::$PHP->language;?>" class="h-100" data-bs-theme="auto">
 <head>
-    <base href="<?=Server::siteUrl();?>">
+    <base href="<?=site_url()?>">
     <script src="assets/js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -117,9 +119,9 @@ use Codefy\Framework\Proxy\Codefy;
         <div>
             <h3 class="float-md-start mb-0"><?=$this->esc($title);?></h3>
             <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
-                <a class="nav-link fw-bold py-1 px-0" href="https://codefyphp.com/documentation/">Docs</a>
-                <a class="nav-link fw-bold py-1 px-0" href="https://codefyphp.com/community/">Community</a>
+                <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#"><?=trans('Home');?></a>
+                <a class="nav-link fw-bold py-1 px-0" href="https://codefyphp.com/"><?=trans('Docs');?></a>
+                <a class="nav-link fw-bold py-1 px-0" href="https://codefyphp.com/community/"><?=trans('Community');?></a>
             </nav>
         </div>
     </header>

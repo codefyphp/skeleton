@@ -1,4 +1,7 @@
 <?php
+
+use function Codefy\Framework\Helpers\trans;
+
 $this->parent('framework::layout');
 $this->block('content', function ($params) {
     ?>
@@ -6,14 +9,14 @@ $this->block('content', function ($params) {
     <main class="px-3">
         <h2>Welcome to CodefyPHP <?=$this->esc(\Codefy\Framework\Application::APP_VERSION);?></h2>
         <p class="lead">
-            Codefy installed successfully. You can start working on this page at:
+            <?=trans('Codefy installed successfully. You can start working on this page at:');?>
             <div class="alert alert-primary" role="alert">
                 <code>resources/views/home.phtml</code>
             </div>
         </p>
 
         <p class="lead">
-            <a href="https://codefyphp.com/documentation/" class="btn btn-lg btn-light fw-bold border-white bg-white">Learn more</a>
+            <a href="https://codefyphp.com/" class="btn btn-lg btn-light fw-bold border-white bg-white"><?=trans('Learn more');?></a>
         </p>
     </main>
 

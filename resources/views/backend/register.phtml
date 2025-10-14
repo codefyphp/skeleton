@@ -2,7 +2,8 @@
 
 use Codefy\Framework\Proxy\Codefy;
 
-use function Qubus\Security\Helpers\t__;
+use function Codefy\Framework\Helpers\site_url;
+use function Codefy\Framework\Helpers\trans;
 
 $this->parent('framework::backend/auth-layout');
 $this->block('content', function ($params) {
@@ -10,33 +11,33 @@ $this->block('content', function ($params) {
     
 <main class="form-register w-100 m-auto">
   <?=Codefy::$PHP->flash->display();?>
-  <form class="needs-validation" method="post" action="<?=$this->esc($params['url']);?>">
-    <h1 class="h3 mb-3 fw-normal"><?=t__(msgid: 'Register a new account');?></h1>
+  <form class="needs-validation" method="post" action="<?=site_url($params['url']);?>">
+    <h1 class="h3 mb-3 fw-normal"><?=trans('Register a new account');?></h1>
  
     <div class="form-floating">
       <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
-      <label for="floatingInput"><?=t__(msgid: 'Email address');?></label>
+      <label for="floatingInput"><?=trans('Email address');?></label>
     </div>
     <div class="form-floating">
       <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username" required>
-      <label for="floatingInput"><?=t__(msgid: 'Username');?></label>
+      <label for="floatingInput"><?=trans('Username');?></label>
     </div>
     <div class="form-floating">
       <input type="text" class="form-control" id="floatingFirstName" name="first_name" placeholder="First Name" required>
-      <label for="floatingFirstName"><?=t__(msgid: 'First Name');?></label>
+      <label for="floatingFirstName"><?=trans('First Name');?></label>
     </div>
     <div class="form-floating">
       <input type="text" class="form-control" id="floatingLastName" name="last_name" placeholder="Last Name" required>
-      <label for="floatingLastName"><?=t__(msgid: 'Last Name');?></label>
+      <label for="floatingLastName"><?=trans('Last Name');?></label>
     </div>
     <div class="form-floating">
       <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
       <input type="hidden" class="form-control" id="floatingPassword" name="role" value="admin">
-      <label for="floatingPassword"><?=t__(msgid: 'Password');?></label>
+      <label for="floatingPassword"><?=trans('Password');?></label>
     </div>
  
-    <button class="btn btn-primary w-100 py-2" type="submit"><?=t__(msgid: 'Register');?></button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; 2025</p>
+    <button class="btn btn-primary w-100 py-2" type="submit"><?=trans('Register');?></button>
+    <p class="mt-5 mb-3 text-body-secondary">&copy; <?=date('Y');?></p>
   </form>
 </main>
 
