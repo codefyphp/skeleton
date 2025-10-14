@@ -5,15 +5,11 @@ declare(strict_types=1);
 namespace App\Infrastructure\Services;
 
 use App\Domain\User\Query\FindUserByTokenQuery;
-use Codefy\CommandBus\Containers\ContainerFactory;
 use Codefy\CommandBus\Exceptions\CommandPropertyNotFoundException;
 use Codefy\Framework\Auth\Rbac\Rbac;
 use Codefy\Framework\Auth\UserSession;
 use Codefy\Framework\Factory\FileLoggerFactory;
 use Codefy\Framework\Http\Middleware\Auth\UserAuthorizationMiddleware;
-use Codefy\QueryBus\Busses\SynchronousQueryBus;
-use Codefy\QueryBus\Enquire;
-use Codefy\QueryBus\Resolvers\NativeQueryHandlerResolver;
 use Codefy\QueryBus\UnresolvableQueryHandlerException;
 use Exception;
 use Psr\Http\Message\ServerRequestInterface;
@@ -22,7 +18,7 @@ use Qubus\Expressive\Database;
 use Qubus\Http\Session\SessionService;
 use ReflectionException;
 
-use function Codefy\Framework\Helpers\config;
+use function Codefy\Framework\Helpers\ask;
 
 final class UserAuth
 {
@@ -91,20 +87,14 @@ final class UserAuth
      * @throws ReflectionException
      * @throws CommandPropertyNotFoundException
      * @throws UnresolvableQueryHandlerException
-     * @throws TypeException
      */
     private function findUserByToken(): Database|bool
     {
-        $resolver = new NativeQueryHandlerResolver(
-            container: ContainerFactory::make(config: config(key: 'querybus.aliases'))
-        );
-        $enquirer = new Enquire(bus: new SynchronousQueryBus($resolver));
-
         $query = new FindUserByTokenQuery(data: [
             'token' => $this->token,
         ]);
 
-        return $enquirer->execute($query);
+        return ask($query);
     }
 
     /**

@@ -35,7 +35,8 @@ use ReflectionException;
 
 use function Codefy\Framework\Helpers\command;
 use function Codefy\Framework\Helpers\config;
-use function Qubus\Security\Helpers\t__;
+use function Codefy\Framework\Helpers\site_url;
+use function Codefy\Framework\Helpers\trans;
 
 final class AdminController extends BaseController
 {
@@ -60,7 +61,7 @@ final class AdminController extends BaseController
     {
         if (false === $this->user->can(permissionName: 'admin:dashboard', request: $request)) {
             try {
-                return $this->redirect(url: $this->router->url(name: 'admin.login'));
+                return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.login')));
             } catch (NamedRouteNotFoundException|RouteParamFailedConstraintException $e) {
                 FileLoggerFactory::getLogger()->error(
                     message: $e->getMessage(),
@@ -71,7 +72,7 @@ final class AdminController extends BaseController
             return $this->redirect(url: $request->getHeaderLine('HTTP_REFERER'));
         }
 
-        return $this->redirect(url: $this->router->url(name: 'admin.home'));
+        return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.home')));
     }
 
     /**
@@ -84,13 +85,13 @@ final class AdminController extends BaseController
      * @throws TypeException
      * @throws \Exception
      */
-    public function index(ServerRequest $request): ?ResponseInterface
+    public function index(ServerRequest $request): ResponseInterface
     {
         if (false === $this->user->can(permissionName: 'admin:dashboard', request:  $request)) {
             Codefy::$PHP->flash->error(
-                message: t__(msgid: 'You must be logged in to access the admin area.', domain: 'codefy')
+                message: trans('You must be logged in to access the admin area.')
             );
-            return $this->redirect(url: $this->router->url(name: 'admin.login'));
+            return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.login')));
         }
 
         return HtmlResponseFactory::create(
@@ -108,21 +109,21 @@ final class AdminController extends BaseController
      * @throws TypeException
      * @throws \Exception
      */
-    public function profile(ServerRequest $request): ?ResponseInterface
+    public function profile(ServerRequest $request): ResponseInterface
     {
         if (false === $this->user->can(permissionName: 'admin:profile', request: $request)) {
             Codefy::$PHP->flash->error(
-                message: t__(msgid: 'You must be logged in to access the admin area.', domain: 'codefy')
+                message: trans('You must be logged in to access the admin area.')
             );
 
-            return $this->redirect(url: $this->router->url(name: 'admin.login'));
+            return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.login')));
         }
 
         return HtmlResponseFactory::create(
             $this->view->render(
                 template: 'framework::backend/profile',
                 data: [
-                    'title' => 'User Profile',
+                    'title' => trans('User Profile'),
                     'user' => $this->user->current(),
                     'roles' => config(key: 'rbac.roles'),
                     'url' => $this->router->url(name: 'admin.update'),
@@ -140,17 +141,17 @@ final class AdminController extends BaseController
      * @throws CommandPropertyNotFoundException
      * @throws \Exception
      */
-    public function login(ServerRequest $request): ?ResponseInterface
+    public function login(ServerRequest $request): ResponseInterface
     {
-        /*if (true === $this->user->can(permissionName: 'admin:dashboard', request: $request)) {
+        if (true === $this->user->can(permissionName: 'admin:dashboard', request: $request)) {
             return $this->redirect($this->router->url(name: 'admin.home'));
-        }*/
+        }
 
         return HtmlResponseFactory::create(
             $this->view->render(
                 template: 'framework::backend/login',
                 data: [
-                    'title' => t__(msgid: 'Login', domain: 'codefy'),
+                    'title' => trans('Login'),
                     'url' => $this->router->url(name: 'admin.auth'),
                 ]
             )
@@ -165,16 +166,16 @@ final class AdminController extends BaseController
      * @throws ReflectionException
      * @throws TypeException
      */
-    public function logout(ServerRequest $request): ?ResponseInterface
+    public function logout(ServerRequest $request): ResponseInterface
     {
         if (false === $this->user->can(permissionName: 'admin:dashboard', request: $request)) {
             Codefy::$PHP->flash->error(
-                message: t__(msgid: 'You are already logged out.', domain: 'codefy')
+                message: trans('You are already logged out.')
             );
-            return $this->redirect(url: $this->router->url(name: 'admin.login'));
+            return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.login')));
         }
 
-        return $this->redirect(url: $this->router->url(name: 'admin.login'));
+        return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.login')));
     }
 
     /**
@@ -186,17 +187,17 @@ final class AdminController extends BaseController
      * @throws CommandPropertyNotFoundException
      * @throws \Exception
      */
-    public function register(ServerRequest $request): ?ResponseInterface
+    public function register(ServerRequest $request): ResponseInterface
     {
         if (true === $this->user->can(permissionName: 'admin:dashboard', request: $request)) {
-            return $this->redirect(url: $this->router->url(name: 'admin.home'));
+            return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.home')));
         }
 
         return HtmlResponseFactory::create(
             $this->view->render(
                 template: 'framework::backend/register',
                 data: [
-                    'title' => t__(msgid: 'Register', domain: 'codefy'),
+                    'title' => trans('Register'),
                     'url' => $this->router->url(name: 'admin.create'),
                 ]
             )
@@ -211,14 +212,14 @@ final class AdminController extends BaseController
      * @throws Exception
      * @throws ReflectionException
      */
-    public function create(ServerRequest $request): ?ResponseInterface
+    public function create(ServerRequest $request): ResponseInterface
     {
         /*if(false === $this->user->can(permissionName: 'admin:dashboard')) {
             Codefy::$PHP->flash->error(
                 message: 'You must be logged in to perform that action.'
             );
 
-            return $this->redirect($this->router->url(name: 'admin.login'));
+            return $this->redirect(site_url(path: $this->router->url(name: 'admin.login')));
             exit();
         }*/
 
@@ -237,18 +238,18 @@ final class AdminController extends BaseController
             command(command: $command);
 
             Codefy::$PHP->flash->success(
-                message: t__(msgid: 'User added successfully.', domain: 'codefy'),
+                message: trans('User added successfully.'),
             );
 
-            return $this->redirect(url: $this->router->url(name: 'admin.login'));
+            return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.login')));
         } catch (CommandCouldNotBeHandledException|UnresolvableCommandHandlerException|ReflectionException $e) {
             Codefy::$PHP->flash->error(
-                message: t__('Could not execute create user command.', domain: 'codefy'),
+                message: trans('Could not execute create user command.'),
             );
 
             FileLoggerFactory::getLogger()->error(message: $e->getMessage(), context: ['AdminController' => 'create']);
 
-            return $this->redirect(url: $this->router->url(name: 'admin.create'));
+            return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.create')));
         }
     }
 
@@ -261,14 +262,20 @@ final class AdminController extends BaseController
      * @throws TypeException
      * @throws Exception
      */
-    public function update(ServerRequest $request): ?ResponseInterface
+    public function update(ServerRequest $request): ResponseInterface
     {
         if (false === $this->user->can(permissionName: 'admin:profile', request: $request)) {
             Codefy::$PHP->flash->error(
-                message: 'You must be logged in to perform that action.'
+                message: trans('You must be logged in to perform that action.')
             );
 
-            return $this->redirect(url: $this->router->url(name: 'admin.login'));
+            return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.login')));
+        }
+
+        if (empty($request->get('password'))) {
+            $password = '';
+        } else {
+            $password = Password::hash($request->get('password'));
         }
 
         $command = new UpdateUserCommand(data: [
@@ -280,7 +287,7 @@ final class AdminController extends BaseController
             'lastName' => new StringLiteral(value: $request->get('last_name')),
             'email' => new EmailAddress(value: $request->get('email')),
             'role' => new StringLiteral(value: $request->get('role')),
-            'password' => new StringLiteral(value: Password::hash($request->get('password'))),
+            'password' => new StringLiteral(value: $password),
             'token' => new UserToken(),
         ]);
 
@@ -288,18 +295,18 @@ final class AdminController extends BaseController
             command(command: $command);
 
             Codefy::$PHP->flash->success(
-                message: 'Profile was updated successfully.',
+                message: trans('Profile was updated successfully.'),
             );
 
             return $this->redirect(url: $this->router->url(name: 'admin.profile'));
         } catch (CommandCouldNotBeHandledException|UnresolvableCommandHandlerException|ReflectionException $e) {
             Codefy::$PHP->flash->error(
-                message: 'Could not update the profile.',
+                message: trans('Could not update the profile.'),
             );
 
             FileLoggerFactory::getLogger()->error(message: $e->getMessage(), context: ['AdminController' => 'update']);
 
-            return $this->redirect(url: $this->router->url(name: 'admin.profile'));
+            return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.profile')));
         }
     }
 }

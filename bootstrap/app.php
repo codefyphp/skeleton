@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Infrastructure\Providers\DatabaseServiceProvider;
 use App\Infrastructure\Providers\ViewServiceProvider;
 use Codefy\Framework\Application as CodefyApp;
+use Codefy\Framework\Providers\AssetsServiceProvider;
+use Codefy\Framework\Providers\LocalizationServiceProvider;
 use Qubus\Exception\Data\TypeException;
 
 use function Codefy\Framework\Helpers\env;
@@ -17,7 +19,9 @@ try {
     )
     //->withEncryptedEnv(bool: true)
     ->withProviders([
+        LocalizationServiceProvider::class,
         DatabaseServiceProvider::class,
+        AssetsServiceProvider::class,
         ViewServiceProvider::class,
     ])
     ->withSingletons([

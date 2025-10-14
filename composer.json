@@ -15,11 +15,11 @@
     "require": {
         "php": ">=8.4",
         "ext-pdo": "*",
-        "codefyphp/codefy": "^3.0.x-dev"
+        "codefyphp/codefy": "^3"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "App/"
         }
     },
     "scripts": {
@@ -27,7 +27,6 @@
         "cs-check": "phpcs",
         "cs-fix": "phpcbf"
     },
-    "minimum-stability": "dev",
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true,
