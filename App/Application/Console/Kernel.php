@@ -10,6 +10,13 @@ use Codefy\Framework\Scheduler\Schedule;
 class Kernel extends ConsoleKernel
 {
     /**
+     * Add your custom console commands here.
+     *
+     * @var array
+     */
+    protected array $commands = [];
+
+    /**
      * Place all your scheduled tasks here.
      *
      * @param Schedule $schedule
@@ -28,11 +35,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $commands = $this->codefy->make('codefy.config')->getConfigKey('app.commands');
-
-        foreach ($commands as $command) {
-            $command = $this->codefy->make($command);
-            $this->registerCommand($command);
-        }
+        $this->load($this->commands);
     }
 }
