@@ -12,6 +12,8 @@ use Codefy\Domain\Aggregate\AggregateRepository;
 use Exception;
 use Qubus\ValueObjects\Person\Name;
 
+use function Qubus\Support\Helpers\is_false__;
+
 final readonly class UpdateUserCommandHandler implements CommandHandler
 {
     public function __construct(public AggregateRepository $aggregateRepository)
@@ -39,7 +41,7 @@ final readonly class UpdateUserCommandHandler implements CommandHandler
 
         $user->changeRole(role: $command->role);
 
-        if (!empty($command->password->__toString())) {
+        if (is_false__($command->password->isEmpty())) {
             $user->changePassword(password: $command->password, token: $command->token);
         }
 
