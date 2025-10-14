@@ -5,6 +5,13 @@ declare(strict_types=1);
 use function Codefy\Framework\Helpers\env;
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | User session cookie name.
+    |--------------------------------------------------------------------------
+    */
+    'cookie_name' => 'USERSESSID',
+
     /**
      * Do not use the default app encryption key found in .env.example.
      * Generate a new encryption key by running this console command:
@@ -12,11 +19,18 @@ return [
      */
     'encryption_key' => env(key: 'APP_ENCRYPTION_KEY'),
 
+    /**
+     * If you update this value, you will need to update the values
+     * for `login_url` and `http_redirect` as well.
+     */
     'login_route' => 'login',
 
-    'login_url' => env(key: 'APP_BASE_URL') . '/admin/${login_route}/',
+    'login_url' => env(key: 'APP_BASE_URL') . 'admin/login/',
 
-    'admin_url' => env(key: 'APP_BASE_URL') . '/admin/',
+    /** Where should users be redirected when authentication fails? */
+    //'http_redirect' => '/admin/login/',
+
+    'admin_url' => env(key: 'APP_BASE_URL') . 'admin/',
 
     'pdo' => [
         /** name of the user's table */
@@ -35,6 +49,5 @@ return [
 
     ],
 
-    /** Where should users be redirected when authentication fails? */
-    'http_redirect' => '',
+    'redirect_guests_to' => '/admin/login/',
 ];

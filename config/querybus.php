@@ -23,16 +23,6 @@ return [
     */
     'aliases' => [
         Injector::ARGUMENT_DEFINITIONS => [
-            /*PDO::class => [
-                'dsn' => sprintf(
-                    '%s:dbname=%s;host=%s;charset=utf8mb4',
-                    env(key: 'DB_DRIVER'),
-                    env(key: 'DB_NAME'),
-                    env(key: 'DB_HOST')
-                ),
-                'username' => env(key: 'DB_USER'),
-                'password' => env(key: 'DB_PASSWORD'),
-            ],*/
             Collection::class => [
                 'config' => [
                     'path' => config_path(),

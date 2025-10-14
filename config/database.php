@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use function Codefy\Framework\Helpers\database_path;
 use function Codefy\Framework\Helpers\env;
 
 return [
@@ -26,9 +25,8 @@ return [
         |--------------------------------------------------------------------------
         */
         'mysql' => [
-            'driver' => env(key: 'DB_DRIVER'),
+            'driver' => 'mysql',
             'dsn' => env(key: 'DB_DSN'),
-            'collation' => env(key: 'DB_COLLATION', default: 'utf8mb4_unicode_ci'),
             'username' => env(key: 'DB_USER'),
             'password' => env(key: 'DB_PASSWORD'),
             'options' => [
@@ -40,10 +38,10 @@ return [
         ],
 
         'sqlite' => [
-            'driver' => env(key: 'DB_DRIVER'),
-            'dsn' => 'sqlite:' . database_path(path: 'codefy.sqlite'),
-            'username' => null,
-            'password' => null,
+            'driver' => 'sqlite',
+            'dsn' => env(key: 'DB_DSN'),
+            'username' => env(key: 'DB_USER'),
+            'password' => env(key: 'DB_PASSWORD'),
             'options' => [
                 PDO::ATTR_EMULATE_PREPARES => false,
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Codefy\Framework\Support\CodefyServiceProvider;
+
 use function Codefy\Framework\Helpers\env;
 
 return [
@@ -32,7 +34,7 @@ return [
     | Application Base Url
     |--------------------------------------------------------------------------
     */
-    'url' => env(key: 'APP_URL', default: 'http://localhost'),
+    'url' => env(key: 'APP_URL', default: 'https://codefy.ddev.site/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -50,6 +52,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Locale Domain
+    |--------------------------------------------------------------------------
+    */
+    'locale_domain' => 'codefy',
+
+    /*
+    |--------------------------------------------------------------------------
     | API key for restful routes.
     |--------------------------------------------------------------------------
     */
@@ -60,7 +69,15 @@ return [
     | Encryption Key
     |--------------------------------------------------------------------------
     */
-    'crypto_key' => env(key: 'APP_ENCRYPTION_KEY'),
+    'crypto_key' => file_get_contents(filename: __DIR__ . '/../.enc.key'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Event Listener Provider and Dispatcher
+    |--------------------------------------------------------------------------
+    */
+    'event_listener' => Qubus\EventDispatcher\Providers\PrioritizedProvider::class,
+    'event_dispatcher' => Qubus\EventDispatcher\EventDispatcher::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -69,15 +86,10 @@ return [
     | These service providers will automatically load when the application is
     | requested. Feel free to add your own service providers.
     */
-    'providers' => [
-        /*
-         * Application Service Providers.
-         */
-        App\Infrastructure\Providers\RbacServiceProvider::class,
-        App\Infrastructure\Providers\Psr16ServiceProvider::class,
-        App\Infrastructure\Providers\MiddlewareServiceProvider::class,
-        App\Infrastructure\Providers\AppServiceProvider::class,
-    ],
+    'providers' => CodefyServiceProvider::defaultProviders()->merge([
+        // Application Service Providers...
+        // App\Providers\AppServiceProvider::class,
+    ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------
@@ -87,7 +99,7 @@ return [
     | can add them to a route, a group of routes or controllers.
     */
     'middlewares' => [
-        'api' => App\Infrastructure\Http\Middleware\ApiMiddleware::class,
+        'api' => Codefy\Framework\Http\Middleware\ApiMiddleware::class,
         //'security.headers' => Codefy\Framework\Http\Middleware\SecureHeaders\ContentSecurityPolicyMiddleware::class,
         //'content.cache' => Codefy\Framework\Http\Middleware\ContentCacheMiddleware::class,
         //'cors' => Codefy\Framework\Http\Middleware\CorsMiddleware::class,
@@ -108,6 +120,7 @@ return [
         'user.authorization' => Codefy\Framework\Http\Middleware\Auth\UserAuthorizationMiddleware::class,
         'user.session.expire' => Codefy\Framework\Http\Middleware\Auth\ExpireUserSessionMiddleware::class,
         //'php.debugbar' => Codefy\Framework\Http\Middleware\DebugBarMiddleware::class,
+        'error.handler' => Middlewares\Whoops::class,
     ],
 
     /*
@@ -121,6 +134,7 @@ return [
         'csrf.token',
         'csrf.protection',
         'http.cache.prevention',
+        //'error.handler',
     ],
 
     /*
@@ -131,31 +145,6 @@ return [
     | requested. Feel free to add your own console commands.
     */
     'commands' => [
-        /*
-         * Codefy Framework Console Commands . . .
-         */
-        Codefy\Framework\Console\Commands\MakeCommand::class,
-        Codefy\Framework\Console\Commands\ScheduleRunCommand::class,
-        Codefy\Framework\Console\Commands\PasswordHashCommand::class,
-        Codefy\Framework\Console\Commands\InitCommand::class,
-        Codefy\Framework\Console\Commands\StatusCommand::class,
-        Codefy\Framework\Console\Commands\CheckCommand::class,
-        Codefy\Framework\Console\Commands\GenerateCommand::class,
-        Codefy\Framework\Console\Commands\UpCommand::class,
-        Codefy\Framework\Console\Commands\DownCommand::class,
-        Codefy\Framework\Console\Commands\MigrateCommand::class,
-        Codefy\Framework\Console\Commands\RollbackCommand::class,
-        Codefy\Framework\Console\Commands\RedoCommand::class,
-        Codefy\Framework\Console\Commands\ListCommand::class,
-        Codefy\Framework\Console\Commands\ServeCommand::class,
-        Codefy\Framework\Console\Commands\UuidCommand::class,
-        Codefy\Framework\Console\Commands\UlidCommand::class,
 
-        /*
-         * Application Console Commands . . .
-         */
-        App\Application\Console\Commands\GenerateEncryptionKeyCommand::class,
-        App\Application\Console\Commands\GenerateEncryptionKeyFileCommand::class,
-        App\Application\Console\Commands\EncryptEnvCommand::class,
     ]
 ];
