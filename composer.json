@@ -36,7 +36,6 @@
         }
     },
     "require-dev": {
-        "php-debugbar/php-debugbar": "^2",
         "qubus/qubus-coding-standard": "^2"
     },
     "suggest": {
