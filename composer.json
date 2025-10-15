@@ -42,6 +42,7 @@
     "suggest": {
         "fenom/fenom": "Lightweight and fast template engine for PHP.",
         "fenom/providers-collection": "Additional providers for Fenom template engine.",
-        "foil/foil": "Write simple, clean, and concise templates with nothing more than PHP."
+        "foil/foil": "Write simple, clean, and concise templates with nothing more than PHP.",
+        "phparkitect/phparkitect": "Helps you to keep your PHP codebase coherent and solid."
     }
 }
