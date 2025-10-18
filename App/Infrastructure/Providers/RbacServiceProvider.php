@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Providers;
 
+use App\Infrastructure\Services\UserAuth;
 use Codefy\Framework\Auth\Auth;
 use Codefy\Framework\Auth\Rbac\Rbac;
 use Codefy\Framework\Auth\Rbac\RbacLoader;
@@ -43,5 +44,6 @@ final class RbacServiceProvider extends CodefyServiceProvider
         $this->codefy->share(nameOrInstance: Sentinel::class);
         $this->codefy->alias(original: AuthUserRepository::class, alias: PdoRepository::class);
         $this->codefy->share(nameOrInstance: AuthUserRepository::class);
+        $this->codefy->share(nameOrInstance: UserAuth::class);
     }
 }
