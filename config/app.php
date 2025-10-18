@@ -88,7 +88,7 @@ return [
     */
     'providers' => CodefyServiceProvider::defaultProviders()->merge([
         // Application Service Providers...
-        // App\Providers\AppServiceProvider::class,
+        // App\Infrastructure\Providers\AppServiceProvider::class,
     ])->toArray(),
 
     /*
