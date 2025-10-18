@@ -13,6 +13,7 @@ use Codefy\Framework\Http\Middleware\Auth\UserAuthorizationMiddleware;
 use Codefy\QueryBus\UnresolvableQueryHandlerException;
 use Exception;
 use Psr\Http\Message\ServerRequestInterface;
+use Qubus\Config\ConfigContainer;
 use Qubus\Exception\Data\TypeException;
 use Qubus\Expressive\Database;
 use Qubus\Http\Session\SessionService;
@@ -27,7 +28,8 @@ final class UserAuth
     public function __construct(
         protected Rbac $rbac,
         protected SessionService $sessionService,
-        protected ServerRequestInterface $request
+        protected ServerRequestInterface $request,
+        protected ConfigContainer $configContainer
     ) {
     }
 
@@ -36,18 +38,20 @@ final class UserAuth
      * @throws ReflectionException
      * @throws TypeException
      * @throws CommandPropertyNotFoundException
+     * @throws \Qubus\Exception\Exception
      */
     public function can(string $permissionName, ServerRequestInterface $request, array $ruleParams = []): bool
     {
         $this->setRequest($request);
+        $cookieName = $this->configContainer->getConfigKey(key: 'auth.cookie_name', default: 'USERSESSID');
 
         /** This is only checked by routes which have the `user.authorization` middleware enabled. */
         if ($this->request->getHeaderLine(UserAuthorizationMiddleware::HEADER_HTTP_STATUS_CODE) === 'not_authorized') {
             return false;
         }
 
-        if (!isset($this->request->getCookieParams()['USERSESSID'])
-                || empty($this->request->getCookieParams()['USERSESSID'])) {
+        if (!isset($this->request->getCookieParams()[$cookieName])
+                || empty($this->request->getCookieParams()[$cookieName])) {
             return false;
         }
 
@@ -62,7 +66,7 @@ final class UserAuth
     public function current(): Database|bool
     {
         $this->sessionService::$options = [
-            'cookie-name' => 'USERSESSID',
+            'cookie-name' => $this->configContainer->getConfigKey(key: 'auth.cookie_name', default: 'USERSESSID'),
         ];
         $session = $this->sessionService->makeSession($this->request);
 
