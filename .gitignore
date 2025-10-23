@@ -1,4 +1,5 @@
 .ddev
+.phpunit.cache
 App/Domain/Post
 App/Domain/PostType
 App/Domain/Site
