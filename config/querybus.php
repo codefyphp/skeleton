@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Infrastructure\Services\DatabaseService;
+use Application\Service\DatabaseService;
 use Codefy\CommandBus\Container;
 use Codefy\CommandBus\Containers\InjectorContainer;
 use Codefy\Framework\Proxy\Codefy;
@@ -16,11 +16,6 @@ use function Codefy\Framework\Helpers\config_path;
 use function Codefy\Framework\Helpers\env;
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Aliases for the query bus.
-    |--------------------------------------------------------------------------
-    */
     'aliases' => [
         Injector::ARGUMENT_DEFINITIONS => [
             Collection::class => [

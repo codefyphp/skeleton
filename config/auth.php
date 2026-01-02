@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use function Codefy\Framework\Helpers\env;
+use function Codefy\Framework\Helpers\trans;
 
 return [
     /*
@@ -50,4 +51,10 @@ return [
     ],
 
     'redirect_guests_to' => '/admin/login/',
+
+    'password_min_length' => 26,
+
+    'username_min_length' => 6,
+
+    'access_denied_message' => trans('Access denied.'),
 ];

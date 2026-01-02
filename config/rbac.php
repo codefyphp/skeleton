@@ -7,8 +7,11 @@ return [
         'admin' => [
             'description' => 'Super Admin',
             'permissions' => [
-                'admin:dashboard' => ['description' => 'Access to the dashboard.'],
-                'admin:profile' => ['description' => 'Access to profile edit.'],
+                'admin:dashboard' => ['description' => 'Can access the dashboard.'],
+                'admin:profile' => ['description' => 'Can edit own profile.'],
+                'admin:create:user' => ['description' => 'Can create users.'],
+                'admin:edit:user' => ['description' => 'Can edit a user profile.'],
+                'admin:delete:user' => ['description' => 'Can delete a user profile.'],
             ],
         ],
     ],
@@ -20,7 +23,7 @@ return [
         ],
         'manager' => [
             'description' => 'Editor',
-            'permissions' => ['admin:dashboard'],
+            'permissions' => ['admin:dashboard', 'admin:profile'],
         ],
         'admin' => [
             'description' => 'Administrator',

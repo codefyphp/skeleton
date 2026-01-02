@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-use App\Domain\User\Services\UserProjection;
-use App\Infrastructure\Persistence\OrmTransactionalEventStore;
-use App\Infrastructure\Persistence\Repository\UserRepository;
-use App\Infrastructure\Services\DatabaseService;
-use App\Infrastructure\Services\DatabaseUserProjection;
+use Application\Service\DatabaseService;
 use Codefy\CommandBus\Container;
 use Codefy\CommandBus\Containers\InjectorContainer;
-use Codefy\Domain\Aggregate\AggregateRepository;
-use Codefy\Domain\EventSourcing\Projection;
 use Codefy\Domain\EventSourcing\TransactionalEventStore;
 use Codefy\Framework\Proxy\Codefy;
+use Domain\User\Repository\UserAggregateRepository;
+use Domain\User\Service\UserProjection;
+use Infrastructure\Persistence\PdoTransactionalEventStore;
+use Infrastructure\Persistence\Repository\EventSourcedUserRepository;
+use Infrastructure\Projection\ExpressiveDbalUserProjection;
 use Qubus\Config\Collection;
 use Qubus\Expressive\Database;
 use Qubus\Injector\Injector;
@@ -41,10 +40,9 @@ return [
         Injector::STANDARD_ALIASES => [
         Container::class => InjectorContainer::class,
         Database::class => DatabaseService::class,
-        TransactionalEventStore::class => OrmTransactionalEventStore::class,
-        Projection::class => DatabaseUserProjection::class,
-        UserProjection::class => DatabaseUserProjection::class,
-        AggregateRepository::class => UserRepository::class,
+        TransactionalEventStore::class => PdoTransactionalEventStore::class,
+        UserProjection::class => ExpressiveDbalUserProjection::class,
+        UserAggregateRepository::class => EventSourcedUserRepository::class,
         ]
     ]
 ];

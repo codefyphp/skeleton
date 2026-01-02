@@ -23,7 +23,6 @@ return [
     |--------------------------------------------------------------------------
     | Only if supported by the view being used.
     */
-
     'cache' => resource_path(path: 'views'.Application::DS.'cache'),
 
     /*
@@ -32,6 +31,13 @@ return [
     |--------------------------------------------------------------------------
     | Only if supported by the view being used.
     */
-
     'options' => [] ,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Error View.
+    |--------------------------------------------------------------------------
+    | Should non HTTP exceptions be rendered or redirected?
+    */
+    'error_view' => false,
 ];
