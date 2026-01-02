@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-use App\Application\Console\Kernel;
+use Application\Console\Kernel;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
