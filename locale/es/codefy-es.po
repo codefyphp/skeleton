@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CodefyPHP\n"
-"POT-Creation-Date: 2025-10-14 12:05-0700\n"
-"PO-Revision-Date: 2025-10-14 12:05-0700\n"
+"POT-Creation-Date: 2026-01-01 17:05-0800\n"
+"PO-Revision-Date: 2026-01-01 17:05-0800\n"
 "Last-Translator: \n"
 "Language-Team: Joshua Parker <joshua@joshuaparker.dev>\n"
 "Language: es\n"
@@ -11,63 +11,97 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Domain: codefy\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 "X-Poedit-Basepath: ../..\n"
-"X-Poedit-KeywordsList: t__;esc_html__;esc_attr__;trans\n"
-"X-Poedit-SearchPath-0: App\n"
-"X-Poedit-SearchPath-1: resources/views\n"
+"X-Poedit-KeywordsList: "
+"t__;esc_html__;esc_attr__;trans;trans_html;trans_attr;html;attr\n"
+"X-Poedit-SearchPath-0: resources/views\n"
+"X-Poedit-SearchPath-1: bootstrap\n"
+"X-Poedit-SearchPath-2: config\n"
+"X-Poedit-SearchPath-3: src\n"
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:92
-#: App/Infrastructure/Http/Controllers/AdminController.php:116
-msgid "You must be logged in to access the admin area."
+#: config/auth.php:59
+msgid "Access denied."
 msgstr ""
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:126
-msgid "User Profile"
+#: src/Application/Http/Controller/AdminController.php:55
+msgid "User Management"
 msgstr ""
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:154
+#: src/Application/Http/Controller/AuthController.php:48
 msgid "Login"
 msgstr ""
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:173
+#: src/Application/Http/Controller/AuthController.php:63
 msgid "You are already logged out."
 msgstr ""
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:200
+#: src/Application/Http/Controller/ProfileController.php:39
+msgid "User Profile"
+msgstr ""
+
+#: src/Application/Http/Controller/RegisterController.php:43
 msgid "Register"
 msgstr ""
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:241
+#: src/Domain/User/Service/UserService.php:40
 msgid "User added successfully."
 msgstr ""
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:247
-msgid "Could not execute create user command."
+#: src/Domain/User/Service/UserService.php:48
+msgid "Could not create user. Please try again later."
 msgstr ""
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:269
-msgid "You must be logged in to perform that action."
-msgstr ""
-
-#: App/Infrastructure/Http/Controllers/AdminController.php:298
+#: src/Domain/User/Service/UserService.php:67
 msgid "Profile was updated successfully."
 msgstr ""
 
-#: App/Infrastructure/Http/Controllers/AdminController.php:304
+#: src/Domain/User/Service/UserService.php:75
 msgid "Could not update the profile."
 msgstr ""
 
-#: resources/views/backend/admin-layout.phtml:51
-msgid "Sign out"
+#: src/Domain/User/Service/UserService.php:98
+msgid "Password was updated successfully."
 msgstr ""
 
-#: resources/views/backend/admin-layout.phtml:64
+#: src/Domain/User/Service/UserService.php:106
+msgid "Password could not be updated. Please try again later."
+msgstr ""
+
+#: src/Domain/User/Service/UserService.php:129
+msgid "User was deleted."
+msgstr ""
+
+#: src/Domain/User/Service/UserService.php:137
+msgid "User could not be deleted. Please try again later."
+msgstr ""
+
+#: src/Domain/User/Service/UserService.php:160
+msgid "Account created successfully."
+msgstr ""
+
+#: src/Domain/User/Service/UserService.php:170
+msgid "Could not create account. Please try again later."
+msgstr ""
+
+#: resources/views/app-layout.phtml:47
+#: resources/views/partials/desktop-nav.phtml:50
 msgid "Dashboard"
 msgstr ""
 
-#: resources/views/backend/admin-layout.phtml:70
+#: resources/views/app-layout.phtml:48
+#: resources/views/partials/desktop-nav.phtml:58
 msgid "Profile"
+msgstr ""
+
+#: resources/views/app-layout.phtml:49
+#: resources/views/partials/desktop-nav.phtml:66
+msgid "Users"
+msgstr ""
+
+#: resources/views/app-layout.phtml:50
+#: resources/views/partials/desktop-nav.phtml:74
+msgid "Logout"
 msgstr ""
 
 #: resources/views/backend/auth-layout.phtml:132
@@ -86,105 +120,184 @@ msgstr ""
 msgid "Auto"
 msgstr ""
 
-#: resources/views/backend/index.phtml:14
+#: resources/views/backend/index.phtml:12
 msgid "Welcome"
 msgstr ""
 
-#: resources/views/backend/index.phtml:16
-msgid "You've successfully installed CodefyPHP and created your first account."
+#: resources/views/backend/index.phtml:13
+msgid "You're logged into CodefyPHP. Explore your dashboard below."
 msgstr ""
 
-#: resources/views/backend/login.phtml:14
-msgid "Please sign in"
+#: resources/views/backend/index.phtml:24
+msgid "Quick Start"
 msgstr ""
 
-#: resources/views/backend/login.phtml:18
-#: resources/views/backend/register.phtml:19
-msgid "Email address"
+#: resources/views/backend/index.phtml:26
+msgid ""
+"Access the CodefyPHP documentation to start building your next application "
+"quickly."
 msgstr ""
 
-#: resources/views/backend/login.phtml:22
-#: resources/views/backend/profile.phtml:71
-#: resources/views/backend/register.phtml:36
-msgid "Password"
+#: resources/views/backend/index.phtml:27
+msgid "View Docs →"
 msgstr ""
 
-#: resources/views/backend/login.phtml:25
-msgid "Sign in"
+#: resources/views/backend/index.phtml:36
+msgid "Forum Support"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:18
-msgid "First name"
+#: resources/views/backend/index.phtml:39
+msgid "Visit Now →"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:21
-msgid "Valid first name is required."
+#: resources/views/backend/index.phtml:48
+msgid "Manage Users"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:26
-msgid "Middle name"
+#: resources/views/backend/index.phtml:50
+msgid ""
+"Add or manage your team members, assign roles, and set permissions easily."
 msgstr ""
 
-#: resources/views/backend/profile.phtml:31
-msgid "Last name"
+#: resources/views/backend/index.phtml:51
+msgid "Manage Users →"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:34
-msgid "Valid last name is required."
-msgstr ""
-
-#: resources/views/backend/profile.phtml:39
-#: resources/views/backend/register.phtml:23
-msgid "Username"
-msgstr ""
-
-#: resources/views/backend/profile.phtml:44
-msgid "Your username is required."
-msgstr ""
-
-#: resources/views/backend/profile.phtml:50
+#: resources/views/backend/login.phtml:15
+#: resources/views/backend/partials/x-create-user-modal.phtml:54
+#: resources/views/backend/partials/x-edit-user-modal.phtml:49
+#: resources/views/backend/profile.phtml:32
+#: resources/views/backend/users.phtml:24
 msgid "Email"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:53
-msgid "Your email is required."
+#: resources/views/backend/login.phtml:19
+#: resources/views/backend/partials/x-create-user-modal.phtml:73
+#: resources/views/backend/profile.phtml:59
+#: resources/views/backend/register.phtml:34
+msgid "Password"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:58
+#: resources/views/backend/login.phtml:24
+msgid "Don't have an account?"
+msgstr ""
+
+#: resources/views/backend/partials/x-create-user-modal.phtml:13
+msgid "Add New User"
+msgstr ""
+
+#: resources/views/backend/partials/x-create-user-modal.phtml:21
+msgid "Create User"
+msgstr ""
+
+#: resources/views/backend/partials/x-create-user-modal.phtml:36
+#: resources/views/backend/partials/x-create-user-modal.phtml:71
+msgid "characters minimum"
+msgstr ""
+
+#: resources/views/backend/partials/x-create-user-modal.phtml:38
+#: resources/views/backend/partials/x-edit-user-modal.phtml:33
+#: resources/views/backend/profile.phtml:16
+#: resources/views/backend/register.phtml:21
+msgid "Username"
+msgstr ""
+
+#: resources/views/backend/partials/x-create-user-modal.phtml:42
+#: resources/views/backend/partials/x-edit-user-modal.phtml:37
+#: resources/views/backend/profile.phtml:20
+msgid "First name"
+msgstr ""
+
+#: resources/views/backend/partials/x-create-user-modal.phtml:46
+#: resources/views/backend/partials/x-edit-user-modal.phtml:41
+#: resources/views/backend/profile.phtml:24
+msgid "Middle name"
+msgstr ""
+
+#: resources/views/backend/partials/x-create-user-modal.phtml:50
+#: resources/views/backend/partials/x-edit-user-modal.phtml:45
+#: resources/views/backend/profile.phtml:28
+msgid "Last name"
+msgstr ""
+
+#: resources/views/backend/partials/x-create-user-modal.phtml:58
+#: resources/views/backend/partials/x-edit-user-modal.phtml:53
+#: resources/views/backend/profile.phtml:36
+#: resources/views/backend/users.phtml:25
 msgid "Role"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:60
-msgid "Select Role"
+#: resources/views/backend/partials/x-create-user-modal.phtml:60
+#: resources/views/backend/partials/x-edit-user-modal.phtml:55
+#: resources/views/backend/profile.phtml:38
+msgid "Select a role"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:66
-msgid "Role is required."
+#: resources/views/backend/partials/x-create-user-modal.phtml:93
+msgid "Create"
 msgstr ""
 
-#: resources/views/backend/profile.phtml:79
+#: resources/views/backend/partials/x-create-user-modal.phtml:100
+#: resources/views/backend/partials/x-edit-user-modal.phtml:80
+msgid "Cancel"
+msgstr ""
+
+#: resources/views/backend/partials/x-edit-user-modal.phtml:14
+msgid "Edit"
+msgstr ""
+
+#: resources/views/backend/partials/x-edit-user-modal.phtml:73
 msgid "Update"
 msgstr ""
 
-#: resources/views/backend/register.phtml:15
+#: resources/views/backend/profile.phtml:14
+#: resources/views/backend/profile.phtml:49
+msgid "Update Profile"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:57
+msgid "Change Password"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:63
+msgid "Confirm Password"
+msgstr ""
+
+#: resources/views/backend/profile.phtml:70
+msgid "Update Password"
+msgstr ""
+
+#: resources/views/backend/register.phtml:13
 msgid "Register a new account"
 msgstr ""
 
-#: resources/views/backend/register.phtml:27
+#: resources/views/backend/register.phtml:17
+msgid "Email address"
+msgstr ""
+
+#: resources/views/backend/register.phtml:25
 msgid "First Name"
 msgstr ""
 
-#: resources/views/backend/register.phtml:31
+#: resources/views/backend/register.phtml:29
 msgid "Last Name"
 msgstr ""
 
-#: resources/views/home.phtml:12
-msgid "Codefy installed successfully. You can start working on this page at:"
+#: resources/views/backend/users.phtml:15
+msgid "All Users"
 msgstr ""
 
-#: resources/views/home.phtml:19
-msgid "Learn more"
-msgstr "Mas Informacion"
+#: resources/views/backend/users.phtml:23
+msgid "Name"
+msgstr ""
+
+#: resources/views/backend/users.phtml:26
+msgid "Actions"
+msgstr ""
+
+#: resources/views/backend/users.phtml:40
+msgid "Delete"
+msgstr ""
 
 #: resources/views/layout.phtml:122
 msgid "Home"
@@ -197,3 +310,10 @@ msgstr ""
 #: resources/views/layout.phtml:124
 msgid "Community"
 msgstr ""
+
+#: resources/views/partials/desktop-nav.phtml:26
+msgid "Menu"
+msgstr ""
+
+#~ msgid "Learn more"
+#~ msgstr "Mas Informacion"
