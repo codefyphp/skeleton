@@ -1,8 +1,7 @@
 <?php
 
 return [
-    App\Infrastructure\Providers\RbacServiceProvider::class,
-    App\Infrastructure\Providers\Psr16ServiceProvider::class,
-    App\Infrastructure\Providers\MiddlewareServiceProvider::class,
-    App\Infrastructure\Providers\AppServiceProvider::class,
+    \Application\Provider\Psr16ServiceProvider::class,
+    \Application\Provider\MiddlewareServiceProvider::class,
+    \Application\Provider\AppServiceProvider::class,
 ];

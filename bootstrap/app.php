@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Infrastructure\Providers\DatabaseServiceProvider;
-use App\Infrastructure\Providers\ViewServiceProvider;
+use Application\Provider\DatabaseServiceProvider;
+use Application\Provider\RbacServiceProvider;
+use Application\Provider\ViewServiceProvider;
 use Codefy\Framework\Application as CodefyApp;
 use Codefy\Framework\Providers\AssetsServiceProvider;
 use Codefy\Framework\Providers\LocalizationServiceProvider;
@@ -19,6 +20,7 @@ try {
     )
     //->withEncryptedEnv(bool: true)
     ->withProviders([
+        RbacServiceProvider::class,
         LocalizationServiceProvider::class,
         DatabaseServiceProvider::class,
         AssetsServiceProvider::class,
@@ -28,8 +30,13 @@ try {
         //
     ])
     ->withRouting(
-        web: __DIR__ . '/../routes/web/web.php',
-        api: __DIR__ . '/../routes/api/rest.php',
+        web: [
+            dirname(path: __DIR__) . '/routes/web/web.php',
+            dirname(path: __DIR__) . '/routes/web/register.php',
+            dirname(path: __DIR__) . '/routes/web/admin.php',
+            dirname(path: __DIR__) . '/routes/web/auth.php',
+        ],
+        api: dirname(path: __DIR__) . '/routes/api/rest.php',
     )->return();
 
     $app->share(nameOrInstance: $app);
