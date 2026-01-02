@@ -2,29 +2,27 @@
 
 use Codefy\Framework\Proxy\Codefy;
 
-use function Codefy\Framework\Helpers\trans;
-
-$this->parent('framework::backend/auth-layout');
+$this->parent('framework::app-layout');
 $this->block('content', function ($params) {
-    ?>
-    
-<main class="form-login w-100 m-auto">
-<?=Codefy::$PHP->flash->display();?>
-  <form class="needs-validation" method="post" action="<?=$this->esc($params['url']);?>">
-    <h1 class="h3 mb-3 fw-normal"><?=trans('Please sign in');?></h1>
- 
-    <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" name="email" required>
-      <label for="floatingInput"><?=trans('Email address');?></label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" name="password" required>
-      <label for="floatingPassword"><?=trans('Password');?></label>
-    </div>
+?>
 
-    <button class="btn btn-primary w-100 py-2" type="submit"><?=trans('Sign in');?></button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; <?=date('Y');?></p>
-  </form>
+<main class="flex items-center justify-center min-h-[76vh] px-4">
+    <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
+        <?=Codefy::$PHP->flash->display();?>
+        <h2 class="text-2xl font-bold text-center mb-6 text-slate-800"><?=$this->trans('Login');?></h2>
+        <form class="space-y-5" method="post" action="<?=$this->esc($params['url']);?>">
+            <div>
+                <label for="email" class="block text-sm font-medium text-slate-600 mb-1"><?=$this->trans('Email');?></label>
+                <input type="email" id="email" name="email" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-slate-600 mb-1"><?=$this->trans('Password');?></label>
+                <input type="password" id="password" name="password" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            </div>
+            <button type="submit" class="w-full bg-gradient-to-r from-sky-800 to-pink-900 text-white font-medium py-2 rounded-lg hover:from-sky-800 hover:to-pink-900 transition"><?=$this->trans('Login');?></button>
+        </form>
+        <p class="text-center text-sm text-slate-500 mt-4"><?=$this->trans('Don\'t have an account?');?> <a href="#" class="text-indigo-600 hover:underline"><?=$this->trans('Register');?></a></p>
+    </div>
 </main>
 
 <?php }); ?>

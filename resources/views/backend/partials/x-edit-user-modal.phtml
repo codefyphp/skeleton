@@ -1,0 +1,89 @@
+<?php
+
+use function Codefy\Framework\Helpers\method_field;
+use function Codefy\Framework\Helpers\trans;
+
+$this->block('modal-edit', function ($params) {
+?>
+
+<div :id="$id('edit-' + user.user_id)" x-data="{modalOpenEdit: false}">
+    <button
+        @click="modalOpenEdit = true"
+        class="text-indigo-600 hover:underline"
+    >
+        <?=trans('Edit');?>
+    </button>
+    <div
+        x-show="modalOpenEdit"
+        class="fixed flex justify-center text-justify items-center top-0 right-0 bottom-0 left-0 z-10 bg-black/50"
+    >
+        <div @click.outside="modalOpenEdit = false" id="user-update-modal" x-show="modalOpenEdit" x-transition.delay.150ms class="w-[90%] md:w-1/2 bg-white rounded-lg w-[600px]">
+            <div class="py-2 px-4 text-lg font-semibold bg-gray-100 rounded-t-lg flex items-center justify-between">
+                <h2 x-text="'Edit ' +  user.first_name + '\'s Profile'"></h2>
+                <button @click="modalOpenEdit = false">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <form :id="`update-user-form-${user.user_id}`" x-data method="post" action="/admin/user/edit/" @submit.prevent="location.hash = '#user-update-modal'">
+                <div class="p-4 mr-20 ml-20 items-center justify-center">
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><?=trans('Username');?></label>
+                        <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" x-model="user.username" disabled>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><?=trans('First name');?></label>
+                        <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="first_name" x-model="user.first_name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><?=trans('Middle name');?></label>
+                        <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="middle_name" x-model="user.middle_name">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><?=trans('Last name');?></label>
+                        <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="last_name" x-model="user.last_name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><?=trans('Email');?></label>
+                        <input type="email" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="email" x-model="user.email" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><?=trans('Role');?></label>
+                        <select name="role" x-model="user.role" class="border border-gray-300 text-black-50 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option selected><?=trans('Select a role');?></option>
+                            <?php foreach($params['roles'] as $role) { ?>
+                                <option value="<?=$role->value;?>"><?=$role->label();?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <input type="hidden" name="user_id" x-model="user.user_id">
+                    </div>
+                </div>
+
+                <div class="py-2 px-4 text-lg flex justify-end font-semibold bg-gray-100 rounded-b-lg">
+                    <button
+                        type="submit"
+                        @click="document.getElementById(`update-user-form-${user.user_id}`).submit()"
+                        class="inline-flex items-center py-1 px-3 bg-emerald-500
+                        hover:bg-opacity-95 text-white rounded-md shadow mr-2"
+                    >
+                        <?=trans('Update');?>
+                    </button>
+                    <button
+                        @click="modalOpenEdit = false"
+                        class="inline-flex items-center py-1 px-3 bg-red-500
+                        hover:bg-opacity-95 text-white rounded-md shadow"
+                    >
+                        <?=trans('Cancel');?>
+                    </button>
+                    <?=method_field(method: 'PUT');?>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php }); ?>

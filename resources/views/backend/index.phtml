@@ -2,19 +2,55 @@
 
 use Codefy\Framework\Proxy\Codefy;
 
-use function Codefy\Framework\Helpers\trans;
+$this->parent('framework::app-layout');
+$this->block('content', function () {
+?>
 
-$this->parent('framework::backend/admin-layout');
-$this->block('dashboard', function ($params) {
-    ?>
-    
-    <?=Codefy::$PHP->flash->display();?>
-    
-    <div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold"><?=trans('Welcome');?></h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4"><?=trans('You\'ve successfully installed CodefyPHP and created your first account.');?></p>
+<!-- Main Dashboard Content -->
+<main class="container mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-semibold text-slate-800 mb-3"><?=$this->trans('Welcome');?>!</h2>
+        <p class="text-slate-500 text-lg"><?=$this->trans('You\'re logged into CodefyPHP. Explore your dashboard below.');?></p>
     </div>
-  </div>
+
+
+    <!-- Dashboard Cards -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition">
+            <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-indigo-600 text-white flex items-center justify-center rounded-lg mr-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8l7 7m0 0l2-2m-2 2v8"/></svg>
+                </div>
+                <h3 class="text-lg font-semibold text-slate-700"><?=$this->trans('Quick Start');?></h3>
+            </div>
+            <p class="text-slate-500 text-sm"><?=$this->trans('Access the CodefyPHP documentation to start building your next application quickly.');?></p>
+            <a href="https://codefyphp.com/docs/getting-started/" class="inline-block mt-4 text-indigo-600 hover:underline"><?=$this->trans('View Docs →');?></a>
+        </div>
+
+
+        <div class="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition">
+            <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-pink-600 text-white flex items-center justify-center rounded-lg mr-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h6l3 3v-3h2V9h-2M4 4h11v8H9l-3 3v-3H4V4Z"/></svg>
+                </div>
+                <h3 class="text-lg font-semibold text-slate-700"><?=$this->trans('Forum Support');?></h3>
+            </div>
+            <p class="text-slate-500 text-sm">Monitor your recent activities, commits, and project health metrics all in one place.</p>
+            <a href="https://forum.codefyphp.com/" class="inline-block mt-4 text-indigo-600 hover:underline"><?=$this->trans('Visit Now →');?></a>
+        </div>
+
+
+        <div class="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition">
+            <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-emerald-600 text-white flex items-center justify-center rounded-lg mr-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V9a4 4 0 018 0v2m-2 4v4m0-4H9m2 0H5v4m0-4V9a4 4 0 018 0v2"/></svg>
+                </div>
+                <h3 class="text-lg font-semibold text-slate-700"><?=$this->trans('Manage Users');?></h3>
+            </div>
+            <p class="text-slate-500 text-sm"><?=$this->trans('Add or manage your team members, assign roles, and set permissions easily.');?></p>
+            <a href="/admin/users/" class="inline-block mt-4 text-indigo-600 hover:underline"><?=$this->trans('Manage Users →');?></a>
+        </div>
+    </section>
+</main>
 
 <?php }); ?>

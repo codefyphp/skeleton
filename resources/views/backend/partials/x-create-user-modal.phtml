@@ -1,0 +1,108 @@
+<?php
+
+$this->block('modal-create', function ($params) {
+$usernameLength = $this->config('auth.username_min_length');
+$passwordLength = $this->config('auth.password_min_length');
+?>
+
+<div x-data="{modelOpenCreate: false}" x-cloak>
+    <button
+        @click="modelOpenCreate = true"
+        class="bg-gradient-to-r from-indigo-700 to-pink-600 text-white px-4 py-2 rounded-lg hover:bg-opacity-95 transition"
+    >
+        <?=$this->trans('Add New User');?>
+    </button>
+    <div
+        x-show="modelOpenCreate"
+        class="fixed flex justify-center text-justify items-center top-0 right-0 bottom-0 left-0 z-10 bg-black/50"
+    >
+        <div @click.outside="modelOpenCreate = false" id="user-create-model" x-show="modelOpenCreate" x-transition.delay.150ms class="w-[90%] md:w-1/2 bg-white rounded-lg w-[600px]">
+            <div class="py-2 px-4 text-lg font-semibold bg-gray-100 rounded-t-lg flex items-center justify-between">
+                <h2><?=$this->trans('Create User');?></h2>
+                <button @click="modelOpenCreate = false">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <form id="create-user-form" x-data="addUserForm" method="post" action="/admin/store/">
+                <div class="p-4 mr-20 ml-20 items-center justify-center form-field">
+                    <div class="mb-4" x-data="{usernameLength: <?=$usernameLength;?>}">
+                        <p
+                            class="hint float-right"
+                            :class="{'success': username.length >= usernameLength && username.length < 100, 'warning': username.length < usernameLength}"
+                        >
+                            <span x-text="username.length - <?=$usernameLength;?>"></span> (<?=$usernameLength;?> <?=$this->trans('characters minimum');?>
+                        </p>
+                        <label class="block float-left text-slate-600 font-medium mb-2"><span class="text-red-400">*</span> <?=$this->trans('Username');?></label>
+                        <input type="text" minlength="6" x-model="username" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="username" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><span class="text-red-400">*</span> <?=$this->trans('First name');?></label>
+                        <input type="text" x-model="firstname" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="first_name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><?=$this->trans('Middle name');?></label>
+                        <input type="text" x-model="middlename" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="middle_name">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><span class="text-red-400">*</span> <?=$this->trans('Last name');?></label>
+                        <input type="text" x-model="lastname" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="last_name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><span class="text-red-400">*</span> <?=$this->trans('Email');?></label>
+                        <input type="email" x-model="email" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" name="email" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-600 font-medium mb-2"><span class="text-red-400">*</span> <?=$this->trans('Role');?></label>
+                        <select name="role" x-model="role" class="border border-gray-300 text-black-50 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option selected><?=$this->trans('Select a role');?></option>
+                            <?php foreach($params['roles'] as $role) { ?>
+                                <option value="<?=$role->value;?>"><?=$role->label();?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="mb-4 form-field password"  x-data="{passwordLength: <?=$passwordLength;?>}">
+                        <p
+                            class="hint float-right"
+                            :class="{'success': password.length >= passwordLength && password.length < 100, 'warning': password.length < passwordLength}"
+                        >
+                            <span x-text="password.length - <?=$passwordLength;?>"></span> (<?=$passwordLength;?> <?=$this->trans('characters minimum');?>
+                        </p>
+                        <label class="block text-slate-600 font-medium mb-2"><span class="text-red-400">*</span> <?=$this->trans('Password');?></label>
+                        <input
+                            :type="showPass ? 'text' : 'password'"
+                            name="password"
+                            x-model="password"
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
+                        >
+                        <button type="button" @click="showPass = !showPass">
+                            <span x-text="showPass ? 'Hide' : 'Show'"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="py-2 px-4 text-lg flex justify-end font-semibold bg-gray-100 rounded-b-lg">
+                    <button
+                        type="submit"
+                        class="inline-flex items-center py-1 px-3 bg-emerald-500
+                        hover:bg-opacity-95 text-white rounded-md shadow mr-2"
+                    >
+                        <?=$this->trans('Create');?>
+                    </button>
+                    <button
+                        @click="modelOpenCreate = false"
+                        class="inline-flex items-center py-1 px-3 bg-red-500
+                        hover:bg-opacity-95 text-white rounded-md shadow"
+                    >
+                        <?=$this->trans('Cancel');?>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php }); ?>

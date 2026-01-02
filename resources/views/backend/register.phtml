@@ -1,8 +1,7 @@
 <?php
 
-use Codefy\Framework\Proxy\Codefy;
+use Domain\User\Enum\UserRole;
 
-use function Codefy\Framework\Helpers\site_url;
 use function Codefy\Framework\Helpers\trans;
 
 $this->parent('framework::backend/auth-layout');
@@ -10,8 +9,7 @@ $this->block('content', function ($params) {
     ?>
     
 <main class="form-register w-100 m-auto">
-  <?=Codefy::$PHP->flash->display();?>
-  <form class="needs-validation" method="post" action="<?=site_url($params['url']);?>">
+  <form class="needs-validation" method="post" action="<?=$this->url($params['url']);?>">
     <h1 class="h3 mb-3 fw-normal"><?=trans('Register a new account');?></h1>
  
     <div class="form-floating">
@@ -32,7 +30,7 @@ $this->block('content', function ($params) {
     </div>
     <div class="form-floating">
       <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
-      <input type="hidden" class="form-control" id="floatingPassword" name="role" value="admin">
+      <input type="hidden" class="form-control" id="floatingPassword" name="role" value="<?=UserRole::ADMIN->value;?>">
       <label for="floatingPassword"><?=trans('Password');?></label>
     </div>
  

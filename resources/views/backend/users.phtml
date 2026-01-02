@@ -1,0 +1,52 @@
+<?php
+
+use Codefy\Framework\Proxy\Codefy;
+
+$this->parent('framework::app-layout');
+$this->block('content', function ($params) {
+?>
+
+<!-- Content -->
+<main class="container mx-auto px-6 py-16" x-data="{users: <?=$this->esc($params['users']);?> }">
+    <?=Codefy::$PHP->flash->display();?>
+    <!-- Users List -->
+    <section class="mb-16">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-semibold text-slate-800"><?=$this->trans('All Users');?></h3>
+            <?php $this->insert('framework::backend/partials/x-create-user-modal'); ?>
+        </div>
+
+        <div class="overflow-x-auto bg-white rounded-xl shadow border border-slate-200">
+            <table class="min-w-full text-sm text-left">
+                <thead class="bg-slate-100 border-b border-slate-200">
+                <tr>
+                    <th class="py-3 px-6 font-semibold text-slate-600"><?=$this->trans('Name');?></th>
+                    <th class="py-3 px-6 font-semibold text-slate-600"><?=$this->trans('Email');?></th>
+                    <th class="py-3 px-6 font-semibold text-slate-600"><?=$this->trans('Role');?></th>
+                    <th class="py-3 px-6 font-semibold text-slate-600 text-right"><?=$this->trans('Actions');?></th>
+                </tr>
+                </thead>
+                <tbody id="users-table-body">
+                    <template x-for="user in users" :key="user.user_id">
+                        <tr class="border-b hover:bg-slate-50" x-data="{userRole: user.role}">
+                            <td class="py-3 px-6" x-text="user.first_name + ' ' + user.last_name"></td>
+                            <td class="py-3 px-6" x-text="user.email"></td>
+                            <td class="py-3 px-6" x-text="ucfirst(user.role)"></td>
+                            <td class="py-3 px-6 text-right" x-id="['edit-' + user.user_id]">
+                                <div class="inline-flex space-x-2">
+                                    <?php $this->insert('framework::backend/partials/x-edit-user-modal'); ?>
+
+                                    <div x-show="userRole !== 'admin'">
+                                        <button class="text-pink-600 hover:underline"><?=$this->trans('Delete');?></button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<?php }); ?>
