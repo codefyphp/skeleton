@@ -1,0 +1,72 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Http\Controller;
+
+use Codefy\Framework\Http\BaseController;
+use Domain\User\Request\StoreUserRequest;
+use Domain\User\Service\UserService;
+use Exception;
+use Psr\Http\Message\ResponseInterface;
+use Qubus\Exception\Data\TypeException;
+use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
+use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
+use ReflectionException;
+
+use function Codefy\Framework\Helpers\gate;
+use function Codefy\Framework\Helpers\trans;
+use function Codefy\Framework\Helpers\view;
+
+class RegisterController extends BaseController
+{
+    private string $showTemplate = 'framework::backend/register';
+
+    /**
+     * @throws RouteParamFailedConstraintException
+     * @throws NamedRouteNotFoundException
+     * @throws Exception
+     */
+    public function show(): ResponseInterface
+    {
+        if (true === gate(permission: 'admin:dashboard')) {
+            return $this->redirect(
+                url: $this->router->url(
+                    name: 'admin.home'
+                )
+            );
+        }
+
+        return view(
+            template: $this->showTemplate,
+            data: [
+                'title' => trans('Register'),
+                'url' => $this->router->url(name: 'register.create'),
+            ]
+        );
+    }
+
+    /**
+     * @throws RouteParamFailedConstraintException
+     * @throws NamedRouteNotFoundException
+     * @throws TypeException
+     * @throws Exception
+     * @throws ReflectionException
+     */
+    public function create(StoreUserRequest $request, UserService $service): ResponseInterface
+    {
+        if (false === $service->createAccount($request)) {
+            return $this->redirect(
+                url: $this->router->url(
+                    name: 'register.show'
+                )
+            );
+        }
+
+        return $this->redirect(
+            url: $this->router->url(
+                name: 'auth.login'
+            )
+        );
+    }
+}

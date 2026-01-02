@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\ValueObject;
+namespace Domain\User\ValueObject;
 
-use App\Domain\User\User;
 use Codefy\Domain\Aggregate\AggregateId;
+use Domain\User\User;
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\Identity\Ulid;
 

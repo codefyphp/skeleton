@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Console;
+namespace Application\Console;
 
 use Codefy\Framework\Console\ConsoleKernel;
 use Codefy\Framework\Scheduler\Schedule;

@@ -2,14 +2,7 @@
 
 declare(strict_types=1);
 
-/**
- * This is an example event store database class implementation
- * using Qubus QueryBuilder. It is not recommended to use this
- * implementation in production as is. Feel free to edit,
- * rename or clone for your needs.
- */
-
-namespace App\Infrastructure\Persistence;
+namespace Infrastructure\Persistence;
 
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\CorruptEventStreamException;

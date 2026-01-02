@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\ValueObject;
+namespace Application\Shared\ValueObject;
 
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\Identity\Ulid;

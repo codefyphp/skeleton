@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Service;
+namespace Infrastructure\Projection;
 
 use Codefy\Domain\EventSourcing\BaseProjection;
 use Domain\User\Event\EmailAddressWasChanged;
@@ -10,13 +10,14 @@ use Domain\User\Event\NameWasChanged;
 use Domain\User\Event\PasswordWasChanged;
 use Domain\User\Event\RoleWasChanged;
 use Domain\User\Event\UserWasCreated;
+use Domain\User\Event\UserWasDeleted;
 use Domain\User\Service\UserProjection;
 use Exception as NativeException;
 use Qubus\Exception\Data\TypeException;
 use Qubus\Expressive\Database;
 use Qubus\Expressive\QueryBuilderException;
 
-final class DatabaseUserProjection extends BaseProjection implements UserProjection
+final class ExpressiveDbalUserProjection extends BaseProjection implements UserProjection
 {
     public function __construct(private readonly Database $db)
     {
@@ -132,6 +133,23 @@ final class DatabaseUserProjection extends BaseProjection implements UserProject
                 ])
                 ->where('user_id = ?', $event->userId()->__toString())
                 ->update();
+            });
+        } catch (QueryBuilderException $e) {
+            throw new NativeException(message: $e->getMessage());
+        }
+    }
+
+    /**
+     * @throws NativeException
+     */
+    public function projectWhenUserWasDeleted(UserWasDeleted $event): void
+    {
+        try {
+            $this->db->transactional(callback: function () use ($event) {
+                $this->db
+                    ->table(tableName: 'users')
+                    ->where('user_id = ?', $event->userId()->toNative())
+                    ->delete();
             });
         } catch (QueryBuilderException $e) {
             throw new NativeException(message: $e->getMessage());

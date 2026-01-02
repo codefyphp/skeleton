@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Http\Controllers;
+namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
 use Exception;
@@ -21,6 +21,11 @@ final class HomeController extends BaseController
      */
     public function index(): ResponseInterface
     {
-        return view(template: 'framework::home', data: ['title' => 'CodefyPHP Framework']);
+        return view(
+            template: 'framework::home',
+            data: [
+                'title' => 'CodefyPHP Framework'
+            ]
+        );
     }
 }

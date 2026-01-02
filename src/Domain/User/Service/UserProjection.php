@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\User\Services;
+namespace Domain\User\Service;
 
 use Codefy\Domain\EventSourcing\Projection;
 use Domain\User\Event\EmailAddressWasChanged;

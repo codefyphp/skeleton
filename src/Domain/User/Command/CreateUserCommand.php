@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Command;
+namespace Domain\User\Command;
 
-use App\Domain\User\ValueObject\Username;
-use App\Domain\User\ValueObject\UserToken;
 use Codefy\CommandBus\PropertyCommand;
+use Domain\User\ValueObject\Username;
+use Domain\User\ValueObject\UserToken;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
 

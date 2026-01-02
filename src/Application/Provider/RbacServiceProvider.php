@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Providers;
+namespace Application\Provider;
 
 use Codefy\Framework\Auth\Auth;
 use Codefy\Framework\Auth\Rbac\Rbac;

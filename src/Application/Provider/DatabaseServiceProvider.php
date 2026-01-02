@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Providers;
+namespace Application\Provider;
 
 use Application\Service\DatabaseService;
 use Codefy\Framework\Support\CodefyServiceProvider;

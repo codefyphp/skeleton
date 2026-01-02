@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Event;
+namespace Domain\User\Event;
 
-use App\Domain\User\ValueObject\UserId;
-use App\Domain\User\ValueObject\Username;
-use App\Domain\User\ValueObject\UserToken;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
 use DateTimeInterface;
+use Domain\User\ValueObject\UserId;
+use Domain\User\ValueObject\Username;
+use Domain\User\ValueObject\UserToken;
 use Qubus\Exception\Data\TypeException;
 use Qubus\Support\DateTime\QubusDateTimeImmutable;
 use Qubus\ValueObjects\Person\Name;

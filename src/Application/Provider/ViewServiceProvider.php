@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Providers;
+namespace Application\Provider;
 
 use Codefy\Framework\Support\CodefyServiceProvider;
 use Qubus\View\Native\NativeLoader;

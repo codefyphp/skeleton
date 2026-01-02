@@ -10,32 +10,25 @@ use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
 use Domain\User\ValueObject\UserId;
 use Qubus\Exception\Data\TypeException;
-use Qubus\ValueObjects\Web\EmailAddress;
 
 use function Qubus\Support\Helpers\is_null__;
 
-class EmailAddressWasChanged extends AggregateChanged
+final class UserWasDeleted extends AggregateChanged
 {
     private ?UserId $userId = null;
 
-    private ?EmailAddress $emailAddress = null;
-
     public static function withData(
         UserId $userId,
-        EmailAddress $emailAddress
-    ): EmailAddressWasChanged|DomainEvent|AggregateChanged {
+    ): UserWasDeleted|DomainEvent|AggregateChanged {
         $event = self::occur(
             aggregateId: $userId,
-            payload: [
-                'email' => (string) $emailAddress,
-            ],
+            payload: [],
             metadata: [
                 Metadata::AGGREGATE_TYPE => 'user'
             ]
         );
 
         $event->userId = $userId;
-        $event->emailAddress = $emailAddress;
 
         return $event;
     }
@@ -50,14 +43,5 @@ class EmailAddressWasChanged extends AggregateChanged
         }
 
         return $this->userId;
-    }
-
-    public function emailAddress(): EmailAddress
-    {
-        if (is_null__($this->emailAddress)) {
-            $this->emailAddress = EmailAddress::fromNative($this->payload()['email']);
-        }
-
-        return $this->emailAddress;
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\ValueObject;
+namespace Domain\User\ValueObject;
 
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\Identity\Uuid;

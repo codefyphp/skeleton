@@ -10,9 +10,8 @@ use Codefy\Domain\Aggregate\AggregateNotFoundException;
 use Domain\User\Repository\UserAggregateRepository;
 use Domain\User\User;
 use Exception;
-use Qubus\ValueObjects\Person\Name;
 
-final readonly class UpdateUserCommandHandler implements CommandHandler
+final readonly class UpdateUserPasswordCommandHandler implements CommandHandler
 {
     public function __construct(public UserAggregateRepository $aggregateRepository)
     {
@@ -22,22 +21,12 @@ final readonly class UpdateUserCommandHandler implements CommandHandler
      * @throws AggregateNotFoundException
      * @throws Exception
      */
-    public function handle(UpdateUserCommand|Command $command): void
+    public function handle(UpdateUserPasswordCommand|Command $command): void
     {
         /** @var User $user */
         $user = $this->aggregateRepository->loadAggregateRoot(aggregateId: $command->userId);
 
-        $user->changeEmailAddress(emailAddress: $command->email);
-
-        $user->changeName(
-            name: new Name(
-                firstName: $command->firstName,
-                middleName: $command->middleName,
-                lastName: $command->lastName
-            )
-        );
-
-        $user->changeRole(role: $command->role);
+        $user->changePassword(password: $command->password, token: $command->token);
 
         $this->aggregateRepository->saveAggregateRoot(aggregate: $user);
     }

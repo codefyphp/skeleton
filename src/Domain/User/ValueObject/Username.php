@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\ValueObject;
+namespace Domain\User\ValueObject;
 
 use Qubus\Support\Assertion;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;

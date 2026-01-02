@@ -6,22 +6,20 @@ namespace Infrastructure\Persistence\Repository;
 
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\Aggregate\AggregateNotFoundException;
-use Codefy\Domain\Aggregate\AggregateRepository;
 use Codefy\Domain\Aggregate\RecordsEvents;
 use Codefy\Domain\EventSourcing\CorruptEventStreamException;
-use Codefy\Domain\EventSourcing\Projection;
 use Codefy\Domain\EventSourcing\TransactionalEventStore;
-use Codefy\Traits\IdentityMapAware;
+use Codefy\Traits\EventSourcedRepositoryAware;
+use Domain\User\Repository\UserAggregateRepository;
+use Domain\User\Service\UserProjection;
 use Domain\User\User;
 
-final class EventSourcedAggregateRepository implements AggregateRepository
+final class EventSourcedUserRepository implements UserAggregateRepository
 {
-    use IdentityMapAware;
+    use EventSourcedRepositoryAware;
 
-    public function __construct(
-        public readonly TransactionalEventStore $eventStore,
-        public readonly Projection $projection
-    ) {
+    public function __construct(protected TransactionalEventStore $eventStore, protected UserProjection $projection)
+    {
     }
 
     /**

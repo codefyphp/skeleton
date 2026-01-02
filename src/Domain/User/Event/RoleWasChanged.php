@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Event;
+namespace Domain\User\Event;
 
-use App\Domain\User\ValueObject\UserId;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
+use Domain\User\ValueObject\UserId;
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 

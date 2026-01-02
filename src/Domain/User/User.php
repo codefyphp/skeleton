@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User;
+namespace Domain\User;
 
-use App\Domain\User\Event\EmailAddressWasChanged;
-use App\Domain\User\Event\NameWasChanged;
-use App\Domain\User\Event\PasswordWasChanged;
-use App\Domain\User\Event\RoleWasChanged;
-use App\Domain\User\Event\UserWasCreated;
-use App\Domain\User\ValueObject\UserId;
-use App\Domain\User\ValueObject\UserToken;
-use App\Domain\User\ValueObject\Username;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\Aggregate\AggregateRoot;
 use Codefy\Domain\Aggregate\EventSourcedAggregate;
 use Codefy\Framework\Support\Password;
 use DateTimeInterface;
+use Domain\User\Event\EmailAddressWasChanged;
+use Domain\User\Event\NameWasChanged;
+use Domain\User\Event\PasswordWasChanged;
+use Domain\User\Event\RoleWasChanged;
+use Domain\User\Event\UserWasCreated;
+use Domain\User\Event\UserWasDeleted;
+use Domain\User\ValueObject\UserId;
+use Domain\User\ValueObject\Username;
+use Domain\User\ValueObject\UserToken;
 use Exception;
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\Person\Name;
@@ -172,6 +173,22 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     }
 
     /**
+     * @throws Exception
+     */
+    public function deleteUser(UserId $userId): void
+    {
+        if ($userId->isEmpty()) {
+            throw new Exception(message: 'User ID cannot be null.');
+        }
+
+        if (!$userId->equals($this->userId)) {
+            return;
+        }
+
+        $this->recordApplyAndPublishThat(UserWasDeleted::withData($userId));
+    }
+
+    /**
      * @throws TypeException
      */
     public function whenUserWasCreated(UserWasCreated $event): void
@@ -220,5 +237,13 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         $this->userId = $event->userId();
         $this->password = $event->password();
         $this->token = $event->token();
+    }
+
+    /**
+     * @throws TypeException
+     */
+    public function whenUserWasDeleted(UserWasDeleted $event): void
+    {
+        $this->userId = $event->userId();
     }
 }
