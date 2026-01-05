@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Domain\User\Dto;
 
+use Codefy\Framework\Dto\DataTransformer;
 use Codefy\Framework\Support\Password;
-use Domain\User\Request\UserRequest;
+use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\Username;
 use Domain\User\ValueObject\UserToken;
 use Exception;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
 
-final readonly class StoreUserData
+final readonly class StoreUserData implements DataTransformer
 {
     private function __construct(
         public ?Username $username = null,
@@ -29,17 +30,17 @@ final readonly class StoreUserData
     /**
      * @throws Exception
      */
-    public static function fromRequest(UserRequest $request): self
+    public static function fromValidatedData(DataValidator $data): self
     {
         return new self(
-            username: new Username($request->value(value: 'username')),
+            username: new Username($data->value(value: 'username')),
             token: new UserToken(),
-            firstName: new StringLiteral($request->value(value: 'first_name')),
-            middleName: new StringLiteral($request->value(value: 'middle_name', default: '')),
-            lastName: new StringLiteral($request->value(value: 'last_name')),
-            email: new EmailAddress($request->value(value: 'email')),
-            role: new StringLiteral($request->value(value: 'role')),
-            password: new StringLiteral(Password::hash($request->value(value: 'password'))),
+            firstName: new StringLiteral($data->value(value: 'first_name')),
+            middleName: new StringLiteral($data->value(value: 'middle_name', default: '')),
+            lastName: new StringLiteral($data->value(value: 'last_name')),
+            email: new EmailAddress($data->value(value: 'email')),
+            role: new StringLiteral($data->value(value: 'role')),
+            password: new StringLiteral(Password::hash($data->value(value: 'password'))),
         );
     }
 }

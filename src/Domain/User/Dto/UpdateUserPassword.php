@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Domain\User\Dto;
 
 use Codefy\Framework\Dto\DataTransformer;
-use Codefy\Framework\Http\Request\DataTransformerRequest;
 use Codefy\Framework\Support\Password;
+use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\UserId;
 use Domain\User\ValueObject\UserToken;
 use Exception;
@@ -24,11 +24,11 @@ final readonly class UpdateUserPassword implements DataTransformer
     /**
      * @throws Exception
      */
-    public static function fromRequest(DataTransformerRequest $request): self
+    public static function fromValidatedData(DataValidator $data): self
     {
         return new self(
-            userId: UserId::fromString($request->value('user_id')),
-            password: new StringLiteral(Password::hash($request->value('password'))),
+            userId: UserId::fromString($data->value('user_id')),
+            password: new StringLiteral(Password::hash($data->value('password'))),
             token: new UserToken(),
         );
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\User\Dto;
 
 use Codefy\Framework\Dto\DataTransformer;
-use Codefy\Framework\Http\Request\DataTransformerRequest;
+use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\UserId;
 use Exception;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
@@ -26,15 +26,15 @@ final readonly class UpdateUserData implements DataTransformer
     /**
      * @throws Exception
      */
-    public static function fromRequest(DataTransformerRequest $request): self
+    public static function fromValidatedData(DataValidator $data): self
     {
         return new self(
-            userId: UserId::fromString($request->value('user_id')),
-            firstName: new StringLiteral($request->value('first_name')),
-            middleName: new StringLiteral($request->value(value: 'middle_name', default: '')),
-            lastName: new StringLiteral($request->value('last_name')),
-            email: new EmailAddress($request->value('email')),
-            role: new StringLiteral($request->value('role')),
+            userId: UserId::fromString($data->value('user_id')),
+            firstName: new StringLiteral($data->value('first_name')),
+            middleName: new StringLiteral($data->value(value: 'middle_name', default: '')),
+            lastName: new StringLiteral($data->value('last_name')),
+            email: new EmailAddress($data->value('email')),
+            role: new StringLiteral($data->value('role')),
         );
     }
 }

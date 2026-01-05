@@ -7,13 +7,14 @@ namespace Application\Http\Controller;
 use Codefy\Framework\Http\BaseController;
 use Codefy\QueryBus\UnresolvableQueryHandlerException;
 use Domain\User\Enum\UserRole;
-use Domain\User\Request\DestroyUserRequest;
-use Domain\User\Request\StoreUserRequest;
-use Domain\User\Request\UpdateUserRequest;
+use Domain\User\Validator\DestroyUserValidator;
+use Domain\User\Validator\StoreUserValidator;
+use Domain\User\Validator\UpdateUserValidator;
 use Domain\User\Service\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Qubus\Exception\Data\TypeException;
+use Qubus\Http\ServerRequest;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
 use ReflectionException;
@@ -35,7 +36,12 @@ final class AdminController extends BaseController
      */
     public function index(): ResponseInterface
     {
-        return view(template: $this->dashboardTemplate, data: ['title' => 'Dashboard']);
+        return view(
+            template: $this->dashboardTemplate,
+            data: [
+                'title' => 'Dashboard'
+            ]
+        );
     }
 
     /**
@@ -62,9 +68,11 @@ final class AdminController extends BaseController
      * @throws Exception
      * @throws ReflectionException
      */
-    public function store(StoreUserRequest $request, UserService $service): ResponseInterface
+    public function store(ServerRequest $request, UserService $service): ResponseInterface
     {
-        $service->createUser($request);
+        $service->createUser(
+            StoreUserValidator::make($request)
+        );
 
         return $this->redirect(url: $this->router->url(name: 'admin.users'));
     }
@@ -75,9 +83,11 @@ final class AdminController extends BaseController
      * @throws ReflectionException
      * @throws Exception
      */
-    public function edit(UpdateUserRequest $request, UserService $service): ResponseInterface
+    public function edit(ServerRequest $request, UserService $service): ResponseInterface
     {
-        $service->updateUser($request);
+        $service->updateUser(
+            UpdateUserValidator::make($request)
+        );
 
         return $this->redirect(url: $this->router->url(name: 'admin.users'));
     }
@@ -88,9 +98,11 @@ final class AdminController extends BaseController
      * @throws TypeException
      * @throws NamedRouteNotFoundException
      */
-    public function destroy(DestroyUserRequest $request, UserService $service): ResponseInterface
+    public function destroy(ServerRequest $request, UserService $service): ResponseInterface
     {
-        $service->deleteUser($request);
+        $service->deleteUser(
+            DestroyUserValidator::make($request)
+        );
 
         return $this->redirect(url: $this->router->url(name: 'admin.users'));
     }

@@ -6,12 +6,13 @@ namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
 use Domain\User\Enum\UserRole;
-use Domain\User\Request\UpdateUserPasswordRequest;
-use Domain\User\Request\UpdateUserRequest;
+use Domain\User\Validator\UpdateUserPasswordValidator;
+use Domain\User\Validator\UpdateUserValidator;
 use Domain\User\Service\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Qubus\Exception\Data\TypeException;
+use Qubus\Http\ServerRequest;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
 use ReflectionException;
@@ -51,19 +52,23 @@ final class ProfileController extends BaseController
      * @throws ReflectionException
      */
     public function update(
-        UpdateUserRequest $userRequest,
-        UpdateUserPasswordRequest $passwordRequest,
+        ServerRequest $request,
         UserService $service
     ): ResponseInterface {
-        if (!empty($passwordRequest->get('password'))) {
-            $service->updatePassword($passwordRequest);
+        if (!empty($request->get('password'))) {
+            $service->updatePassword(
+                UpdateUserPasswordValidator::make($request)
+            );
+
             return $this->redirect(
                 url: $this->router->url(
                     name: 'auth.logout'
                 )
             );
         } else {
-            $service->updateUser($userRequest);
+            $service->updateUser(
+                UpdateUserValidator::make($request)
+            );
         }
 
         return $this->redirect(

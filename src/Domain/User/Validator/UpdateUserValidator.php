@@ -2,33 +2,50 @@
 
 declare(strict_types=1);
 
-namespace Domain\User\Request;
+namespace Domain\User\Validator;
 
 use Codefy\Framework\Dto\Attribute\UseDto;
 use Codefy\Framework\Dto\HasDto;
 use Codefy\Framework\Dto\Trait\DtoAware;
-use Codefy\Framework\Http\Request\FormRequest;
-use Domain\User\Dto\StoreUserData;
+use Codefy\Framework\Validation\HttpInputValidator;
+use Domain\User\Dto\UpdateUserData;
 use Exception;
 
 use function Codefy\Framework\Helpers\gate;
 use function Codefy\Framework\Helpers\get_system_roles;
 use function implode;
+use function strtolower;
 
-#[UseDto(StoreUserData::class)]
-final class StoreUserRequest extends FormRequest implements HasDto
+#[UseDto(UpdateUserData::class)]
+final class UpdateUserValidator extends HttpInputValidator implements HasDto
 {
     use DtoAware;
 
     public function authorize(): bool
     {
-        return gate('admin:create:user');
+        $method = strtolower($this->request->getMethod());
+
+        return match ($method) {
+            'put', 'patch' => gate('admin:edit:user'),
+        };
     }
 
     /**
      * @throws Exception
      */
     public function rules(): array
+    {
+        $method = strtolower($this->request->getMethod());
+
+        return match ($method) {
+            'put', 'patch' => $this->update(),
+        };
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function update(): array
     {
         $roles = implode(separator: ',', array: get_system_roles());
 

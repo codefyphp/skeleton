@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\User\Dto;
 
-use Domain\User\Request\UserRequest;
+use Codefy\Framework\Dto\DataTransformer;
+use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\UserId;
 use Exception;
 
-final readonly class DestroyUserData
+final readonly class DestroyUserData implements DataTransformer
 {
     public function __construct(
         public ?UserId $userId = null,
@@ -18,10 +19,10 @@ final readonly class DestroyUserData
     /**
      * @throws Exception
      */
-    public static function fromRequest(UserRequest $request): self
+    public static function fromValidatedData(DataValidator $data): self
     {
         return new self(
-            userId: UserId::fromString($request->value('user_id')),
+            userId: UserId::fromString($data->value('user_id')),
         );
     }
 }

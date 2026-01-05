@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
-use Domain\User\Request\StoreUserRequest;
+use Domain\User\Validator\StoreUserValidator;
 use Domain\User\Service\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Qubus\Exception\Data\TypeException;
+use Qubus\Http\ServerRequest;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
 use ReflectionException;
@@ -53,9 +54,9 @@ class RegisterController extends BaseController
      * @throws Exception
      * @throws ReflectionException
      */
-    public function create(StoreUserRequest $request, UserService $service): ResponseInterface
+    public function create(ServerRequest $request, UserService $service): ResponseInterface
     {
-        if (false === $service->createAccount($request)) {
+        if (false === $service->createAccount(StoreUserValidator::make($request))) {
             return $this->redirect(
                 url: $this->router->url(
                     name: 'register.show'
