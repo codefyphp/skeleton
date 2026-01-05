@@ -15,7 +15,7 @@ use function Codefy\Framework\Helpers\gate;
 use function Codefy\Framework\Helpers\trans;
 use function Codefy\Framework\Helpers\view;
 
-class AuthController extends BaseController
+final class AuthController extends BaseController
 {
     /**
      * @throws RouteParamFailedConstraintException

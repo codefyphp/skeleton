@@ -19,7 +19,7 @@ use function Codefy\Framework\Helpers\gate;
 use function Codefy\Framework\Helpers\trans;
 use function Codefy\Framework\Helpers\view;
 
-class RegisterController extends BaseController
+final class RegisterController extends BaseController
 {
     private string $showTemplate = 'framework::backend/register';
 
