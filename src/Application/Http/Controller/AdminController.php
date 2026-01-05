@@ -74,7 +74,11 @@ final class AdminController extends BaseController
             StoreUserValidator::make($request)
         );
 
-        return $this->redirect(url: $this->router->url(name: 'admin.users'));
+        return $this->redirect(
+            url: $this->router->url(
+                name: 'admin.users'
+            )
+        );
     }
 
     /**
@@ -89,7 +93,11 @@ final class AdminController extends BaseController
             UpdateUserValidator::make($request)
         );
 
-        return $this->redirect(url: $this->router->url(name: 'admin.users'));
+        return $this->redirect(
+            url: $this->router->url(
+                name: 'admin.users'
+            )
+        );
     }
 
     /**
@@ -104,6 +112,10 @@ final class AdminController extends BaseController
             DestroyUserValidator::make($request)
         );
 
-        return $this->redirect(url: $this->router->url(name: 'admin.users'));
+        return $this->redirect(
+            url: $this->router->url(
+                name: 'admin.users'
+            )
+        );
     }
 }
