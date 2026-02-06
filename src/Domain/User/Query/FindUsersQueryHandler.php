@@ -14,7 +14,11 @@ final readonly class FindUsersQueryHandler implements QueryHandler
     {
     }
 
-    public function handle(FindUsersQuery|Query $query): Database|bool|array
+    /**
+     * @param FindUsersQuery|Query $query
+     * @return mixed
+     */
+    public function handle(FindUsersQuery|Query $query): mixed
     {
         return $this->db->table('users')
             ->select([

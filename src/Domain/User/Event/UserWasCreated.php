@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Domain\User\Event;
 
-use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
 use DateTimeInterface;
 use Domain\User\ValueObject\UserId;
 use Domain\User\ValueObject\Username;
+use Domain\User\ValueObject\UserRole;
 use Domain\User\ValueObject\UserToken;
 use Qubus\Exception\Data\TypeException;
 use Qubus\Support\DateTime\QubusDateTimeImmutable;
@@ -33,7 +33,7 @@ class UserWasCreated extends AggregateChanged
 
     private ?EmailAddress $emailAddress = null;
 
-    private ?StringLiteral $role = null;
+    private ?UserRole $role = null;
 
     private ?StringLiteral $password = null;
 
@@ -45,7 +45,7 @@ class UserWasCreated extends AggregateChanged
         UserToken $token,
         Name $name,
         EmailAddress $emailAddress,
-        StringLiteral $role,
+        UserRole $role,
         #[SensitiveParameter] StringLiteral $password,
         DateTimeInterface $createdOn,
     ): UserWasCreated|DomainEvent|AggregateChanged {
@@ -83,7 +83,7 @@ class UserWasCreated extends AggregateChanged
     /**
      * @throws TypeException
      */
-    public function userId(): UserId|AggregateId
+    public function userId(): UserId
     {
         if (is_null__($this->userId)) {
             $this->userId = UserId::fromString(userId: $this->payload()['user_id']);
@@ -92,9 +92,6 @@ class UserWasCreated extends AggregateChanged
         return $this->userId;
     }
 
-    /**
-     * @throws TypeException
-     */
     public function username(): Username
     {
         if (is_null__($this->username)) {
@@ -115,9 +112,6 @@ class UserWasCreated extends AggregateChanged
         return $this->token;
     }
 
-    /**
-     * @throws TypeException
-     */
     public function name(): Name
     {
         if (is_null__($this->name)) {
@@ -140,21 +134,15 @@ class UserWasCreated extends AggregateChanged
         return $this->emailAddress;
     }
 
-    /**
-     * @throws TypeException
-     */
-    public function role(): StringLiteral
+    public function role(): UserRole
     {
         if (is_null__($this->role)) {
-            $this->role = StringLiteral::fromNative($this->payload()['role']);
+            $this->role = UserRole::fromNative($this->payload()['role']);
         }
 
         return $this->role;
     }
 
-    /**
-     * @throws TypeException
-     */
     public function password(): StringLiteral
     {
         if (is_null__($this->password)) {

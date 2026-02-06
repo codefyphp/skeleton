@@ -26,7 +26,7 @@ final class EventSourcedUserRepository implements UserAggregateRepository
      * @throws AggregateNotFoundException
      * @throws CorruptEventStreamException
      */
-    public function loadAggregateRoot(AggregateId $aggregateId): ?RecordsEvents
+    public function loadAggregateRoot(AggregateId $aggregateId): RecordsEvents
     {
         $this->retrieveFromIdentityMap($aggregateId);
 

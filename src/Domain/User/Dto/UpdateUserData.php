@@ -7,6 +7,7 @@ namespace Domain\User\Dto;
 use Codefy\Framework\Dto\DataTransformer;
 use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\UserId;
+use Domain\User\ValueObject\UserRole;
 use Exception;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
@@ -14,12 +15,12 @@ use Qubus\ValueObjects\Web\EmailAddress;
 final readonly class UpdateUserData implements DataTransformer
 {
     private function __construct(
-        public ?UserId $userId = null,
-        public ?StringLiteral $firstName = null,
-        public ?StringLiteral $middleName = null,
-        public ?StringLiteral $lastName = null,
-        public ?EmailAddress $email = null,
-        public ?StringLiteral $role = null,
+        public UserId $userId,
+        public StringLiteral $firstName,
+        public StringLiteral $middleName,
+        public StringLiteral $lastName,
+        public EmailAddress $email,
+        public UserRole $role,
     ) {
     }
 
@@ -34,7 +35,7 @@ final readonly class UpdateUserData implements DataTransformer
             middleName: new StringLiteral($data->value(value: 'middle_name', default: '')),
             lastName: new StringLiteral($data->value('last_name')),
             email: new EmailAddress($data->value('email')),
-            role: new StringLiteral($data->value('role')),
+            role: new UserRole($data->value('role')),
         );
     }
 }

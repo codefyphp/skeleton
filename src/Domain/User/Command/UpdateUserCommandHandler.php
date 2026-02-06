@@ -24,6 +24,8 @@ final readonly class UpdateUserCommandHandler implements CommandHandler
      */
     public function handle(UpdateUserCommand|Command $command): void
     {
+        /** @var UpdateUserCommand $command */
+
         /** @var User $user */
         $user = $this->aggregateRepository->loadAggregateRoot(aggregateId: $command->userId);
 

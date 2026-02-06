@@ -165,7 +165,7 @@ class Paginator
      *     array ('num' => 10,    'url' => '/example/page/10', 'isCurrent' => false),
      * )
      *
-     * @return array
+     * @return array<array<string, mixed>>
      */
     public function getPages(): array
     {
@@ -221,7 +221,7 @@ class Paginator
      *
      * @param int $pageNum
      * @param bool $isCurrent
-     * @return array
+     * @return array<string, string|int|bool>
      */
     protected function createPage(int $pageNum, bool $isCurrent = false): array
     {
@@ -233,7 +233,7 @@ class Paginator
     }
 
     /**
-     * @return array
+     * @return array<string, string|null|bool>
      */
     protected function createPageEllipsis(): array
     {
@@ -313,13 +313,13 @@ class Paginator
         return $last;
     }
 
-    public function setPreviousText($text): static
+    public function setPreviousText(string $text): static
     {
         $this->previousText = $text;
         return $this;
     }
 
-    public function setNextText($text): static
+    public function setNextText(string $text): static
     {
         $this->nextText = $text;
         return $this;

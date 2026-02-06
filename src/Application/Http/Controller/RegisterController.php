@@ -9,7 +9,6 @@ use Domain\User\Validator\StoreUserValidator;
 use Domain\User\Service\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
-use Qubus\Exception\Data\TypeException;
 use Qubus\Http\ServerRequest;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
@@ -21,7 +20,7 @@ use function Codefy\Framework\Helpers\view;
 
 final class RegisterController extends BaseController
 {
-    private string $showTemplate = 'framework::backend/register';
+    private string $showTemplate = 'framework::frontend/register';
 
     /**
      * @throws RouteParamFailedConstraintException
@@ -50,7 +49,6 @@ final class RegisterController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws TypeException
      * @throws Exception
      * @throws ReflectionException
      */

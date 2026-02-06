@@ -17,6 +17,8 @@ use function Codefy\Framework\Helpers\view;
 
 final class AuthController extends BaseController
 {
+    private string $loginTemplate = 'framework::frontend/login';
+
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
@@ -43,7 +45,7 @@ final class AuthController extends BaseController
         }
 
         return view(
-            template: 'framework::backend/login',
+            template: $this->loginTemplate,
             data: [
                 'title' => trans('Login'),
                 'url' => $this->router->url(name: 'auth'),

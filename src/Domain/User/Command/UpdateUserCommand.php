@@ -6,20 +6,21 @@ namespace Domain\User\Command;
 
 use Codefy\CommandBus\PropertyCommand;
 use Domain\User\ValueObject\UserId;
+use Domain\User\ValueObject\UserRole;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
 
 final class UpdateUserCommand extends PropertyCommand
 {
-    public ?UserId $userId = null;
+    public UserId $userId;
 
-    public ?StringLiteral $firstName = null;
+    public StringLiteral $firstName;
 
-    public ?StringLiteral $middleName = null;
+    public StringLiteral $middleName;
 
-    public ?StringLiteral $lastName = null;
+    public StringLiteral $lastName;
 
-    public ?EmailAddress $email = null;
+    public EmailAddress $email;
 
-    public ?StringLiteral $role = null;
+    public UserRole $role;
 }

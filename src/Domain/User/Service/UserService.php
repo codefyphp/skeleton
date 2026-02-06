@@ -20,7 +20,6 @@ use Domain\User\Validator\StoreUserValidator;
 use Domain\User\Validator\UpdateUserPasswordValidator;
 use Domain\User\Validator\UpdateUserValidator;
 use Exception;
-use Qubus\Exception\Data\TypeException;
 use ReflectionException;
 
 use function Codefy\Framework\Helpers\ask;
@@ -40,7 +39,6 @@ final readonly class UserService
 
     /**
      * @throws ReflectionException
-     * @throws TypeException
      * @throws Exception
      */
     public function createUser(StoreUserValidator $data): void
@@ -100,7 +98,6 @@ final readonly class UserService
 
     /**
      * @throws ReflectionException
-     * @throws TypeException
      * @throws Exception
      */
     public function updatePassword(UpdateUserPasswordValidator $data): void
@@ -132,7 +129,6 @@ final readonly class UserService
 
     /**
      * @throws ReflectionException
-     * @throws TypeException
      * @throws Exception
      */
     public function deleteUser(DestroyUserValidator $data): void
@@ -164,7 +160,6 @@ final readonly class UserService
 
     /**
      * @throws ReflectionException
-     * @throws TypeException
      * @throws Exception
      */
     public function createAccount(StoreUserValidator $data): bool

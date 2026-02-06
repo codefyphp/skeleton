@@ -26,11 +26,13 @@ final class UpdateUserPasswordValidator extends HttpInputValidator implements Ha
         $method = strtolower($this->request->getMethod());
 
         return match ($method) {
-            'put', 'patch' => gate('admin:profile'),
+            'put', 'patch' => (bool) gate('admin:profile'),
+            default => false,
         };
     }
 
     /**
+     * @return array<string, string>
      * @throws Exception
      */
     public function rules(): array
@@ -39,10 +41,12 @@ final class UpdateUserPasswordValidator extends HttpInputValidator implements Ha
 
         return match ($method) {
             'put', 'patch' => $this->update(),
+            default => [],
         };
     }
 
     /**
+     * @return array<string, string>
      * @throws Exception
      */
     private function update(): array

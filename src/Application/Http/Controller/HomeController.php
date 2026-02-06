@@ -14,6 +14,8 @@ use function Codefy\Framework\Helpers\view;
 
 final class HomeController extends BaseController
 {
+    private string $indexTemplate = 'framework::frontend/home';
+
     /**
      * @throws ViewException
      * @throws InvalidTemplateNameException
@@ -22,7 +24,7 @@ final class HomeController extends BaseController
     public function index(): ResponseInterface
     {
         return view(
-            template: 'framework::home',
+            template: $this->indexTemplate,
             data: [
                 'title' => 'CodefyPHP Framework'
             ]

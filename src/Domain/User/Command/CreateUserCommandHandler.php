@@ -20,6 +20,7 @@ final readonly class CreateUserCommandHandler implements CommandHandler
 
     public function handle(CreateUserCommand|Command $command): void
     {
+        /** @var CreateUserCommand $command */
         $user = User::createUser(
             userId: new UserId(),
             username: $command->username,

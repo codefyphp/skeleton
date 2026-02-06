@@ -12,7 +12,7 @@ use Domain\User\Event\RoleWasChanged;
 use Domain\User\Event\UserWasCreated;
 use Domain\User\Event\UserWasDeleted;
 use Domain\User\Service\UserProjection;
-use Exception as NativeException;
+use Exception;
 use Qubus\Exception\Data\TypeException;
 use Qubus\Expressive\Database;
 use Qubus\Expressive\QueryBuilderException;
@@ -25,7 +25,7 @@ final class ExpressiveDbalUserProjection extends BaseProjection implements UserP
 
     /**
      * @throws TypeException
-     * @throws NativeException
+     * @throws Exception
      */
     public function projectWhenUserWasCreated(UserWasCreated $event): void
     {
@@ -48,13 +48,13 @@ final class ExpressiveDbalUserProjection extends BaseProjection implements UserP
                 ->save();
             });
         } catch (QueryBuilderException $e) {
-            throw new NativeException(message: $e->getMessage());
+            throw new Exception(message: $e->getMessage());
         }
     }
 
     /**
      * @throws TypeException
-     * @throws NativeException
+     * @throws Exception
      */
     public function projectWhenEmailAddressWasChanged(EmailAddressWasChanged $event): void
     {
@@ -69,13 +69,13 @@ final class ExpressiveDbalUserProjection extends BaseProjection implements UserP
                 ->update();
             });
         } catch (QueryBuilderException $e) {
-            throw new NativeException(message: $e->getMessage());
+            throw new Exception(message: $e->getMessage());
         }
     }
 
     /**
      * @throws TypeException
-     * @throws NativeException
+     * @throws Exception
      */
     public function projectWhenNameWasChanged(NameWasChanged $event): void
     {
@@ -92,13 +92,13 @@ final class ExpressiveDbalUserProjection extends BaseProjection implements UserP
                 ->update();
             });
         } catch (QueryBuilderException $e) {
-            throw new NativeException(message: $e->getMessage());
+            throw new Exception(message: $e->getMessage());
         }
     }
 
     /**
      * @throws TypeException
-     * @throws NativeException
+     * @throws Exception
      */
     public function projectWhenRoleWasChanged(RoleWasChanged $event): void
     {
@@ -113,13 +113,13 @@ final class ExpressiveDbalUserProjection extends BaseProjection implements UserP
                     ->update();
             });
         } catch (QueryBuilderException $e) {
-            throw new NativeException(message: $e->getMessage());
+            throw new Exception(message: $e->getMessage());
         }
     }
 
     /**
      * @throws TypeException
-     * @throws NativeException
+     * @throws Exception
      */
     public function projectWhenPasswordWasChanged(PasswordWasChanged $event): void
     {
@@ -135,12 +135,12 @@ final class ExpressiveDbalUserProjection extends BaseProjection implements UserP
                 ->update();
             });
         } catch (QueryBuilderException $e) {
-            throw new NativeException(message: $e->getMessage());
+            throw new Exception(message: $e->getMessage());
         }
     }
 
     /**
-     * @throws NativeException
+     * @throws Exception
      */
     public function projectWhenUserWasDeleted(UserWasDeleted $event): void
     {
@@ -152,7 +152,7 @@ final class ExpressiveDbalUserProjection extends BaseProjection implements UserP
                     ->delete();
             });
         } catch (QueryBuilderException $e) {
-            throw new NativeException(message: $e->getMessage());
+            throw new Exception(message: $e->getMessage());
         }
     }
 }

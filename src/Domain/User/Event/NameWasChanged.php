@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\User\Event;
 
-use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
@@ -27,9 +26,9 @@ class NameWasChanged extends AggregateChanged
         $event = self::occur(
             aggregateId: $userId,
             payload: [
-                'first_name' => (string) $name->getFirstName()->toNative(),
-                'middle_name' => (string) $name->getMiddleName()->toNative(),
-                'last_name' => (string) $name->getLastName()->toNative(),
+                'first_name' => $name->getFirstName()->toNative(),
+                'middle_name' => $name->getMiddleName()->toNative(),
+                'last_name' => $name->getLastName()->toNative(),
             ],
             metadata: [
                 Metadata::AGGREGATE_TYPE => 'user'
@@ -45,18 +44,15 @@ class NameWasChanged extends AggregateChanged
     /**
      * @throws TypeException
      */
-    public function userId(): UserId|AggregateId
+    public function userId(): UserId
     {
         if (is_null__($this->userId)) {
-            $this->userId = UserId::fromString(userId: $this->aggregateId()->__toString());
+            $this->userId = UserId::fromString(userId: (string) $this->aggregateId());
         }
 
         return $this->userId;
     }
 
-    /**
-     * @throws TypeException
-     */
     public function name(): Name
     {
         if (is_null__($this->name)) {
@@ -72,9 +68,9 @@ class NameWasChanged extends AggregateChanged
 
     public function firstName(): string
     {
-        $firstName = $this->name->getFirstName()->toNative();
-        if (!empty($firstName) && !is_null__($firstName)) {
-            return $firstName;
+        $firstName = $this->name->getFirstName();
+        if (!$firstName->isEmpty()) {
+            return $firstName->toNative();
         }
 
         return '';
@@ -82,9 +78,9 @@ class NameWasChanged extends AggregateChanged
 
     public function middleName(): string
     {
-        $middleName = $this->name->getMiddleName()->toNative();
-        if (!empty($middleName) && !is_null__($middleName)) {
-            return $middleName;
+        $middleName = $this->name->getMiddleName();
+        if (!$middleName->isEmpty()) {
+            return $middleName->toNative();
         }
 
         return '';
@@ -92,9 +88,9 @@ class NameWasChanged extends AggregateChanged
 
     public function lastName(): string
     {
-        $lastName = $this->name->getLastName()->toNative();
-        if (!empty($lastName) || !is_null__($lastName)) {
-            return $lastName;
+        $lastName = $this->name->getLastName();
+        if (!$lastName->isEmpty()) {
+            return $lastName->toNative();
         }
 
         return '';

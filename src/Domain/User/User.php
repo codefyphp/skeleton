@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\User;
 
-use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\Aggregate\AggregateRoot;
 use Codefy\Domain\Aggregate\EventSourcedAggregate;
 use Codefy\Framework\Support\Password;
@@ -17,6 +16,7 @@ use Domain\User\Event\UserWasCreated;
 use Domain\User\Event\UserWasDeleted;
 use Domain\User\ValueObject\UserId;
 use Domain\User\ValueObject\Username;
+use Domain\User\ValueObject\UserRole;
 use Domain\User\ValueObject\UserToken;
 use Exception;
 use Qubus\Exception\Data\TypeException;
@@ -26,19 +26,19 @@ use Qubus\ValueObjects\Web\EmailAddress;
 
 final class User extends EventSourcedAggregate implements AggregateRoot
 {
-    private ?UserId $userId = null;
+    private UserId $userId;
 
-    private ?Username $username = null;
+    private Username $username;
 
-    private ?UserToken $token = null;
+    private UserToken $token;
 
-    private ?Name $name = null;
+    private Name $name;
 
-    private ?EmailAddress $emailAddress = null;
+    private EmailAddress $emailAddress;
 
-    private ?StringLiteral $role = null;
+    private UserRole $role;
 
-    private ?StringLiteral $password = null;
+    private StringLiteral $password;
 
     public static function createUser(
         UserId $userId,
@@ -46,7 +46,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         Usertoken $token,
         Name $name,
         EmailAddress $emailAddress,
-        StringLiteral $role,
+        UserRole $role,
         StringLiteral $password,
         DateTimeInterface $createdOn,
     ): User {
@@ -73,7 +73,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         return self::root(aggregateId: $userId);
     }
 
-    public function userId(): UserId|AggregateId
+    public function userId(): UserId
     {
         return $this->userId;
     }
@@ -129,10 +129,10 @@ final class User extends EventSourcedAggregate implements AggregateRoot
      */
     public function changeName(Name $name): void
     {
-        if (empty($name->getFirstName()) && empty($name->getLastName())) {
+        if (empty($name->getFullName()->toNative())) {
             throw new Exception(message: 'Name cannot be null.');
         }
-        if ($name->__toString() === $this->name->__toString()) {
+        if ($name->toNative() === $this->name->toNative()) {
             return;
         }
         $this->recordApplyAndPublishThat(
@@ -143,12 +143,12 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     /**
      * @throws Exception
      */
-    public function changeRole(StringLiteral $role): void
+    public function changeRole(UserRole $role): void
     {
         if ($role->isEmpty()) {
             throw new Exception(message: 'Role cannot be null.');
         }
-        if ($role->__toString() === $this->role->__toString()) {
+        if ($role->toNative() === $this->role->toNative()) {
             return;
         }
         $this->recordApplyAndPublishThat(
@@ -164,7 +164,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         if ($password->isEmpty()) {
             throw new Exception(message: 'Password cannot be null.');
         }
-        if (Password::hash($password->__toString()) === Password::hash($this->password->__toString())) {
+        if (Password::hash($password->toNative()) === Password::hash($this->password->toNative())) {
             return;
         }
         $this->recordApplyAndPublishThat(

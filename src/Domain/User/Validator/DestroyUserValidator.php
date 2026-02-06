@@ -24,11 +24,13 @@ final class DestroyUserValidator extends HttpInputValidator implements HasDto
         $method = strtolower($this->request->getMethod());
 
         return match ($method) {
-            'put', 'patch' => gate('admin:delete:user'),
+            'put', 'patch' => (bool) gate('admin:delete:user'),
+            default => false,
         };
     }
 
     /**
+     * @return array<string, string>
      * @throws Exception
      */
     public function rules(): array
@@ -37,9 +39,13 @@ final class DestroyUserValidator extends HttpInputValidator implements HasDto
 
         return match ($method) {
             'put', 'patch' => $this->delete(),
+            default => [],
         };
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function delete(): array
     {
         return [

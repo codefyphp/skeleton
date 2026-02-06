@@ -8,6 +8,7 @@ use Codefy\Framework\Dto\DataTransformer;
 use Codefy\Framework\Support\Password;
 use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\Username;
+use Domain\User\ValueObject\UserRole;
 use Domain\User\ValueObject\UserToken;
 use Exception;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
@@ -16,14 +17,14 @@ use Qubus\ValueObjects\Web\EmailAddress;
 final readonly class StoreUserData implements DataTransformer
 {
     private function __construct(
-        public ?Username $username = null,
-        public ?UserToken $token = null,
-        public ?StringLiteral $firstName = null,
-        public ?StringLiteral $middleName = null,
-        public ?StringLiteral $lastName = null,
-        public ?EmailAddress $email = null,
-        public ?StringLiteral $role = null,
-        public ?StringLiteral $password = null,
+        public Username $username,
+        public UserToken $token,
+        public StringLiteral $firstName,
+        public StringLiteral $middleName,
+        public StringLiteral $lastName,
+        public EmailAddress $email,
+        public UserRole $role,
+        public StringLiteral $password,
     ) {
     }
 
@@ -39,7 +40,7 @@ final readonly class StoreUserData implements DataTransformer
             middleName: new StringLiteral($data->value(value: 'middle_name', default: '')),
             lastName: new StringLiteral($data->value(value: 'last_name')),
             email: new EmailAddress($data->value(value: 'email')),
-            role: new StringLiteral($data->value(value: 'role')),
+            role: new UserRole($data->value(value: 'role')),
             password: new StringLiteral(Password::hash($data->value(value: 'password'))),
         );
     }

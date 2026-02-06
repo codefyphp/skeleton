@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\User\Event;
 
-use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
@@ -43,7 +42,7 @@ class EmailAddressWasChanged extends AggregateChanged
     /**
      * @throws TypeException
      */
-    public function userId(): UserId|AggregateId
+    public function userId(): UserId
     {
         if (is_null__($this->userId)) {
             $this->userId = UserId::fromString(userId: $this->aggregateId()->__toString());

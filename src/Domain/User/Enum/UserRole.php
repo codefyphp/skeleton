@@ -10,6 +10,14 @@ enum UserRole: string
     case MANAGER = 'manager';
     case ADMIN = 'admin';
 
+    /**
+     * @return array<string>
+     */
+    public static function values(): array
+    {
+        return array_column(array: self::cases(), column_key: 'value');
+    }
+
     public function label(): string
     {
         return match ($this) {

@@ -9,6 +9,7 @@ use Codefy\Framework\Dto\HasDto;
 use Codefy\Framework\Dto\Trait\DtoAware;
 use Codefy\Framework\Validation\HttpInputValidator;
 use Domain\User\Dto\UpdateUserData;
+use Domain\User\Enum\UserRole;
 use Exception;
 
 use function Codefy\Framework\Helpers\gate;
@@ -26,11 +27,13 @@ final class UpdateUserValidator extends HttpInputValidator implements HasDto
         $method = strtolower($this->request->getMethod());
 
         return match ($method) {
-            'put', 'patch' => gate('admin:edit:user'),
+            'put', 'patch' => (bool) gate('admin:edit:user'),
+            default => false,
         };
     }
 
     /**
+     * @return array<string, string>
      * @throws Exception
      */
     public function rules(): array
@@ -39,15 +42,17 @@ final class UpdateUserValidator extends HttpInputValidator implements HasDto
 
         return match ($method) {
             'put', 'patch' => $this->update(),
+            default => [],
         };
     }
 
     /**
+     * @return array<string, string>
      * @throws Exception
      */
     private function update(): array
     {
-        $roles = implode(separator: ',', array: get_system_roles());
+        $roles = implode(separator: ',', array: UserRole::values());
 
         return [
             'user_id' => 'required|ulid',

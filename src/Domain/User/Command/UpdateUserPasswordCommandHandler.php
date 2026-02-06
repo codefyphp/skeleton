@@ -23,6 +23,8 @@ final readonly class UpdateUserPasswordCommandHandler implements CommandHandler
      */
     public function handle(UpdateUserPasswordCommand|Command $command): void
     {
+        /** @var UpdateUserPasswordCommand $command */
+
         /** @var User $user */
         $user = $this->aggregateRepository->loadAggregateRoot(aggregateId: $command->userId);
 

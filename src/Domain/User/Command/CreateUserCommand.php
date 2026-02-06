@@ -6,25 +6,26 @@ namespace Domain\User\Command;
 
 use Codefy\CommandBus\PropertyCommand;
 use Domain\User\ValueObject\Username;
+use Domain\User\ValueObject\UserRole;
 use Domain\User\ValueObject\UserToken;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
 
 final class CreateUserCommand extends PropertyCommand
 {
-    public ?Username $username = null;
+    public Username $username;
 
-    public ?UserToken $token = null;
+    public UserToken $token;
 
-    public ?StringLiteral $firstName = null;
+    public StringLiteral $firstName;
 
-    public ?StringLiteral $middleName = null;
+    public StringLiteral $middleName;
 
-    public ?StringLiteral $lastName = null;
+    public StringLiteral $lastName;
 
-    public ?EmailAddress $email = null;
+    public EmailAddress $email;
 
-    public ?StringLiteral $role = null;
+    public UserRole $role;
 
-    public ?StringLiteral $password = null;
+    public StringLiteral $password;
 }

@@ -13,7 +13,6 @@ use Domain\User\Validator\UpdateUserValidator;
 use Domain\User\Service\UserService;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
-use Qubus\Exception\Data\TypeException;
 use Qubus\Http\ServerRequest;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
@@ -64,7 +63,6 @@ final class AdminController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws TypeException
      * @throws Exception
      * @throws ReflectionException
      */
@@ -103,7 +101,6 @@ final class AdminController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws ReflectionException
-     * @throws TypeException
      * @throws NamedRouteNotFoundException
      */
     public function destroy(ServerRequest $request, UserService $service): ResponseInterface

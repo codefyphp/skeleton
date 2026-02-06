@@ -48,12 +48,12 @@ final readonly class PdoTransactionalEventStore implements TransactionalEventSto
                             '__aggregate_playhead' => $event->playhead(),
                             '__event_id' => (string) $event->eventId(),
                             '__event_type' => $event->eventType(),
-                            '__recorded_at' => (string) $event->recordedAt()
+                            '__recorded_at' => $event->recordedAt()->format('Y-m-d H:i:s'),
                         ], flags: JSON_PRETTY_PRINT),
                         'aggregate_id' => $event->aggregateId()->__toString(),
                         'aggregate_type' => $event->metadata()[Metadata::AGGREGATE_TYPE],
                         'aggregate_playhead' => $event->playhead(),
-                        'recorded_at' => (string) $event->recordedAt(),
+                        'recorded_at' => $event->recordedAt()->format('Y-m-d H:i:s'),
                 ])
                 ->save();
             });
@@ -126,7 +126,7 @@ final readonly class PdoTransactionalEventStore implements TransactionalEventSto
     /**
      * @param Database $query
      * @param AggregateId $aggregateId
-     * @param array $stream
+     * @param array<DomainEvent> $stream
      * @return EventStream
      * @throws TypeException
      * @throws CorruptEventStreamException

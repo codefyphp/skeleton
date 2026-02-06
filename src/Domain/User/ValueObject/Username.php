@@ -18,6 +18,6 @@ class Username extends StringLiteral
             having a length of 3 to 20 characters'
         );
 
-        $this->value = $value;
+        parent::__construct($value);
     }
 }

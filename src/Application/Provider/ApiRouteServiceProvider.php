@@ -12,7 +12,7 @@ final class ApiRouteServiceProvider extends CodefyServiceProvider
 {
     public function boot(): void
     {
-        /** @var $router Router */
+        /** @var Router $router */
         $router = $this->codefy->make(name: Psr7Router::class);
     }
 }

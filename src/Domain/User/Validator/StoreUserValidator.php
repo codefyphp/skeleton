@@ -9,6 +9,7 @@ use Codefy\Framework\Dto\HasDto;
 use Codefy\Framework\Dto\Trait\DtoAware;
 use Codefy\Framework\Validation\HttpInputValidator;
 use Domain\User\Dto\StoreUserData;
+use Domain\User\Enum\UserRole;
 use Exception;
 
 use function Codefy\Framework\Helpers\gate;
@@ -22,18 +23,18 @@ final class StoreUserValidator extends HttpInputValidator implements HasDto
 
     public function authorize(): bool
     {
-        return gate('admin:create:user');
+        return (bool) gate('admin:create:user');
     }
 
     /**
+     * @return array<string, string>
      * @throws Exception
      */
     public function rules(): array
     {
-        $roles = implode(separator: ',', array: get_system_roles());
+        $roles = implode(separator: ',', array: UserRole::values());
 
         return [
-            'user_id' => 'required|ulid',
             'first_name' => 'required|string|min:3',
             'middle_name' => 'string|min:3',
             'last_name' => 'required|string|min:3',

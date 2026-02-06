@@ -7,12 +7,12 @@ namespace Application\Console;
 use Codefy\Framework\Console\ConsoleKernel;
 use Codefy\Framework\Scheduler\Schedule;
 
-class Kernel extends ConsoleKernel
+final class Kernel extends ConsoleKernel
 {
     /**
      * Add your custom console commands here.
      *
-     * @var array
+     * @var array $commands
      */
     protected array $commands = [];
 
@@ -35,6 +35,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load($this->commands);
+        $this->load();
     }
 }

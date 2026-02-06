@@ -16,11 +16,13 @@ final readonly class FindUserByTokenQueryHandler implements QueryHandler
 
     public function handle(FindUserByTokenQuery|Query $query): Database|bool
     {
+        /** @var FindUserByTokenQuery $query */
+
         $this->db->setStructure(primaryKeyName: 'user_id');
 
         return $this->db->table(tableName: 'users')
             ->select(columns: ['user_id','username','first_name','middle_name','last_name','email','role'])
-            ->where(condition: 'token = ?', parameters: $query->token)
+            ->where(condition: 'token = ?', parameters: $query->token->toNative())
             ->findOne();
     }
 }

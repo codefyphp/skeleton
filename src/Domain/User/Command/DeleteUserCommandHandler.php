@@ -23,6 +23,8 @@ final readonly class DeleteUserCommandHandler implements CommandHandler
      */
     public function handle(DeleteUserCommand|Command $command): void
     {
+        /** @var DeleteUserCommand $command */
+
         /** @var User $user */
         $user = $this->aggregateRepository->loadAggregateRoot(aggregateId: $command->userId);
 
