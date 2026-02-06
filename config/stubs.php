@@ -55,6 +55,18 @@ return [
                 ['stub' => 'console.stub', 'suffix' => 'Command'],
             ],
         ],
+        'validator' => [
+            'label' => 'Input Validator',
+            'files' => [
+                ['stub' => 'validator.stub', 'suffix' => 'Validator'],
+            ],
+        ],
+        'request' => [
+            'label' => 'Form Request',
+            'files' => [
+                    ['stub' => 'formrequest.stub', 'suffix' => 'Request'],
+            ],
+        ],
         'repository' => [
             'label' => 'Aggregate Repository',
             'files' => [

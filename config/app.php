@@ -137,6 +137,7 @@ return [
         'http.cache.prevention',
         'user.cookie.decrypt',
         'bind.request',
+        'php.debugbar',
         'http.exception',
     ],
 

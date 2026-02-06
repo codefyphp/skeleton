@@ -19,9 +19,13 @@ $this->block('content', function ($params) {
                 <label for="password" class="block text-sm font-medium text-slate-600 mb-1"><?=$this->trans('Password');?></label>
                 <input type="password" id="password" name="password" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
             </div>
+            <div>
+                <input id="default-checkbox" type="checkbox" name="rememberme" value="yes" class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
+                <label for="default-checkbox" class="select-none ms-2 text-sm font-medium text-heading"><?=$this->trans('Remember me');?></label>
+            </div>
             <button type="submit" class="w-full bg-gradient-to-r from-sky-800 to-pink-900 text-white font-medium py-2 rounded-lg hover:from-sky-800 hover:to-pink-900 transition"><?=$this->trans('Login');?></button>
         </form>
-        <p class="text-center text-sm text-slate-500 mt-4"><?=$this->trans('Don\'t have an account?');?> <a href="#" class="text-indigo-600 hover:underline"><?=$this->trans('Register');?></a></p>
+        <p class="text-center text-sm text-slate-500 mt-4"><?=$this->trans('Don\'t have an account?');?> <a href="/register/" class="text-indigo-600 hover:underline"><?=$this->trans('Register');?></a></p>
     </div>
 </main>
 

@@ -16,7 +16,7 @@ return function (\Qubus\Routing\Psr7Router $router) use ($loginRoute) {
 
         $group1->map(verbs: ['POST'], uri: '/auth/', callback: 'AuthController@auth')
             ->name('auth')
-            ->middleware(['user.authenticate', 'user.session', 'gate:admin:dashboard,/']);
+            ->middleware(['user.authenticate', 'user.session']);
 
         $group1->map(verbs: ['GET'], uri: '/logout/', callback: 'AuthController@logout')
             ->name('auth.logout')

@@ -1,42 +1,42 @@
 <?php
 
+use Codefy\Framework\Proxy\Codefy;
 use Domain\User\Enum\UserRole;
 
-use function Codefy\Framework\Helpers\trans;
-
-$this->parent('framework::backend/auth-layout');
+$this->parent('framework::app-layout');
 $this->block('content', function ($params) {
-    ?>
-    
-<main class="form-register w-100 m-auto">
-  <form class="needs-validation" method="post" action="<?=$this->url($params['url']);?>">
-    <h1 class="h3 mb-3 fw-normal"><?=trans('Register a new account');?></h1>
- 
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
-      <label for="floatingInput"><?=trans('Email address');?></label>
-    </div>
-    <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username" required>
-      <label for="floatingInput"><?=trans('Username');?></label>
-    </div>
-    <div class="form-floating">
-      <input type="text" class="form-control" id="floatingFirstName" name="first_name" placeholder="First Name" required>
-      <label for="floatingFirstName"><?=trans('First Name');?></label>
-    </div>
-    <div class="form-floating">
-      <input type="text" class="form-control" id="floatingLastName" name="last_name" placeholder="Last Name" required>
-      <label for="floatingLastName"><?=trans('Last Name');?></label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
-      <input type="hidden" class="form-control" id="floatingPassword" name="role" value="<?=UserRole::ADMIN->value;?>">
-      <label for="floatingPassword"><?=trans('Password');?></label>
-    </div>
- 
-    <button class="btn btn-primary w-100 py-2" type="submit"><?=trans('Register');?></button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; <?=date('Y');?></p>
-  </form>
-</main>
+?>
+
+    <main class="flex items-center justify-center min-h-[76vh] px-4">
+        <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
+            <?=Codefy::$PHP->flash->display();?>
+            <h2 class="text-2xl font-bold text-center mb-6 text-slate-800"><?=$this->trans('Create an Account');?></h2>
+            <form class="space-y-5" method="post" action="<?=$this->esc($params['url']);?>">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-600 mb-1"><?=$this->trans('Email');?></label>
+                    <input type="email" id="email" name="email" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-600 mb-1"><?=$this->trans('Username');?></label>
+                    <input type="text" id="username" name="username" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-600 mb-1"><?=$this->trans('First Name');?></label>
+                    <input type="text" id="first_name" name="first_name" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-600 mb-1"><?=$this->trans('Last Name');?></label>
+                    <input type="text" id="last_name" name="last_name" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-600 mb-1"><?=$this->trans('Password');?></label>
+                    <input type="password" id="password" name="password" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                </div>
+                <input type="hidden" id="role" name="role" value="<?=UserRole::ADMIN->value;?>" />
+                <button type="submit" class="w-full bg-gradient-to-r from-sky-800 to-pink-900 text-white font-medium py-2 rounded-lg hover:from-sky-800 hover:to-pink-900 transition"><?=$this->trans('Register');?></button>
+            </form>
+            <p class="text-center text-sm text-slate-500 mt-4"><?=$this->trans('Have an account?');?> <a href="/<?=Codefy::$PHP->configContainer->getConfigKey('auth.login_route');?>/" class="text-indigo-600 hover:underline"><?=$this->trans('Login');?></a></p>
+        </div>
+    </main>
 
 <?php }); ?>

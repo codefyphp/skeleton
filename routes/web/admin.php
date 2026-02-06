@@ -19,6 +19,7 @@ return function (\Qubus\Routing\Psr7Router $router) use ($loginRoute) {
             ->middleware(["gate:admin:profile,/{$loginRoute}/"]);
 
         $group->map(verbs: ['PUT'], uri: '/user/edit/', callback: 'AdminController@edit')
+            ->name('admin.user.edit')
             ->middleware(["gate:admin:edit:user,/{$loginRoute}/"]);
 
         $group->map(verbs: ['PUT'], uri: '/user/delete/', callback: 'AdminController@destroy')
