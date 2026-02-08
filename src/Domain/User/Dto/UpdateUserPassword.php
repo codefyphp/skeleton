@@ -9,20 +9,19 @@ use Codefy\Framework\Support\Password;
 use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\UserId;
 use Domain\User\ValueObject\UserToken;
-use Exception;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 
 final readonly class UpdateUserPassword implements DataTransformer
 {
     private function __construct(
-        public ?UserId $userId = null,
-        public ?StringLiteral $password = null,
-        public ?UserToken $token = null,
+        public UserId $userId,
+        public StringLiteral $password,
+        public UserToken $token,
     ) {
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public static function fromValidatedData(DataValidator $data): self
     {

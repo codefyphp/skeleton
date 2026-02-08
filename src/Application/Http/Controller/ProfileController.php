@@ -9,13 +9,10 @@ use Domain\User\Enum\UserRole;
 use Domain\User\Validator\UpdateUserPasswordValidator;
 use Domain\User\Validator\UpdateUserValidator;
 use Domain\User\Service\UserService;
-use Exception;
 use Psr\Http\Message\ResponseInterface;
-use Qubus\Exception\Data\TypeException;
 use Qubus\Http\ServerRequest;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
-use ReflectionException;
 
 use function Codefy\Framework\Helpers\trans;
 use function Codefy\Framework\Helpers\user;
@@ -28,9 +25,8 @@ final class ProfileController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws ReflectionException
-     * @throws TypeException
-     * @throws Exception
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function index(): ResponseInterface
     {
@@ -48,8 +44,8 @@ final class ProfileController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws Exception
-     * @throws ReflectionException
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function update(
         ServerRequest $request,

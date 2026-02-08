@@ -7,17 +7,16 @@ namespace Domain\User\Dto;
 use Codefy\Framework\Dto\DataTransformer;
 use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\UserId;
-use Exception;
 
 final readonly class DestroyUserData implements DataTransformer
 {
-    public function __construct(
-        public ?UserId $userId = null,
+    private function __construct(
+        public UserId $userId,
     ) {
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public static function fromValidatedData(DataValidator $data): self
     {

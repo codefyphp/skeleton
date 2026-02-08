@@ -7,7 +7,6 @@ namespace Domain\User\Event;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
-use DateTimeInterface;
 use Domain\User\ValueObject\UserId;
 use Domain\User\ValueObject\Username;
 use Domain\User\ValueObject\UserRole;
@@ -17,7 +16,6 @@ use Qubus\Support\DateTime\QubusDateTimeImmutable;
 use Qubus\ValueObjects\Person\Name;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
-use SensitiveParameter;
 
 use function Qubus\Support\Helpers\is_null__;
 
@@ -37,7 +35,7 @@ class UserWasCreated extends AggregateChanged
 
     private ?StringLiteral $password = null;
 
-    private ?DateTimeInterface $createdOn = null;
+    private ?\DateTimeInterface $createdOn = null;
 
     public static function withData(
         UserId $userId,
@@ -46,8 +44,8 @@ class UserWasCreated extends AggregateChanged
         Name $name,
         EmailAddress $emailAddress,
         UserRole $role,
-        #[SensitiveParameter] StringLiteral $password,
-        DateTimeInterface $createdOn,
+        #[\SensitiveParameter] StringLiteral $password,
+        \DateTimeInterface $createdOn,
     ): UserWasCreated|DomainEvent|AggregateChanged {
         $event = self::occur(
             aggregateId: $userId,
@@ -152,7 +150,7 @@ class UserWasCreated extends AggregateChanged
         return $this->password;
     }
 
-    public function createdOn(): DateTimeInterface
+    public function createdOn(): \DateTimeInterface
     {
         if (is_null__($this->createdOn)) {
             $this->createdOn = QubusDateTimeImmutable::now();

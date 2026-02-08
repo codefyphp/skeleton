@@ -6,13 +6,14 @@ namespace Application\Console;
 
 use Codefy\Framework\Console\ConsoleKernel;
 use Codefy\Framework\Scheduler\Schedule;
+use Symfony\Component\Console\Command\SignalableCommandInterface;
 
 final class Kernel extends ConsoleKernel
 {
     /**
      * Add your custom console commands here.
      *
-     * @var array $commands
+     * @var array<class-string<SignalableCommandInterface>|callable>
      */
     protected array $commands = [];
 

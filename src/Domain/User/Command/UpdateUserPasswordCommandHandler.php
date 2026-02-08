@@ -9,7 +9,6 @@ use Codefy\CommandBus\CommandHandler;
 use Codefy\Domain\Aggregate\AggregateNotFoundException;
 use Domain\User\Repository\UserAggregateRepository;
 use Domain\User\User;
-use Exception;
 
 final readonly class UpdateUserPasswordCommandHandler implements CommandHandler
 {
@@ -19,7 +18,7 @@ final readonly class UpdateUserPasswordCommandHandler implements CommandHandler
 
     /**
      * @throws AggregateNotFoundException
-     * @throws Exception
+     * @throws \Exception
      */
     public function handle(UpdateUserPasswordCommand|Command $command): void
     {

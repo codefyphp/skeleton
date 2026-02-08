@@ -11,7 +11,6 @@ use Qubus\Config\ConfigContainer;
 use Qubus\Exception\Exception;
 use Qubus\Expressive\Connection;
 use Qubus\Http\Session\SessionEntity;
-use SensitiveParameter;
 
 use function sprintf;
 
@@ -25,7 +24,7 @@ class PdoAuthUserRespository implements AuthUserRepository
      * @inheritdoc
      * @throws Exception
      */
-    public function authenticate(string $credential, #[SensitiveParameter] ?string $password = null): ?SessionEntity
+    public function authenticate(string $credential, #[\SensitiveParameter] ?string $password = null): ?SessionEntity
     {
         $fields = $this->config->getConfigKey(key: 'auth.pdo.fields');
 

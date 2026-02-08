@@ -10,7 +10,6 @@ use Codefy\Framework\Validation\DataValidator;
 use Domain\User\ValueObject\Username;
 use Domain\User\ValueObject\UserRole;
 use Domain\User\ValueObject\UserToken;
-use Exception;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
 
@@ -29,7 +28,7 @@ final readonly class StoreUserData implements DataTransformer
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public static function fromValidatedData(DataValidator $data): self
     {

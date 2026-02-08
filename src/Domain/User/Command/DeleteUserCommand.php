@@ -9,5 +9,5 @@ use Domain\User\ValueObject\UserId;
 
 final class DeleteUserCommand extends PropertyCommand
 {
-    public ?UserId $userId = null;
+    public UserId $userId;
 }

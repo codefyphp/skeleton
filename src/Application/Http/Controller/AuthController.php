@@ -6,7 +6,6 @@ namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
 use Codefy\Framework\Proxy\Codefy;
-use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
@@ -22,7 +21,7 @@ final class AuthController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws Exception
+     * @throws \Exception
      */
     public function auth(): ResponseInterface
     {
@@ -36,7 +35,7 @@ final class AuthController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws Exception
+     * @throws \Exception
      */
     public function login(): ResponseInterface
     {
@@ -56,7 +55,7 @@ final class AuthController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws Exception
+     * @throws \Exception
      */
     public function logout(): ResponseInterface
     {

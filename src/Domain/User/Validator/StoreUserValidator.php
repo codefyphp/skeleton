@@ -10,10 +10,8 @@ use Codefy\Framework\Dto\Trait\DtoAware;
 use Codefy\Framework\Validation\HttpInputValidator;
 use Domain\User\Dto\StoreUserData;
 use Domain\User\Enum\UserRole;
-use Exception;
 
 use function Codefy\Framework\Helpers\gate;
-use function Codefy\Framework\Helpers\get_system_roles;
 use function implode;
 
 #[UseDto(StoreUserData::class)]
@@ -28,7 +26,7 @@ final class StoreUserValidator extends HttpInputValidator implements HasDto
 
     /**
      * @return array<string, string>
-     * @throws Exception
+     * @throws \Exception
      */
     public function rules(): array
     {

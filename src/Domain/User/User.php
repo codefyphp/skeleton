@@ -7,7 +7,6 @@ namespace Domain\User;
 use Codefy\Domain\Aggregate\AggregateRoot;
 use Codefy\Domain\Aggregate\EventSourcedAggregate;
 use Codefy\Framework\Support\Password;
-use DateTimeInterface;
 use Domain\User\Event\EmailAddressWasChanged;
 use Domain\User\Event\NameWasChanged;
 use Domain\User\Event\PasswordWasChanged;
@@ -18,7 +17,6 @@ use Domain\User\ValueObject\UserId;
 use Domain\User\ValueObject\Username;
 use Domain\User\ValueObject\UserRole;
 use Domain\User\ValueObject\UserToken;
-use Exception;
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\Person\Name;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
@@ -48,7 +46,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
         EmailAddress $emailAddress,
         UserRole $role,
         StringLiteral $password,
-        DateTimeInterface $createdOn,
+        \DateTimeInterface $createdOn,
     ): User {
         $user = self::root(aggregateId: $userId);
 
@@ -109,12 +107,12 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function changeEmailAddress(EmailAddress $emailAddress): void
     {
         if ($emailAddress->isEmpty()) {
-            throw new Exception(message: 'Email address cannot be null.');
+            throw new \Exception(message: 'Email address cannot be null.');
         }
         if ($emailAddress->__toString() === $this->emailAddress->__toString()) {
             return;
@@ -125,12 +123,12 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function changeName(Name $name): void
     {
         if (empty($name->getFullName()->toNative())) {
-            throw new Exception(message: 'Name cannot be null.');
+            throw new \Exception(message: 'Name cannot be null.');
         }
         if ($name->toNative() === $this->name->toNative()) {
             return;
@@ -141,12 +139,12 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function changeRole(UserRole $role): void
     {
         if ($role->isEmpty()) {
-            throw new Exception(message: 'Role cannot be null.');
+            throw new \Exception(message: 'Role cannot be null.');
         }
         if ($role->toNative() === $this->role->toNative()) {
             return;
@@ -157,12 +155,12 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function changePassword(StringLiteral $password, UserToken $token): void
     {
         if ($password->isEmpty()) {
-            throw new Exception(message: 'Password cannot be null.');
+            throw new \Exception(message: 'Password cannot be null.');
         }
         if (Password::hash($password->toNative()) === Password::hash($this->password->toNative())) {
             return;
@@ -173,12 +171,12 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function deleteUser(UserId $userId): void
     {
         if ($userId->isEmpty()) {
-            throw new Exception(message: 'User ID cannot be null.');
+            throw new \Exception(message: 'User ID cannot be null.');
         }
 
         if (!$userId->equals($this->userId)) {

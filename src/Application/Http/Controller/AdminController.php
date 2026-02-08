@@ -11,12 +11,10 @@ use Domain\User\Validator\DestroyUserValidator;
 use Domain\User\Validator\StoreUserValidator;
 use Domain\User\Validator\UpdateUserValidator;
 use Domain\User\Service\UserService;
-use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Qubus\Http\ServerRequest;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
-use ReflectionException;
 
 use function array_values;
 use function Codefy\Framework\Helpers\trans;
@@ -31,7 +29,7 @@ final class AdminController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws Exception
+     * @throws \Exception
      */
     public function index(): ResponseInterface
     {
@@ -45,8 +43,8 @@ final class AdminController extends BaseController
 
     /**
      * @throws UnresolvableQueryHandlerException
-     * @throws ReflectionException
-     * @throws Exception
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function users(UserService $service): ResponseInterface
     {
@@ -63,8 +61,8 @@ final class AdminController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws Exception
-     * @throws ReflectionException
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function store(ServerRequest $request, UserService $service): ResponseInterface
     {
@@ -82,8 +80,8 @@ final class AdminController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws ReflectionException
-     * @throws Exception
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function edit(ServerRequest $request, UserService $service): ResponseInterface
     {
@@ -100,7 +98,7 @@ final class AdminController extends BaseController
 
     /**
      * @throws RouteParamFailedConstraintException
-     * @throws ReflectionException
+     * @throws \ReflectionException
      * @throws NamedRouteNotFoundException
      */
     public function destroy(ServerRequest $request, UserService $service): ResponseInterface

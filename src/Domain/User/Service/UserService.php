@@ -19,8 +19,6 @@ use Domain\User\Validator\DestroyUserValidator;
 use Domain\User\Validator\StoreUserValidator;
 use Domain\User\Validator\UpdateUserPasswordValidator;
 use Domain\User\Validator\UpdateUserValidator;
-use Exception;
-use ReflectionException;
 
 use function Codefy\Framework\Helpers\ask;
 use function Codefy\Framework\Helpers\command;
@@ -29,7 +27,7 @@ use function Codefy\Framework\Helpers\trans;
 final readonly class UserService
 {
     /**
-     * @throws ReflectionException
+     * @throws \ReflectionException
      * @throws UnresolvableQueryHandlerException
      */
     public function findAll(): mixed
@@ -38,8 +36,8 @@ final readonly class UserService
     }
 
     /**
-     * @throws ReflectionException
-     * @throws Exception
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function createUser(StoreUserValidator $data): void
     {
@@ -54,7 +52,7 @@ final readonly class UserService
                 message: trans('User added successfully.'),
             );
         } catch (CommandPropertyNotFoundException|
-                ReflectionException|
+                \ReflectionException|
                 UnresolvableCommandHandlerException|
                 CommandCouldNotBeHandledException $e
         ) {
@@ -66,8 +64,8 @@ final readonly class UserService
     }
 
     /**
-     * @throws ReflectionException
-     * @throws Exception
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function updateUser(UpdateUserValidator $data): void
     {
@@ -82,7 +80,7 @@ final readonly class UserService
                 message: trans('Profile was updated successfully.'),
             );
         } catch (CommandPropertyNotFoundException|
-                ReflectionException|
+                \ReflectionException|
                 UnresolvableCommandHandlerException|
                 CommandCouldNotBeHandledException $e
         ) {
@@ -97,8 +95,8 @@ final readonly class UserService
     }
 
     /**
-     * @throws ReflectionException
-     * @throws Exception
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function updatePassword(UpdateUserPasswordValidator $data): void
     {
@@ -113,7 +111,7 @@ final readonly class UserService
                 message: trans('Password was updated successfully.'),
             );
         } catch (CommandPropertyNotFoundException|
-                ReflectionException|
+                \ReflectionException|
                 UnresolvableCommandHandlerException|
                 CommandCouldNotBeHandledException $e
         ) {
@@ -128,8 +126,8 @@ final readonly class UserService
     }
 
     /**
-     * @throws ReflectionException
-     * @throws Exception
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function deleteUser(DestroyUserValidator $data): void
     {
@@ -144,7 +142,7 @@ final readonly class UserService
                 message: trans('User was deleted.'),
             );
         } catch (CommandPropertyNotFoundException|
-                ReflectionException|
+                \ReflectionException|
                 UnresolvableCommandHandlerException|
                 CommandCouldNotBeHandledException $e
         ) {
@@ -159,8 +157,8 @@ final readonly class UserService
     }
 
     /**
-     * @throws ReflectionException
-     * @throws Exception
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function createAccount(StoreUserValidator $data): bool
     {
@@ -177,7 +175,7 @@ final readonly class UserService
 
             return true;
         } catch (CommandPropertyNotFoundException|
-                ReflectionException|
+                \ReflectionException|
                 UnresolvableCommandHandlerException|
                 CommandCouldNotBeHandledException $e
         ) {

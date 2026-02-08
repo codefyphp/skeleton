@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
-use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Qubus\View\Native\Exception\InvalidTemplateNameException;
 use Qubus\View\Native\Exception\ViewException;
@@ -19,7 +18,7 @@ final class HomeController extends BaseController
     /**
      * @throws ViewException
      * @throws InvalidTemplateNameException
-     * @throws Exception
+     * @throws \Exception
      */
     public function index(): ResponseInterface
     {

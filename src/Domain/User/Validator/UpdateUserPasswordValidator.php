@@ -7,11 +7,9 @@ namespace Domain\User\Validator;
 use Codefy\Framework\Dto\Attribute\UseDto;
 use Codefy\Framework\Dto\HasDto;
 use Codefy\Framework\Dto\Trait\DtoAware;
-use Codefy\Framework\Http\Request\FormRequest;
 use Codefy\Framework\Proxy\Codefy;
 use Codefy\Framework\Validation\HttpInputValidator;
 use Domain\User\Dto\UpdateUserPassword;
-use Exception;
 
 use function Codefy\Framework\Helpers\gate;
 use function strtolower;
@@ -33,7 +31,7 @@ final class UpdateUserPasswordValidator extends HttpInputValidator implements Ha
 
     /**
      * @return array<string, string>
-     * @throws Exception
+     * @throws \Exception
      */
     public function rules(): array
     {
@@ -47,7 +45,7 @@ final class UpdateUserPasswordValidator extends HttpInputValidator implements Ha
 
     /**
      * @return array<string, string>
-     * @throws Exception
+     * @throws \Exception
      */
     private function update(): array
     {

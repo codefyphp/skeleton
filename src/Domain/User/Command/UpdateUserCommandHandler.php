@@ -9,7 +9,6 @@ use Codefy\CommandBus\CommandHandler;
 use Codefy\Domain\Aggregate\AggregateNotFoundException;
 use Domain\User\Repository\UserAggregateRepository;
 use Domain\User\User;
-use Exception;
 use Qubus\ValueObjects\Person\Name;
 
 final readonly class UpdateUserCommandHandler implements CommandHandler
@@ -20,7 +19,7 @@ final readonly class UpdateUserCommandHandler implements CommandHandler
 
     /**
      * @throws AggregateNotFoundException
-     * @throws Exception
+     * @throws \Exception
      */
     public function handle(UpdateUserCommand|Command $command): void
     {

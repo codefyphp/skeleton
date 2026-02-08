@@ -9,7 +9,6 @@ use Codefy\Framework\Dto\HasDto;
 use Codefy\Framework\Dto\Trait\DtoAware;
 use Codefy\Framework\Validation\HttpInputValidator;
 use Domain\User\Dto\DestroyUserData;
-use Exception;
 
 use function Codefy\Framework\Helpers\gate;
 use function strtolower;
@@ -31,7 +30,7 @@ final class DestroyUserValidator extends HttpInputValidator implements HasDto
 
     /**
      * @return array<string, string>
-     * @throws Exception
+     * @throws \Exception
      */
     public function rules(): array
     {

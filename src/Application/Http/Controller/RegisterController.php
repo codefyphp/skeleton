@@ -7,12 +7,10 @@ namespace Application\Http\Controller;
 use Codefy\Framework\Http\BaseController;
 use Domain\User\Validator\StoreUserValidator;
 use Domain\User\Service\UserService;
-use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Qubus\Http\ServerRequest;
 use Qubus\Routing\Exceptions\NamedRouteNotFoundException;
 use Qubus\Routing\Exceptions\RouteParamFailedConstraintException;
-use ReflectionException;
 
 use function Codefy\Framework\Helpers\gate;
 use function Codefy\Framework\Helpers\trans;
@@ -25,7 +23,7 @@ final class RegisterController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws Exception
+     * @throws \Exception
      */
     public function show(): ResponseInterface
     {
@@ -49,8 +47,8 @@ final class RegisterController extends BaseController
     /**
      * @throws RouteParamFailedConstraintException
      * @throws NamedRouteNotFoundException
-     * @throws Exception
-     * @throws ReflectionException
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function create(ServerRequest $request, UserService $service): ResponseInterface
     {
