@@ -21,7 +21,7 @@ final readonly class DestroyUserData implements DataTransformer
     public static function fromValidatedData(DataValidator $data): self
     {
         return new self(
-            userId: UserId::fromString($data->value('user_id')),
+            userId: UserId::fromString($data->string(key: 'user_id')),
         );
     }
 }

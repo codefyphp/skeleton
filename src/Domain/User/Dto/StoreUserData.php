@@ -33,14 +33,14 @@ final readonly class StoreUserData implements DataTransformer
     public static function fromValidatedData(DataValidator $data): self
     {
         return new self(
-            username: new Username($data->value(value: 'username')),
+            username: new Username($data->string(key: 'username')),
             token: new UserToken(),
-            firstName: new StringLiteral($data->value(value: 'first_name')),
-            middleName: new StringLiteral($data->value(value: 'middle_name', default: '')),
-            lastName: new StringLiteral($data->value(value: 'last_name')),
-            email: new EmailAddress($data->value(value: 'email')),
-            role: new UserRole($data->value(value: 'role')),
-            password: new StringLiteral(Password::hash($data->value(value: 'password'))),
+            firstName: new StringLiteral($data->string(key: 'first_name')),
+            middleName: new StringLiteral($data->string(key: 'middle_name', default: '')),
+            lastName: new StringLiteral($data->string(key: 'last_name')),
+            email: new EmailAddress($data->string(key: 'email')),
+            role: new UserRole($data->string(key: 'role')),
+            password: new StringLiteral(Password::hash($data->string(key: 'password'))),
         );
     }
 }

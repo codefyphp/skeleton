@@ -17,7 +17,7 @@ class Psr16ServiceProvider extends CodefyServiceProvider
     public function register(): void
     {
         $adapter = new \Qubus\FileSystem\Adapter\LocalFlysystemAdapter(
-            config: $this->codefy->make(name: \Qubus\Config\ConfigContainer::class),
+            config: $this->codefy->configContainer,
             location: storage_path(path: 'framework/cache')
         );
         $filesystem = new \Qubus\FileSystem\FileSystem(adapter: $adapter);
@@ -29,8 +29,8 @@ class Psr16ServiceProvider extends CodefyServiceProvider
         );
         $this->codefy->define(name: \Qubus\Cache\Psr16\SimpleCache::class, args: [
             ':adapter' => $cacheAdapter,
-            ':ttl' => $this->codefy->make(name: 'codefy.config')->getConfigKey(key: 'cache.ttl'),
-            ':namespace' => $this->codefy->make(name: 'codefy.config')->getConfigKey(key: 'cache.namespace'),
+            ':ttl' => $this->codefy->configContainer->integer(key: 'cache.ttl'),
+            ':namespace' => $this->codefy->configContainer->string(key: 'cache.namespace'),
         ]);
         $this->codefy->share(nameOrInstance: \Psr\SimpleCache\CacheInterface::class);
     }

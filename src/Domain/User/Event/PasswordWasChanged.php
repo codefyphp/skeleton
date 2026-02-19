@@ -12,15 +12,13 @@ use Domain\User\ValueObject\UserToken;
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 
-use function Qubus\Support\Helpers\is_null__;
-
 class PasswordWasChanged extends AggregateChanged
 {
-    private ?UserId $userId = null;
+    private UserId $userId;
 
-    private ?StringLiteral $password = null;
+    private StringLiteral $password;
 
-    private ?UserToken $token = null;
+    private UserToken $token;
 
     public static function withData(
         UserId $userId,
@@ -50,7 +48,7 @@ class PasswordWasChanged extends AggregateChanged
      */
     public function userId(): UserId
     {
-        if (is_null__(var: $this->userId)) {
+        if (!isset($this->userId)) {
             $this->userId = UserId::fromString(userId: (string) $this->aggregateId());
         }
 
@@ -59,8 +57,11 @@ class PasswordWasChanged extends AggregateChanged
 
     public function password(): StringLiteral
     {
-        if (is_null__(var: $this->password)) {
-            $this->password = StringLiteral::fromNative($this->payload()['password']);
+        /** @var string $password */
+        $password = $this->payload()['password'];
+
+        if (!isset($this->password)) {
+            $this->password = StringLiteral::fromNative($password);
         }
 
         return $this->password;
@@ -71,8 +72,11 @@ class PasswordWasChanged extends AggregateChanged
      */
     public function token(): UserToken
     {
-        if (is_null__(var: $this->token)) {
-            $this->token = UserToken::fromString($this->payload()['token']);
+        /** @var string $token */
+        $token = $this->payload()['token'];
+
+        if (!isset($this->token)) {
+            $this->token = UserToken::fromString($token);
         }
         return $this->token;
     }

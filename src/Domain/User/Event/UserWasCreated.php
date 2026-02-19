@@ -17,25 +17,23 @@ use Qubus\ValueObjects\Person\Name;
 use Qubus\ValueObjects\StringLiteral\StringLiteral;
 use Qubus\ValueObjects\Web\EmailAddress;
 
-use function Qubus\Support\Helpers\is_null__;
-
 class UserWasCreated extends AggregateChanged
 {
-    private ?UserId $userId = null;
+    private UserId $userId;
 
-    private ?Username $username = null;
+    private Username $username;
 
-    private ?UserToken $token = null;
+    private UserToken $token;
 
-    private ?Name $name = null;
+    private Name $name;
 
-    private ?EmailAddress $emailAddress = null;
+    private EmailAddress $emailAddress;
 
-    private ?UserRole $role = null;
+    private UserRole $role;
 
-    private ?StringLiteral $password = null;
+    private StringLiteral $password;
 
-    private ?\DateTimeInterface $createdOn = null;
+    private \DateTimeInterface $createdOn;
 
     public static function withData(
         UserId $userId,
@@ -83,8 +81,11 @@ class UserWasCreated extends AggregateChanged
      */
     public function userId(): UserId
     {
-        if (is_null__($this->userId)) {
-            $this->userId = UserId::fromString(userId: $this->payload()['user_id']);
+        /** @var string $userId */
+        $userId = $this->payload()['user_id'];
+
+        if (!isset($this->userId)) {
+            $this->userId = UserId::fromString(userId: $userId);
         }
 
         return $this->userId;
@@ -92,8 +93,11 @@ class UserWasCreated extends AggregateChanged
 
     public function username(): Username
     {
-        if (is_null__($this->username)) {
-            $this->username = Username::fromNative($this->payload()['username']);
+        /** @var string $username */
+        $username = $this->payload()['username'];
+
+        if (!isset($this->username)) {
+            $this->username = Username::fromNative($username);
         }
 
         return $this->username;
@@ -104,20 +108,22 @@ class UserWasCreated extends AggregateChanged
      */
     public function token(): UserToken
     {
-        if (is_null__($this->token)) {
-            $this->token = UserToken::fromString($this->payload()['token']);
+        /** @var string $token */
+        $token = $this->payload()['token'];
+
+        if (!isset($this->token)) {
+            $this->token = UserToken::fromString($token);
         }
         return $this->token;
     }
 
     public function name(): Name
     {
-        if (is_null__($this->name)) {
-            $this->name = Name::fromNative(
-                $this->payload()['first_name'],
-                $this->payload()['middle_name'],
-                $this->payload()['last_name']
-            );
+        /** @var array<string> $name */
+        $name = [$this->payload()['first_name'], $this->payload()['middle_name'], $this->payload()['last_name']];
+
+        if (!isset($this->name)) {
+            $this->name = Name::fromNative($name[0], $name[1], $name[2]);
         }
 
         return $this->name;
@@ -125,8 +131,11 @@ class UserWasCreated extends AggregateChanged
 
     public function emailAddress(): EmailAddress
     {
-        if (is_null__($this->emailAddress)) {
-            $this->emailAddress = EmailAddress::fromNative($this->payload()['email']);
+        /** @var string $email */
+        $email = $this->payload()['email'];
+
+        if (!isset($this->emailAddress)) {
+            $this->emailAddress = EmailAddress::fromNative($email);
         }
 
         return $this->emailAddress;
@@ -134,8 +143,11 @@ class UserWasCreated extends AggregateChanged
 
     public function role(): UserRole
     {
-        if (is_null__($this->role)) {
-            $this->role = UserRole::fromNative($this->payload()['role']);
+        /** @var string $role */
+        $role = $this->payload()['role'];
+
+        if (!isset($this->role)) {
+            $this->role = UserRole::fromNative($role);
         }
 
         return $this->role;
@@ -143,8 +155,11 @@ class UserWasCreated extends AggregateChanged
 
     public function password(): StringLiteral
     {
-        if (is_null__($this->password)) {
-            $this->password = StringLiteral::fromNative($this->payload()['password']);
+        /** @var string $password */
+        $password = $this->payload()['password'];
+
+        if (!isset($this->password)) {
+            $this->password = StringLiteral::fromNative($password);
         }
 
         return $this->password;
@@ -152,7 +167,7 @@ class UserWasCreated extends AggregateChanged
 
     public function createdOn(): \DateTimeInterface
     {
-        if (is_null__($this->createdOn)) {
+        if (!isset($this->createdOn)) {
             $this->createdOn = QubusDateTimeImmutable::now();
         }
 

@@ -8,6 +8,7 @@ use Codefy\Framework\Auth\Repository\AuthUserRepository;
 use Codefy\Framework\Auth\UserSession;
 use Codefy\Framework\Support\Password;
 use Qubus\Config\ConfigContainer;
+use Qubus\Exception\Data\TypeException;
 use Qubus\Exception\Exception;
 use Qubus\Expressive\Connection;
 use Qubus\Http\Session\SessionEntity;
@@ -26,11 +27,15 @@ class PdoAuthUserRespository implements AuthUserRepository
      */
     public function authenticate(string $credential, #[\SensitiveParameter] ?string $password = null): ?SessionEntity
     {
+        /** @var array{identity: string, role: string, token: string, password: string} $fields */
         $fields = $this->config->getConfigKey(key: 'auth.pdo.fields');
+
+        /** @var string $table */
+        $table = $this->config->getConfigKey('auth.pdo.table');
 
         $sql = sprintf(
             "SELECT * FROM %s WHERE %s = :identity",
-            $this->config->getConfigKey('auth.pdo.table'),
+            $table,
             $fields['identity']
         );
 
@@ -42,17 +47,19 @@ class PdoAuthUserRespository implements AuthUserRepository
         $stmt->bindParam(':identity', $credential);
         $stmt->execute();
 
+        /** @var object{'token': string|null, 'password': string}|null $result */
         $result = $stmt->fetchObject();
         if (! $result) {
             return null;
         }
 
-        $passwordHash = (string) ($result->{$fields['password']} ?? '');
+        /** @var string $passwordHash */
+        $passwordHash = ($result->{$fields['password']} ?? '');
 
         if (Password::verify(password: $password ?? '', hash: $passwordHash)) {
             $user = new UserSession();
             $user
-                    ->withToken($result->token);
+                ->withToken($result->token);
 
             return $user;
         }
@@ -66,9 +73,11 @@ class PdoAuthUserRespository implements AuthUserRepository
      */
     public function find(string $token): bool|null|object
     {
+        /** @var string $table */
+        $table = $this->config->getConfigKey('auth.pdo.table');
         $sql = sprintf(
             "SELECT * FROM %s WHERE token = :token",
-            $this->config->getConfigKey('auth.pdo.table'),
+            $table,
         );
 
         $stmt = $this->connection->pdo->prepare($sql);

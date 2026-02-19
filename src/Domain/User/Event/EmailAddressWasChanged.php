@@ -11,13 +11,11 @@ use Domain\User\ValueObject\UserId;
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\Web\EmailAddress;
 
-use function Qubus\Support\Helpers\is_null__;
-
 class EmailAddressWasChanged extends AggregateChanged
 {
-    private ?UserId $userId = null;
+    private UserId $userId;
 
-    private ?EmailAddress $emailAddress = null;
+    private EmailAddress $emailAddress;
 
     public static function withData(
         UserId $userId,
@@ -44,7 +42,7 @@ class EmailAddressWasChanged extends AggregateChanged
      */
     public function userId(): UserId
     {
-        if (is_null__($this->userId)) {
+        if (!isset($this->userId)) {
             $this->userId = UserId::fromString(userId: $this->aggregateId()->__toString());
         }
 
@@ -53,8 +51,11 @@ class EmailAddressWasChanged extends AggregateChanged
 
     public function emailAddress(): EmailAddress
     {
-        if (is_null__($this->emailAddress)) {
-            $this->emailAddress = EmailAddress::fromNative($this->payload()['email']);
+        /** @var string $email */
+        $email = $this->payload()['email'];
+
+        if (!isset($this->emailAddress)) {
+            $this->emailAddress = EmailAddress::fromNative($email);
         }
 
         return $this->emailAddress;

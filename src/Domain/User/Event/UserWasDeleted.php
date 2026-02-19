@@ -10,11 +10,9 @@ use Codefy\Domain\Metadata;
 use Domain\User\ValueObject\UserId;
 use Qubus\Exception\Data\TypeException;
 
-use function Qubus\Support\Helpers\is_null__;
-
 final class UserWasDeleted extends AggregateChanged
 {
-    private ?UserId $userId = null;
+    private UserId $userId;
 
     public static function withData(
         UserId $userId,
@@ -37,7 +35,7 @@ final class UserWasDeleted extends AggregateChanged
      */
     public function userId(): UserId
     {
-        if (is_null__($this->userId)) {
+        if (!isset($this->userId)) {
             $this->userId = UserId::fromString(userId: (string) $this->aggregateId());
         }
 

@@ -12,6 +12,8 @@ use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DataCollector\PDO\TraceablePDO;
 use DebugBar\DebugBar;
 use DebugBar\StandardDebugBar;
+use Qubus\Routing\Interfaces\Routable;
+use Qubus\Routing\Route\Route;
 use Qubus\Routing\Route\RouteAttributes;
 
 final class DebugBarServiceProvider extends CodefyServiceProvider
@@ -21,7 +23,9 @@ final class DebugBarServiceProvider extends CodefyServiceProvider
         $this->codefy->singleton(DebugBar::class, function () {
             $request = RequestContext::get();
 
+            /** @var Route $route */
             $route = $request->getAttribute(RouteAttributes::ROUTE);
+            /** @var string $routeName */
             $routeName = $request->getAttribute(RouteAttributes::NAME);
             $pdo = new TraceablePDO($this->codefy->getDbConnection()->pdo);
 

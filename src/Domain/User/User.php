@@ -41,7 +41,7 @@ final class User extends EventSourcedAggregate implements AggregateRoot
     public static function createUser(
         UserId $userId,
         Username $username,
-        Usertoken $token,
+        UserToken $token,
         Name $name,
         EmailAddress $emailAddress,
         UserRole $role,

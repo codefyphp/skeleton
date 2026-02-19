@@ -26,8 +26,8 @@ final readonly class UpdateUserPassword implements DataTransformer
     public static function fromValidatedData(DataValidator $data): self
     {
         return new self(
-            userId: UserId::fromString($data->value('user_id')),
-            password: new StringLiteral(Password::hash($data->value('password'))),
+            userId: UserId::fromString($data->string(key: 'user_id')),
+            password: new StringLiteral(Password::hash($data->string(key: 'password'))),
             token: new UserToken(),
         );
     }

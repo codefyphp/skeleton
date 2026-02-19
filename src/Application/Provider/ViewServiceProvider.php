@@ -14,7 +14,7 @@ class ViewServiceProvider extends CodefyServiceProvider
     {
         $this->codefy->singleton(Renderer::class, function () {
             return new NativeLoader(
-                namespaces: $this->codefy->make(name: 'codefy.config')->getConfigKey(key: 'view.path'),
+                namespaces: $this->codefy->configContainer->array(key: 'view.path'),
                 functions: [
                     'trans' => 'Codefy\Framework\Helpers\trans',
                     'html' => 'Codefy\Framework\Helpers\trans_html',

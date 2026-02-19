@@ -29,12 +29,12 @@ final readonly class UpdateUserData implements DataTransformer
     public static function fromValidatedData(DataValidator $data): self
     {
         return new self(
-            userId: UserId::fromString($data->value('user_id')),
-            firstName: new StringLiteral($data->value('first_name')),
-            middleName: new StringLiteral($data->value(value: 'middle_name', default: '')),
-            lastName: new StringLiteral($data->value('last_name')),
-            email: new EmailAddress($data->value('email')),
-            role: new UserRole($data->value('role')),
+            userId: UserId::fromString($data->string(key: 'user_id')),
+            firstName: new StringLiteral($data->string(key: 'first_name')),
+            middleName: new StringLiteral($data->string(key: 'middle_name', default: '')),
+            lastName: new StringLiteral($data->string(key: 'last_name')),
+            email: new EmailAddress($data->string(key: 'email')),
+            role: new UserRole($data->string(key: 'role')),
         );
     }
 }

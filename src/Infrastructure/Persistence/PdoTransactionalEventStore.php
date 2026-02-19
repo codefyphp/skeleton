@@ -133,11 +133,29 @@ final readonly class PdoTransactionalEventStore implements TransactionalEventSto
      */
     private function eventStream(Database $query, AggregateId $aggregateId, array $stream): EventStream
     {
+        /** @phpstan-ignore argument.type */
         $eventStream = iterator_to_array(iterator: $query->find());
 
+        /** @var object{
+         *     'event_id':string,
+         *     'metadata': string,
+         *     'event_classname':string,
+         *     'aggregate_id':string,
+         *     'payload': string
+         * } $event
+         */
         foreach ($eventStream as $event) {
+            /** @var array{
+             *     __aggregate_type: string,
+             *     __aggregate_id: string,
+             *     __aggregate_playhead: int,
+             *     __event_type: string,
+             *     __recorded_at: string
+             * } $metadata
+             */
             $metadata = json_decode(json: $event->metadata, associative: true);
 
+            /** @var array<DomainEvent> $stream */
             $stream[] = $event->event_classname::fromArray([
                 'aggregateId' => $aggregateId::fromString($event->aggregate_id),
                 'payload' => json_decode(json: $event->payload, associative: true),

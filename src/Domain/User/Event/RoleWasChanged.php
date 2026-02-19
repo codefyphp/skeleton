@@ -11,13 +11,11 @@ use Domain\User\ValueObject\UserId;
 use Domain\User\ValueObject\UserRole;
 use Qubus\Exception\Data\TypeException;
 
-use function Qubus\Support\Helpers\is_null__;
-
 class RoleWasChanged extends AggregateChanged
 {
-    private ?UserId $userId = null;
+    private UserId $userId;
 
-    private ?UserRole $role = null;
+    private UserRole $role;
 
     public static function withData(
         UserId $userId,
@@ -44,7 +42,7 @@ class RoleWasChanged extends AggregateChanged
      */
     public function userId(): UserId
     {
-        if (is_null__(var: $this->userId)) {
+        if (!isset($this->userId)) {
             $this->userId = UserId::fromString(userId: (string) $this->aggregateId());
         }
 
@@ -53,8 +51,11 @@ class RoleWasChanged extends AggregateChanged
 
     public function role(): UserRole
     {
-        if (is_null__(var: $this->role)) {
-            $this->role = UserRole::fromNative($this->payload()['role']);
+        /** @var string $role */
+        $role = $this->payload()['role'];
+
+        if (!isset($this->role)) {
+            $this->role = UserRole::fromNative($role);
         }
 
         return $this->role;

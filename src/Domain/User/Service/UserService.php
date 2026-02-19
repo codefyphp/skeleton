@@ -27,12 +27,25 @@ use function Codefy\Framework\Helpers\trans;
 final readonly class UserService
 {
     /**
+     * @return array<array{
+     *      'user_id':string,
+     *      'username':string,
+     *      'first_name':string,
+     *      'middle_name':string,
+     *      'last_name':string,
+     *      'email':string,
+     *      'role':string
+     *  }> | array<mixed>
      * @throws \ReflectionException
      * @throws UnresolvableQueryHandlerException
      */
-    public function findAll(): mixed
+    public function findAll(): array
     {
-        return ask(new FindUsersQuery());
+        $results = ask(new FindUsersQuery());
+        if (is_array($results)) {
+            return $results;
+        }
+        return [];
     }
 
     /**

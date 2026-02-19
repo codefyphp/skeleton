@@ -32,6 +32,16 @@ final readonly class FindUsersQueryHandler implements QueryHandler
             ])
             ->find(function ($data) {
                 $array = [];
+                /** @var array<array{
+                 *     'user_id':string,
+                 *     'username':string,
+                 *     'first_name':string,
+                 *     'middle_name':string,
+                 *     'last_name':string,
+                 *     'email':string,
+                 *     'role':string
+                 * }> $data
+                 */
                 foreach ($data as $d) {
                     $array[] = $d;
                 }

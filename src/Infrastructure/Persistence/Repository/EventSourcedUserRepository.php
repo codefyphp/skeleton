@@ -8,6 +8,7 @@ use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\Aggregate\AggregateNotFoundException;
 use Codefy\Domain\Aggregate\RecordsEvents;
 use Codefy\Domain\EventSourcing\CorruptEventStreamException;
+use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\EventSourcing\TransactionalEventStore;
 use Codefy\Traits\EventSourcedRepositoryAware;
 use Domain\User\Repository\UserAggregateRepository;
@@ -44,6 +45,7 @@ final class EventSourcedUserRepository implements UserAggregateRepository
     {
         $this->attachToIdentityMap($aggregate);
 
+        /** @var DomainEvent[] $events */
         $events = iterator_to_array($aggregate->getRecordedEvents());
 
         $transaction = $this->eventStore->commit(...$events);

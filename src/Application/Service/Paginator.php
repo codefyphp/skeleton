@@ -165,14 +165,14 @@ class Paginator
      *     array ('num' => 10,    'url' => '/example/page/10', 'isCurrent' => false),
      * )
      *
-     * @return array<array<string, mixed>>
+     * @return array<array{'num': string, 'url': string|null, 'isCurrent': bool}> | non-empty-list<array{num: int, url: string, isCurrent: bool} | array{num: string, url: null, isCurrent: false}>
      */
     public function getPages(): array
     {
-        $pages = array();
+        $pages = [];
 
         if ($this->numPages <= 1) {
-            return array();
+            return [];
         }
 
         if ($this->numPages <= $this->maxPagesToShow) {
@@ -221,7 +221,7 @@ class Paginator
      *
      * @param int $pageNum
      * @param bool $isCurrent
-     * @return array<string, string|int|bool>
+     * @return array{'num': int, 'url': string, 'isCurrent': bool}
      */
     protected function createPage(int $pageNum, bool $isCurrent = false): array
     {
@@ -233,7 +233,7 @@ class Paginator
     }
 
     /**
-     * @return array<string, string|null|bool>
+     * @return array{'num': string, 'url': null, 'isCurrent': false}
      */
     protected function createPageEllipsis(): array
     {
@@ -265,10 +265,10 @@ class Paginator
         foreach ($this->getPages() as $page) {
             if ($page['url']) {
                 $html .= '<li' . ($page['isCurrent'] ? ' class="active"' : '') . '>
-                <a href="' . htmlspecialchars($page['url']) . '">' . htmlspecialchars($page['num']) . '</a>
+                <a href="' . htmlspecialchars($page['url']) . '">' . htmlspecialchars((string) $page['num']) . '</a>
                 </li>';
             } else {
-                $html .= '<li class="disabled"><span>' . htmlspecialchars($page['num']) . '</span></li>';
+                $html .= '<li class="disabled"><span>' . htmlspecialchars((string) $page['num']) . '</span></li>';
             }
         }
 

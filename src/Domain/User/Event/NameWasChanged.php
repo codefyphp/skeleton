@@ -11,13 +11,11 @@ use Domain\User\ValueObject\UserId;
 use Qubus\Exception\Data\TypeException;
 use Qubus\ValueObjects\Person\Name;
 
-use function Qubus\Support\Helpers\is_null__;
-
 class NameWasChanged extends AggregateChanged
 {
-    private ?UserId $userId = null;
+    private UserId $userId;
 
-    private ?Name $name = null;
+    private Name $name;
 
     public static function withData(
         UserId $userId,
@@ -46,7 +44,7 @@ class NameWasChanged extends AggregateChanged
      */
     public function userId(): UserId
     {
-        if (is_null__($this->userId)) {
+        if (!isset($this->userId)) {
             $this->userId = UserId::fromString(userId: (string) $this->aggregateId());
         }
 
@@ -55,12 +53,11 @@ class NameWasChanged extends AggregateChanged
 
     public function name(): Name
     {
-        if (is_null__($this->name)) {
-            $this->name = Name::fromNative(
-                $this->payload()['first_name'],
-                $this->payload()['middle_name'],
-                $this->payload()['last_name']
-            );
+        /** @var array<string> $name */
+        $name = [$this->payload()['first_name'], $this->payload()['middle_name'], $this->payload()['last_name']];
+
+        if (!isset($this->name)) {
+            $this->name = Name::fromNative($name[0], $name[1], $name[2]);
         }
 
         return $this->name;
