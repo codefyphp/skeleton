@@ -15,17 +15,21 @@
     "require": {
         "php": ">=8.4",
         "ext-pdo": "*",
-        "codefyphp/codefy": "^3"
+        "codefyphp/codefy": "^3.1"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "App/"
+            "Application\\": "src/Application/",
+            "Domain\\": "src/Domain/",
+            "Database\\Seeders\\": "database/seeders/",
+            "Infrastructure\\": "src/Infrastructure/"
         }
     },
     "scripts": {
-        "test": "vendor/bin/pest",
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf"
+      "codestan": "phpstan analyse -l max",
+      "cs-check": "phpcs",
+      "cs-fix": "phpcbf",
+      "test": "vendor/bin/pest"
     },
     "config": {
         "optimize-autoloader": true,
@@ -36,7 +40,8 @@
         }
     },
     "require-dev": {
-        "qubus/qubus-coding-standard": "^2"
+        "friendsofphp/php-cs-fixer": "^3",
+        "qubus/qubus-coding-standard": "^2.1.2"
     },
     "suggest": {
         "fenom/fenom": "Lightweight and fast template engine for PHP.",
