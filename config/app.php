@@ -138,7 +138,7 @@ return [
         'user.cookie.decrypt',
         'bind.request',
         'php.debugbar',
-        'http.exception',
+        //'http.exception', //uncomment in production
     ],
 
     /*
