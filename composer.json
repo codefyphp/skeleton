@@ -15,7 +15,8 @@
     "require": {
         "php": ">=8.4",
         "ext-pdo": "*",
-        "codefyphp/codefy": "^3.1"
+        "codefyphp/codefy": "^3.1",
+        "nomadicjosh/visio": "^1"
     },
     "autoload": {
         "psr-4": {

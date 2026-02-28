@@ -1,0 +1,20 @@
+<?php
+
+use Codefy\Framework\Proxy\Codefy;
+
+use function Codefy\Framework\Helpers\site_url;
+
+?>
+<!DOCTYPE html>
+<html lang="<?=Codefy::$PHP->language;?>">
+<head>
+    <base href="<?=site_url()?>">
+    <link rel="stylesheet" type="text/css" href="assets/css/error.css"/>
+    <title>Error 404</title>
+</head>
+<body>
+<div class="error-middle">
+    <h1>Error 404 - Not Found</h1>
+</div>
+</body>
+</html>
