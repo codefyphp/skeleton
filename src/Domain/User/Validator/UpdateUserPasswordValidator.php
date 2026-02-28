@@ -49,7 +49,7 @@ final class UpdateUserPasswordValidator extends HttpInputValidator implements Ha
      */
     private function update(): array
     {
-        $passwordMinLength = Codefy::$PHP->configContainer->string(key: 'auth.password_min_length');
+        $passwordMinLength = Codefy::$PHP->configContainer->integer(key: 'auth.password_min_length');
 
         return [
             'password' => "required|string|min:{$passwordMinLength}",
