@@ -52,7 +52,7 @@ class UserSeeder extends BaseSeeder
                 'email'      => new EmailAddress($this->faker->unique()->safeEmail()),
                 'password'   => new StringLiteral(Password::hash(password: 'tUB2sQoPuuX*3pycL0HGYMs2#!')),
                 'token' => new UserToken(),
-                'role' => new StringLiteral($this->faker->randomElement(UserRole::cases())->value)
+                'role' => new \Domain\User\ValueObject\UserRole($this->faker->randomElement(UserRole::cases())->value)
             ]);
 
             command($command);
