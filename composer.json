@@ -15,8 +15,7 @@
     "require": {
         "php": ">=8.4",
         "ext-pdo": "*",
-        "codefyphp/codefy": "^3.1",
-        "nomadicjosh/visio": "^1"
+        "codefyphp/codefy": "^3.1"
     },
     "autoload": {
         "psr-4": {
@@ -27,10 +26,14 @@
         }
     },
     "scripts": {
-      "codestan": "phpstan analyse -l max",
-      "cs-check": "phpcs",
-      "cs-fix": "phpcbf",
-      "test": "vendor/bin/pest"
+        "codestan": "phpstan analyse -l max",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "vendor/bin/pest",
+        "post-install-cmd": [
+            "touch .enc.key",
+            "cp .env.example .env"
+        ]
     },
     "config": {
         "optimize-autoloader": true,

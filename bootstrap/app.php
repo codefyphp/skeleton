@@ -31,10 +31,10 @@ try {
     ])
     ->withRouting(
         web: [
+            dirname(path: __DIR__) . '/routes/web/web.php',
             dirname(path: __DIR__) . '/routes/web/register.php',
             dirname(path: __DIR__) . '/routes/web/admin.php',
             dirname(path: __DIR__) . '/routes/web/auth.php',
-            dirname(path: __DIR__) . '/routes/web/web.php',
         ],
         api: dirname(path: __DIR__) . '/routes/api/rest.php',
     )->return();
