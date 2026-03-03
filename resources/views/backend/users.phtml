@@ -37,7 +37,7 @@ $this->block('content', function ($params) {
                                     <?php $this->insert('framework::backend/partials/x-edit-user-modal'); ?>
 
                                     <div x-show="userRole !== 'admin'">
-                                        <button class="text-pink-600 hover:underline"><?=$this->trans('Delete');?></button>
+                                        <?php $this->insert('framework::backend/partials/x-delete-user-modal'); ?>
                                     </div>
                                 </div>
                             </td>

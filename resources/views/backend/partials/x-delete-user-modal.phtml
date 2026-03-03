@@ -1,0 +1,61 @@
+<?php
+
+use function Codefy\Framework\Helpers\method_field;
+use function Codefy\Framework\Helpers\trans;
+
+$this->block('modal-delete', function () {
+?>
+
+<div :id="$id('delete-' + user.user_id)" x-data="{modalOpenDelete: false}">
+    <button
+        @click="modalOpenDelete = true"
+        class="text-pink-600 hover:underline"
+    >
+        <?=trans('Delete');?>
+    </button>
+    <div
+        x-show="modalOpenDelete"
+        class="fixed flex justify-center text-justify items-center top-0 right-0 bottom-0 left-0 z-10 bg-black/50"
+    >
+        <div @click.outside="modalOpenDelete = false" id="user-delete-modal" x-show="modalOpenDelete" x-transition.delay.150ms class="w-[90%] md:w-1/3 bg-white rounded-lg w-[600px]">
+            <div class="py-2 px-4 text-lg font-semibold bg-gray-100 rounded-t-lg flex items-center justify-between">
+                <h2 x-text="'Delete ' +  user.first_name + '\'s Profile'"></h2>
+                <button @click="modalOpenDelete = false">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <form :id="`delete-user-form-${user.user_id}`" x-data method="post" action="/admin/user/delete/" @submit.prevent="location.hash = '#user-delete-modal'">
+                <div class="p-4 mr-20 ml-20 items-center justify-center">
+                    <p>Are you sure you want to delete this user?</p>
+                    <div class="mb-4">
+                        <input type="hidden" name="user_id" x-model="user.user_id">
+                    </div>
+                </div>
+
+                <div class="py-2 px-4 text-lg flex justify-end font-semibold bg-gray-100 rounded-b-lg">
+                    <button
+                        type="submit"
+                        @click="document.getElementById(`delete-user-form-${user.user_id}`).submit()"
+                        class="inline-flex items-center py-1 px-3 bg-emerald-500
+                        hover:bg-opacity-95 text-white rounded-md shadow mr-2"
+                    >
+                        <?=trans('Delete');?>
+                    </button>
+                    <button
+                        @click="modalOpenDelete = false"
+                        class="inline-flex items-center py-1 px-3 bg-red-500
+                        hover:bg-opacity-95 text-white rounded-md shadow"
+                    >
+                        <?=trans('Cancel');?>
+                    </button>
+                    <?=method_field(method: 'PUT');?>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php }); ?>
