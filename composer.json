@@ -30,7 +30,7 @@
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "vendor/bin/pest",
-        "post-install-cmd": [
+        "post-create-project-cmd": [
             "touch .enc.key",
             "cp .env.example .env"
         ]
