@@ -1,13 +1,11 @@
 <?php
-
-use function Codefy\Framework\Helpers\config;
 use function Codefy\Framework\Helpers\gate;
 use function Codefy\Framework\Helpers\trans;
 ?>
 
 <?php if(false === gate('admin:dashboard')): ?>
     <nav id="nav-menu" class="hidden md:flex space-x-4">
-        <a href="/<?=config(key: 'auth.login_route');?>/">
+        <a href="/<?=$this->config()->string(key: 'auth.login_route');?>/">
         <button
                 class="inline-flex items-center py-2 px-6 bg-gradient-to-r from-indigo-700 to-pink-600 hover:bg-opacity-95 text-white rounded-md"
         >

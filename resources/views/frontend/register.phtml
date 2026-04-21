@@ -35,7 +35,7 @@ $this->block('content', function ($params) {
                 <input type="hidden" id="role" name="role" value="<?=UserRole::ADMIN->value;?>" />
                 <button type="submit" class="w-full bg-gradient-to-r from-sky-800 to-pink-900 text-white font-medium py-2 rounded-lg hover:from-sky-800 hover:to-pink-900 transition"><?=$this->trans('Register');?></button>
             </form>
-            <p class="text-center text-sm text-slate-500 mt-4"><?=$this->trans('Have an account?');?> <a href="/<?=Codefy::$PHP->configContainer->getConfigKey('auth.login_route');?>/" class="text-indigo-600 hover:underline"><?=$this->trans('Login');?></a></p>
+            <p class="text-center text-sm text-slate-500 mt-4"><?=$this->trans('Have an account?');?> <a href="/<?=$this->config()->string(key: 'auth.login_route');?>/" class="text-indigo-600 hover:underline"><?=$this->trans('Login');?></a></p>
         </div>
     </main>
 

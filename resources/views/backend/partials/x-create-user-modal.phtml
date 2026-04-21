@@ -1,8 +1,8 @@
 <?php
 
 $this->block('modal-create', function ($params) {
-$usernameLength = $this->config('auth.username_min_length');
-$passwordLength = $this->config('auth.password_min_length');
+$usernameLength = $this->config()->integer('auth.username_min_length');
+$passwordLength = $this->config()->integer('auth.password_min_length');
 ?>
 
 <div x-data="{modelOpenCreate: false}" x-cloak>
