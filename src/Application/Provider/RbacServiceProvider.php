@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Provider;
 
 use Codefy\Framework\Auth\Auth;
+use Codefy\Framework\Auth\Gate;
 use Codefy\Framework\Auth\Rbac\Rbac;
 use Codefy\Framework\Auth\Rbac\RbacLoader;
 use Codefy\Framework\Auth\Rbac\Resource\FileResource;
@@ -15,6 +16,7 @@ use Codefy\Framework\Support\CodefyServiceProvider;
 use Gettext\Translator;
 use Gettext\TranslatorFunctions;
 use Infrastructure\Persistence\Repository\PdoAuthUserRespository;
+use Infrastructure\Persistence\UserAuth;
 use Qubus\Exception\Exception;
 
 final class RbacServiceProvider extends CodefyServiceProvider
@@ -43,5 +45,7 @@ final class RbacServiceProvider extends CodefyServiceProvider
         $this->codefy->share(nameOrInstance: Sentinel::class);
         $this->codefy->alias(original: AuthUserRepository::class, alias: PdoAuthUserRespository::class);
         $this->codefy->share(nameOrInstance: AuthUserRepository::class);
+        $this->codefy->alias(original: Gate::class, alias: UserAuth::class);
+        $this->codefy->share(nameOrInstance: Gate::class);
     }
 }
