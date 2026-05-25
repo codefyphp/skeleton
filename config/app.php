@@ -132,6 +132,7 @@ return [
     | application.
     */
     'base_middlewares' => [
+        'firewall',
         'csrf.token',
         'csrf.protection',
         'http.cache.prevention',
